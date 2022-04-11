@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeScreenFragment2">
+    <fragment
+        android:id="@+id/welcomeScreenFragment2"
+        android:name="com.example.shercofaqapp.view.WelcomeScreenFragment"
+        android:label="fragment_welcome_screen"
+        tools:layout="@layout/fragment_welcome_screen" >
+        <action
+            android:id="@+id/action_welcomeScreenFragment2_to_workSpaceFragment"
+            app:destination="@id/workSpaceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workSpaceFragment"
+        android:name="com.example.shercofaqapp.view.WorkSpaceFragment"
+        android:label="fragment_work_space"
+        tools:layout="@layout/fragment_work_space" />
+</navigation>
