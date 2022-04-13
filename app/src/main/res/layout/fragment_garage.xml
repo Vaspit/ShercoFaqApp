@@ -24,7 +24,7 @@
             app:maxImageSize="48dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/garageListView"
+            android:id="@+id/garageRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
