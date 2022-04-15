@@ -26,7 +26,7 @@ class WelcomeScreenFragment : Fragment() {
         binding.startButton.setOnClickListener { view:View ->
 
             Navigation.findNavController(view)
-                .navigate(R.id.action_welcomeScreenFragment2_to_workSpaceFragment)
+                .navigate(R.id.action_welcomeScreenFragment2_to_garageFragment)
 
         }
 

@@ -25,6 +25,12 @@ public class AppRepository {
 
     }
 
+    public Bike getBike(long id) {
+
+        return bikeDao.getBike(id);
+
+    }
+
     //Insert methods
     public void insertBike(Bike bike) {
 

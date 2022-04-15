@@ -10,12 +10,12 @@
         android:label="fragment_welcome_screen"
         tools:layout="@layout/fragment_welcome_screen" >
         <action
-            android:id="@+id/action_welcomeScreenFragment2_to_workSpaceFragment"
-            app:destination="@id/workSpaceFragment" />
+            android:id="@+id/action_welcomeScreenFragment2_to_garageFragment"
+            app:destination="@id/garageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/workSpaceFragment"
-        android:name="com.example.shercofaqapp.view.WorkSpaceFragment"
-        android:label="fragment_work_space"
-        tools:layout="@layout/fragment_work_space" />
+        android:id="@+id/garageFragment"
+        android:name="com.example.shercofaqapp.view.GarageFragment"
+        android:label="fragment_garage"
+        tools:layout="@layout/fragment_garage" />
 </navigation>

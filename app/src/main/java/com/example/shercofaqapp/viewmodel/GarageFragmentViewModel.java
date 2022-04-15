@@ -48,4 +48,10 @@ public class GarageFragmentViewModel extends AndroidViewModel {
 
     }
 
+    public Bike getBike(long id) {
+
+        return appRepository.getBike(id);
+
+    }
+
 }

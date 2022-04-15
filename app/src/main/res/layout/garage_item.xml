@@ -3,27 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
+<!--    <data>-->
 
-        <variable
-            name="bike"
-            type="com.example.shercofaqapp.model.Bike" />
+<!--        <variable-->
+<!--            name="bike"-->
+<!--            type="com.example.shercofaqapp.model.Bike" />-->
 
-    </data>
+<!--    </data>-->
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/bikeImage"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:src="@drawable/garage_item_icon"/>
+                android:scaleType="fitCenter"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,7 +36,6 @@
                     android:id="@+id/bikeNameTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{bike.bikeName}"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:padding="6dp"/>
@@ -43,7 +44,6 @@
                     android:id="@+id/bikeModelYearTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{bike.bikeModelYear}"
                     android:textSize="20sp"
                     android:padding="6dp"/>
 
@@ -51,7 +51,6 @@
                     android:id="@+id/bikeEngineTypeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{bike.bikeEngineType}"
                     android:textSize="20sp"
                     android:padding="6dp"/>
 
@@ -59,7 +58,6 @@
                     android:id="@+id/bikeEngineVolumeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{bike.bikeEngineVolume}"
                     android:textSize="20sp"
                     android:padding="6dp"/>
 
@@ -67,7 +65,6 @@
                     android:id="@+id/bikeEditionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{bike.bikeEdition}"
                     android:textSize="20sp"
                     android:padding="6dp"/>
 
