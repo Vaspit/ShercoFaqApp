@@ -1,6 +1,9 @@
 package com.example.shercofaqapp.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,16 +21,22 @@ class BikeFragment : Fragment() {
 
     lateinit var binding: FragmentAddBikeBinding
     private val model: GarageFragmentViewModel by viewModels()
+    private var isUpdate = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        val sharedPref = requireActivity()
+            .getSharedPreferences("MyPreferences",Context.MODE_PRIVATE)
+        isUpdate = sharedPref.getBoolean("isUpdate", false)
+        Log.d("isUpdate", "" + isUpdate)
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_add_bike, container, false)
 
-        createSpinnerAdapters()
+        createFragmentsFields(isUpdate)
 
         binding.apply {
 
@@ -56,7 +65,8 @@ class BikeFragment : Fragment() {
 
     }
 
-    private fun createSpinnerAdapters() {
+    //Filling in fields of BikeFragment
+    private fun createFragmentsFields(isUpdate: Boolean) {
 
         ArrayAdapter.createFromResource(
             requireContext(),

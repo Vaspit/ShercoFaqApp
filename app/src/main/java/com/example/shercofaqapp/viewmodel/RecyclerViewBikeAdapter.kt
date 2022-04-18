@@ -21,9 +21,9 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
         val binding = GarageItemBinding.bind(item)
-        private val preferences: SharedPreferences = item.context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        private val preferences: SharedPreferences = item.context
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         private val editor: SharedPreferences.Editor = preferences.edit()
-
 
         fun bind(bike: Bike) = with(binding) {
 
@@ -33,6 +33,17 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
             bikeEngineVolumeTextView.text = bike.bikeEngineVolume
             bikeEditionTextView.text = bike.bikeEdition
             bikeImage.setImageResource(bike.bikeImage)
+
+            itemView.setOnClickListener {
+
+                editor.putBoolean("isUpdate", true)
+                editor.commit()
+
+                //Go to AddBikeFragment
+                Navigation.findNavController(itemView)
+                    .navigate(R.id.action_garageFragment_to_bikeFragment)
+
+            }
 
             editDeleteImageButton.setOnClickListener {
 

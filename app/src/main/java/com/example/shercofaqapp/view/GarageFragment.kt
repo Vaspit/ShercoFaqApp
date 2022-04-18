@@ -45,6 +45,7 @@ class GarageFragment : Fragment() {
 
             garageRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             garageRecyclerView.adapter = recyclerViewAdapter
+            garageRecyclerView.setHasFixedSize(true)
 
             model.bikes.observe(viewLifecycleOwner,
                 Observer<List<Any?>> { bikes ->
