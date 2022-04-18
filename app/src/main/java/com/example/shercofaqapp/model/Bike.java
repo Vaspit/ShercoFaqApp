@@ -1,5 +1,6 @@
 package com.example.shercofaqapp.model;
 
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
@@ -8,6 +9,9 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import androidx.databinding.library.baseAdapters.BR;
+
+
+
 
 @Entity(tableName = "bikes_table")
 public class Bike extends BaseObservable {
@@ -25,14 +29,14 @@ public class Bike extends BaseObservable {
     @ColumnInfo(name = "bike_edition")
     private String bikeEdition;
     @ColumnInfo(name = "bike_image")
-    private int bikeImage;
+    private Integer bikeImage;
 
     @Ignore
     public Bike() {
     }
 
     public Bike(long bikeId, String bikeName, String bikeModelYear, String bikeEngineType,
-                String bikeEngineVolume, String bikeEdition, int bikeImage) {
+                String bikeEngineVolume, String bikeEdition, Integer bikeImage) {
         this.bikeId = bikeId;
         this.bikeName = bikeName;
         this.bikeModelYear = bikeModelYear;
@@ -107,7 +111,7 @@ public class Bike extends BaseObservable {
         return bikeImage;
     }
 
-    public void setBikeImage(int bikeImage) {
+    public void setBikeImage(Integer bikeImage) {
         this.bikeImage = bikeImage;
         notifyPropertyChanged(BR.bikeImage);
     }

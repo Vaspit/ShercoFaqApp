@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_add_bike.xml" value="0.25" />
+        <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_garage.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/garage_item.xml" value="0.33" />
+        <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/menu/popup_menu.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/drawable/start_button_background.xml" value="0.3195" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_garage.xml" value="0.5" />

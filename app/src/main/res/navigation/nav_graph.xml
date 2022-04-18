@@ -17,5 +17,19 @@
         android:id="@+id/garageFragment"
         android:name="com.example.shercofaqapp.view.GarageFragment"
         android:label="fragment_garage"
-        tools:layout="@layout/fragment_garage" />
+        tools:layout="@layout/fragment_garage" >
+        <action
+            android:id="@+id/action_garageFragment_to_bikeFragment"
+            app:destination="@id/addBikeFragment"
+            app:popUpTo="@id/garageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBikeFragment"
+        android:name="com.example.shercofaqapp.view.BikeFragment"
+        android:label="fragment_add_bike"
+        tools:layout="@layout/fragment_add_bike" >
+        <action
+            android:id="@+id/action_bikeFragment_to_garageFragment"
+            app:destination="@id/garageFragment" />
+    </fragment>
 </navigation>

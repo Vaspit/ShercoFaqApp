@@ -16,12 +16,15 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="50dp"
+            android:backgroundTint="#0022FF"
             android:clickable="true"
             android:scaleType="center"
-            android:src="@android:drawable/ic_menu_add"
+            android:src="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:maxImageSize="48dp" />
+            app:maxImageSize="48dp"
+            app:rippleColor="#FFC802"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/garageRecyclerView"
@@ -35,17 +38,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:orientation="vertical"
             android:padding="16dp"
-            android:background="@color/cardview_dark_background"/>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:background="@color/cardview_dark_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
