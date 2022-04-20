@@ -1,5 +1,7 @@
 package com.example.shercofaqapp.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,15 +25,21 @@ class GarageFragment : Fragment() {
     private val recyclerViewAdapter = RecyclerViewBikeAdapter()
     private val model: GarageFragmentViewModel by viewModels()
     private var bikeArrayList: ArrayList<Bike> = ArrayList()
+    lateinit var editor: SharedPreferences.Editor
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        val sharedPref = requireActivity()
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        editor = sharedPref.edit()
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_garage, container, false)
         initialization()
+
 
         return binding.root
 
@@ -56,6 +64,9 @@ class GarageFragment : Fragment() {
                 })
 
             floatingActionButton.setOnClickListener {
+
+                editor.putBoolean("isUpdate", false)
+                editor.commit()
 
                 //Go to AddBikeFragment
                 Navigation.findNavController(requireView())

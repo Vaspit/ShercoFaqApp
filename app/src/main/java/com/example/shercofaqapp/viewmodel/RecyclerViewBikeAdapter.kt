@@ -2,7 +2,6 @@ package com.example.shercofaqapp.viewmodel
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +20,9 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
         val binding = GarageItemBinding.bind(item)
-        private val preferences: SharedPreferences = item.context
+        private val sharedPref: SharedPreferences = item.context
             .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        private val editor: SharedPreferences.Editor = preferences.edit()
+        private val editor: SharedPreferences.Editor = sharedPref.edit()
 
         fun bind(bike: Bike) = with(binding) {
 
@@ -34,10 +33,8 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
             bikeEditionTextView.text = bike.bikeEdition
             bikeImage.setImageResource(bike.bikeImage)
 
+            //Garage item click
             itemView.setOnClickListener {
-
-                editor.putBoolean("isUpdate", true)
-                editor.commit()
 
                 //Go to AddBikeFragment
                 Navigation.findNavController(itemView)
@@ -66,10 +63,12 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
 
                         //Put adapter position for the transmitting to corresponding BikeFragment
                         editor.putInt("bikeAdapterPosition", adapterPosition)
+                        editor.putBoolean("isUpdate", true)
                         editor.commit()
-                        //Log.d("bikeAdapterPosition", "" + preferences.getInt("bikeAdapterPosition", -1))
+
                         Navigation.findNavController(view)
                             .navigate(R.id.action_garageFragment_to_bikeFragment)
+
                     }
 
                     //Delete bike
@@ -89,7 +88,8 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
 
         // Create a new view, which defines the UI of the list item
-        return ViewHolder(item = LayoutInflater.from(viewGroup.context).inflate(R.layout.garage_item, viewGroup, false))
+        return ViewHolder(item = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.garage_item, viewGroup, false))
 
     }
 

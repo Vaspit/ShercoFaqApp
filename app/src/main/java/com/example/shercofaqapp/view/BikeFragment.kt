@@ -1,7 +1,6 @@
 package com.example.shercofaqapp.view
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,12 +15,16 @@ import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 
 class BikeFragment : Fragment() {
 
     lateinit var binding: FragmentAddBikeBinding
     private val model: GarageFragmentViewModel by viewModels()
     private var isUpdate = false
+    private var bikeAdapterPosition = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,31 +34,63 @@ class BikeFragment : Fragment() {
         val sharedPref = requireActivity()
             .getSharedPreferences("MyPreferences",Context.MODE_PRIVATE)
         isUpdate = sharedPref.getBoolean("isUpdate", false)
-        Log.d("isUpdate", "" + isUpdate)
+        //Log.d("isUpdate", "" + isUpdate)
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_add_bike, container, false)
 
-        createFragmentsFields(isUpdate)
-
         binding.apply {
 
-            addBikeButton.setOnClickListener {
+            if (isUpdate) {
 
-                //Add new bike to Database
-                val bike = Bike()
-                bike.bikeName = bikeNameEditText.text.trim().toString()
-                bike.bikeModelYear = modelYearSpinner.selectedItem.toString()
-                bike.bikeEngineType = engineTypeSpinner.selectedItem.toString()
-                bike.bikeEngineVolume = engineVolumeSpinner.selectedItem.toString()
-                bike.bikeEdition = editionSpinner.selectedItem.toString()
-                bike.bikeImage = R.drawable.garage_item_icon
+                bikeAdapterPosition = sharedPref.getInt("bikeAdapterPosition", 0)
+                Log.d("bikeAdapterPosition", "" + bikeAdapterPosition)
+                createFragmentFields()
 
-                model.addNewBike(bike)
+                //NullPointerException
+                //bikeNameEditText.setText(model.getBike(1).bikeName)
 
-                //Go to GarageFragment
-                Navigation.findNavController(requireView())
-                    .navigate(R.id.action_bikeFragment_to_garageFragment)
+                addBikeButton.setOnClickListener {
+
+                    //Add new bike to Database
+                    val bike = Bike()
+                    bike.bikeName = bikeNameEditText.text.trim().toString()
+                    bike.bikeModelYear = modelYearSpinner.selectedItem.toString()
+                    bike.bikeEngineType = engineTypeSpinner.selectedItem.toString()
+                    bike.bikeEngineVolume = engineVolumeSpinner.selectedItem.toString()
+                    bike.bikeEdition = editionSpinner.selectedItem.toString()
+                    bike.bikeImage = R.drawable.garage_item_icon
+
+                    model.updateBike(bike)
+
+                    //Go to GarageFragment
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_bikeFragment_to_garageFragment)
+
+                }
+
+            } else {
+
+                createFragmentFields()
+
+                addBikeButton.setOnClickListener {
+
+                    //Add new bike to Database
+                    val bike = Bike()
+                    bike.bikeName = bikeNameEditText.text.trim().toString()
+                    bike.bikeModelYear = modelYearSpinner.selectedItem.toString()
+                    bike.bikeEngineType = engineTypeSpinner.selectedItem.toString()
+                    bike.bikeEngineVolume = engineVolumeSpinner.selectedItem.toString()
+                    bike.bikeEdition = editionSpinner.selectedItem.toString()
+                    bike.bikeImage = R.drawable.garage_item_icon
+
+                    model.addNewBike(bike)
+
+                    //Go to GarageFragment
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_bikeFragment_to_garageFragment)
+
+                }
 
             }
 
@@ -65,8 +100,7 @@ class BikeFragment : Fragment() {
 
     }
 
-    //Filling in fields of BikeFragment
-    private fun createFragmentsFields(isUpdate: Boolean) {
+    private fun createFragmentFields() {
 
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -124,6 +158,5 @@ class BikeFragment : Fragment() {
         }
 
     }
-
 
 }
