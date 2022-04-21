@@ -10,7 +10,8 @@
     <string name="engine_type">Engine type</string>
     <string name="engine_volume">Engine volume</string>
     <string name="edition">Edition</string>
-    <string name="add_bike_button">Add Bike</string>
+    <string name="add_bike_button_text">Add Bike</string>
+    <string name="update_bike_button_text">Update bike</string>
 
     <string-array name="bike_type_spinner_text">
         <item>Enduro</item>

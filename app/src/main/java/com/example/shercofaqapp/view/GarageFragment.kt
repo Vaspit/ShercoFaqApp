@@ -3,6 +3,7 @@ package com.example.shercofaqapp.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentGarageBinding
 import com.example.shercofaqapp.model.Bike
@@ -26,6 +29,28 @@ class GarageFragment : Fragment() {
     private val model: GarageFragmentViewModel by viewModels()
     private var bikeArrayList: ArrayList<Bike> = ArrayList()
     lateinit var editor: SharedPreferences.Editor
+    private val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+            //Add the confirmation about deleting
+
+            model.deleteBike(bikeArrayList[viewHolder.adapterPosition])
+            Log.d("bikeArrayList", ""
+                    + bikeArrayList[viewHolder.adapterPosition].bikeId + " "
+                    + bikeArrayList[viewHolder.adapterPosition].bikeName)
+
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,22 +59,23 @@ class GarageFragment : Fragment() {
 
         val sharedPref = requireActivity()
             .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        editor = sharedPref.edit()
 
+        editor = sharedPref.edit()
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_garage, container, false)
         initialization()
-
 
         return binding.root
 
     }
 
+
     private fun initialization() {
 
-        binding.apply {
 
-            //loadBikesInArray()
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+
+        binding.apply {
 
             garageRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             garageRecyclerView.adapter = recyclerViewAdapter
@@ -73,6 +99,8 @@ class GarageFragment : Fragment() {
                     .navigate(R.id.action_garageFragment_to_bikeFragment)
 
             }
+
+            itemTouchHelper.attachToRecyclerView(garageRecyclerView)
 
         }
 

@@ -2,7 +2,6 @@ package com.example.shercofaqapp.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,21 +9,19 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 
 class BikeFragment : Fragment() {
 
     lateinit var binding: FragmentAddBikeBinding
     private val model: GarageFragmentViewModel by viewModels()
+    lateinit var bike: Bike
     private var isUpdate = false
-    private var bikeAdapterPosition = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,29 +30,64 @@ class BikeFragment : Fragment() {
 
         val sharedPref = requireActivity()
             .getSharedPreferences("MyPreferences",Context.MODE_PRIVATE)
-        isUpdate = sharedPref.getBoolean("isUpdate", false)
-        //Log.d("isUpdate", "" + isUpdate)
 
+        isUpdate = sharedPref.getBoolean("isUpdate", false)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_add_bike, container, false)
 
         binding.apply {
 
+            createUI(isUpdate)
+
             if (isUpdate) {
 
-                bikeAdapterPosition = sharedPref.getInt("bikeAdapterPosition", 0)
-                Log.d("bikeAdapterPosition", "" + bikeAdapterPosition)
-                createFragmentFields()
+                val modelYearArrayList = root.resources.getStringArray(R.array.model_year_spinner_text)
+                val bikeTypeArrayList = root.resources.getStringArray(R.array.bike_type_spinner_text)
+                val engineTypeArrayList = root.resources.getStringArray(R.array.engine_type_spinner_text)
+                val engineVolumeArrayList = root.resources.getStringArray(R.array.engine_volume_spinner_text)
+                val editionArrayList = root.resources.getStringArray(R.array.edition_spinner_text)
+                val bikeId = sharedPref.getLong("bikeId", 0)
+                var updatingBileIndex = 0
 
-                //NullPointerException
-                //bikeNameEditText.setText(model.getBike(1).bikeName)
+                //Set an observer for selected bike from recyclerview
+                val bikeObserver = Observer<List<Bike>> { bike ->
+
+                    //find updatable index of bike by bike id
+                    for (bikeItem: Int in bike.indices) {
+
+                        if (bike[bikeItem].bikeId == bikeId) {
+                            updatingBileIndex = bikeItem
+                            break
+                        }
+                    }
+
+                    bikeNameEditText.setText(bike[updatingBileIndex].bikeName)
+                    modelYearSpinner.setSelection(modelYearArrayList
+                        .indexOf(bike[updatingBileIndex].bikeModelYear))
+                    typeSpinner.setSelection(bikeTypeArrayList
+                        .indexOf(bike[updatingBileIndex].bikeType))
+                    engineTypeSpinner.setSelection(engineTypeArrayList
+                        .indexOf(bike[updatingBileIndex].bikeEngineType))
+                    engineVolumeSpinner.setSelection(engineVolumeArrayList
+                        .indexOf(bike[updatingBileIndex].bikeEngineVolume))
+                    editionSpinner.setSelection(editionArrayList
+                        .indexOf(bike[updatingBileIndex].bikeEdition))
+                    bikeImageView.setImageResource(bike[updatingBileIndex].bikeImage)
+
+                }
+
+                //Get the bike data from selected bike item
+                model.bikes.observe(viewLifecycleOwner, bikeObserver)
 
                 addBikeButton.setOnClickListener {
 
-                    //Add new bike to Database
+                    //Update bike within Database
                     val bike = Bike()
+//                    bike.bikeId = (bikeAdapterPosition + 1).toLong()
+                    bike.bikeId = bikeId
                     bike.bikeName = bikeNameEditText.text.trim().toString()
                     bike.bikeModelYear = modelYearSpinner.selectedItem.toString()
+                    bike.bikeType = typeSpinner.selectedItem.toString()
                     bike.bikeEngineType = engineTypeSpinner.selectedItem.toString()
                     bike.bikeEngineVolume = engineVolumeSpinner.selectedItem.toString()
                     bike.bikeEdition = editionSpinner.selectedItem.toString()
@@ -79,6 +111,7 @@ class BikeFragment : Fragment() {
                     val bike = Bike()
                     bike.bikeName = bikeNameEditText.text.trim().toString()
                     bike.bikeModelYear = modelYearSpinner.selectedItem.toString()
+                    bike.bikeType = typeSpinner.selectedItem.toString()
                     bike.bikeEngineType = engineTypeSpinner.selectedItem.toString()
                     bike.bikeEngineVolume = engineVolumeSpinner.selectedItem.toString()
                     bike.bikeEdition = editionSpinner.selectedItem.toString()
@@ -97,6 +130,22 @@ class BikeFragment : Fragment() {
         }
 
         return binding.root
+
+    }
+
+    private fun createUI(isUpdate: Boolean) {
+
+        createFragmentFields()
+
+        if (isUpdate) {
+
+            binding.addBikeButton.text = getString(R.string.update_bike_button_text)
+
+        } else {
+
+            binding.addBikeButton.text = getString(R.string.add_bike_button_text)
+
+        }
 
     }
 

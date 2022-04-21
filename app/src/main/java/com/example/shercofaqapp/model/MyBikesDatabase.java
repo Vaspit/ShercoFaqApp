@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.shercofaqapp.R;
 
-@Database(entities = {Bike.class}, version = 5)
+@Database(entities = {Bike.class}, version = 6)
 public abstract class MyBikesDatabase extends RoomDatabase {
 
     public static MyBikesDatabase instance;

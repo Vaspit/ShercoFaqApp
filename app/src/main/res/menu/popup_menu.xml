@@ -4,8 +4,5 @@
     <item
         android:id="@+id/actionPopupEdit"
         android:title="Edit"/>
-    <item
-        android:id="@+id/actionPopupDelete"
-        android:title="Delete"/>
 
 </menu>

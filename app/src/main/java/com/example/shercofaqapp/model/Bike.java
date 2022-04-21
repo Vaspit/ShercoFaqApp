@@ -20,6 +20,8 @@ public class Bike extends BaseObservable {
     private String bikeName;
     @ColumnInfo(name = "bike_model_year")
     private String bikeModelYear;
+    @ColumnInfo(name = "bike_type")
+    private String bikeType;
     @ColumnInfo(name = "bike_engine_type")
     private String bikeEngineType;
     @ColumnInfo(name = "bike_engine_volume")
@@ -33,11 +35,12 @@ public class Bike extends BaseObservable {
     public Bike() {
     }
 
-    public Bike(long bikeId, String bikeName, String bikeModelYear, String bikeEngineType,
-                String bikeEngineVolume, String bikeEdition, Integer bikeImage) {
+    public Bike(long bikeId, String bikeName, String bikeModelYear, String bikeType,
+                String bikeEngineType, String bikeEngineVolume, String bikeEdition, Integer bikeImage) {
         this.bikeId = bikeId;
         this.bikeName = bikeName;
         this.bikeModelYear = bikeModelYear;
+        this.bikeType = bikeType;
         this.bikeEngineType = bikeEngineType;
         this.bikeEngineVolume = bikeEngineVolume;
         this.bikeEdition = bikeEdition;
@@ -72,6 +75,16 @@ public class Bike extends BaseObservable {
     public void setBikeModelYear(String bikeModelYear) {
         this.bikeModelYear = bikeModelYear;
         notifyPropertyChanged(BR.bikeModelYear);
+    }
+
+    @Bindable
+    public String getBikeType() {
+        return bikeType;
+    }
+
+    public void setBikeType(String bikeType) {
+        this.bikeType = bikeType;
+        notifyPropertyChanged(BR.bikeType);
     }
 
     @Bindable

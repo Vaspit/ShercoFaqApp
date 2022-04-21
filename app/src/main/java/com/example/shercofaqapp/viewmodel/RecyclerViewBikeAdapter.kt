@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
@@ -15,7 +16,7 @@ import com.example.shercofaqapp.model.Bike
 
 class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.ViewHolder>() {
 
-    private var bikeList = ArrayList<Bike>()
+    var bikeList = ArrayList<Bike>()
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
@@ -45,13 +46,13 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
             editDeleteImageButton.setOnClickListener {
 
                 //Log.d("onClick", "" + adapterPosition)
-                showPopupMenu(itemView)
+                showPopupMenu(itemView, bike)
 
             }
 
         }
 
-        fun showPopupMenu(view: View) {
+        fun showPopupMenu(view: View, bike: Bike) {
 
             val popupMenu = PopupMenu(view.context, view)
             popupMenu.inflate(R.menu.popup_menu)
@@ -62,18 +63,14 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
                     R.id.actionPopupEdit -> {
 
                         //Put adapter position for the transmitting to corresponding BikeFragment
-                        editor.putInt("bikeAdapterPosition", adapterPosition)
                         editor.putBoolean("isUpdate", true)
+                        editor.putLong("bikeId", bike.bikeId)
                         editor.commit()
 
                         Navigation.findNavController(view)
                             .navigate(R.id.action_garageFragment_to_bikeFragment)
 
                     }
-
-                    //Delete bike
-                    R.id.actionPopupDelete ->
-                        Toast.makeText(view.context, "You Clicked : " + item.title + " " + adapterPosition, Toast.LENGTH_SHORT).show()
 
                 }
                 true
@@ -117,6 +114,14 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
     fun addBikeList(bikeList: ArrayList<Bike>) {
 
         this.bikeList = bikeList
+        notifyDataSetChanged()
+
+    }
+
+    fun deleteBike(bikeList: ArrayList<Bike>, position: Int) {
+
+        this.bikeList = bikeList
+        bikeList.remove(bikeList[position])
         notifyDataSetChanged()
 
     }
