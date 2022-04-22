@@ -12,6 +12,10 @@
     <string name="edition">Edition</string>
     <string name="add_bike_button_text">Add Bike</string>
     <string name="update_bike_button_text">Update bike</string>
+    <string name="alert_dialog_title">Delete confirmation</string>
+    <string name="alert_dialog_message">Do you really want to delete this bike?</string>
+    <string name="alert_dialog_button_yes">Yes</string>
+    <string name="alert_dialog_button_no">No</string>
 
     <string-array name="bike_type_spinner_text">
         <item>Enduro</item>

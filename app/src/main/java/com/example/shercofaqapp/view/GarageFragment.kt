@@ -1,6 +1,8 @@
 package com.example.shercofaqapp.view
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -41,15 +43,35 @@ class GarageFragment : Fragment() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
-            //Add the confirmation about deleting
-
-            model.deleteBike(bikeArrayList[viewHolder.adapterPosition])
-            Log.d("bikeArrayList", ""
-                    + bikeArrayList[viewHolder.adapterPosition].bikeId + " "
-                    + bikeArrayList[viewHolder.adapterPosition].bikeName)
+            showAlretDialog(viewHolder)
+            recyclerViewAdapter.notifyDataSetChanged()
 
         }
 
+    }
+
+    private fun showAlretDialog(viewHolder: RecyclerView.ViewHolder) {
+
+        val listener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE ->
+                    model.deleteBike(bikeArrayList[viewHolder.adapterPosition])
+                DialogInterface.BUTTON_NEGATIVE -> {
+                    TODO()
+                }
+            }
+
+        }
+
+        val dialog = AlertDialog.Builder(context)
+            .setCancelable(false)
+            .setIcon(R.mipmap.ic_launcher_round)
+            .setTitle(getString(R.string.alert_dialog_title))
+            .setPositiveButton(R.string.alert_dialog_button_yes, listener)
+            .setNegativeButton(R.string.alert_dialog_button_no, listener)
+            .create()
+
+        dialog.show()
     }
 
     override fun onCreateView(

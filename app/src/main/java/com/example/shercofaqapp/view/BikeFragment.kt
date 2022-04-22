@@ -47,7 +47,7 @@ class BikeFragment : Fragment() {
                 val engineVolumeArrayList = root.resources.getStringArray(R.array.engine_volume_spinner_text)
                 val editionArrayList = root.resources.getStringArray(R.array.edition_spinner_text)
                 val bikeId = sharedPref.getLong("bikeId", 0)
-                var updatingBileIndex = 0
+                var updatingBikeIndex = 0
 
                 //Set an observer for selected bike from recyclerview
                 val bikeObserver = Observer<List<Bike>> { bike ->
@@ -56,23 +56,23 @@ class BikeFragment : Fragment() {
                     for (bikeItem: Int in bike.indices) {
 
                         if (bike[bikeItem].bikeId == bikeId) {
-                            updatingBileIndex = bikeItem
+                            updatingBikeIndex = bikeItem
                             break
                         }
                     }
 
-                    bikeNameEditText.setText(bike[updatingBileIndex].bikeName)
+                    bikeNameEditText.setText(bike[updatingBikeIndex].bikeName)
                     modelYearSpinner.setSelection(modelYearArrayList
-                        .indexOf(bike[updatingBileIndex].bikeModelYear))
+                        .indexOf(bike[updatingBikeIndex].bikeModelYear))
                     typeSpinner.setSelection(bikeTypeArrayList
-                        .indexOf(bike[updatingBileIndex].bikeType))
+                        .indexOf(bike[updatingBikeIndex].bikeType))
                     engineTypeSpinner.setSelection(engineTypeArrayList
-                        .indexOf(bike[updatingBileIndex].bikeEngineType))
+                        .indexOf(bike[updatingBikeIndex].bikeEngineType))
                     engineVolumeSpinner.setSelection(engineVolumeArrayList
-                        .indexOf(bike[updatingBileIndex].bikeEngineVolume))
+                        .indexOf(bike[updatingBikeIndex].bikeEngineVolume))
                     editionSpinner.setSelection(editionArrayList
-                        .indexOf(bike[updatingBileIndex].bikeEdition))
-                    bikeImageView.setImageResource(bike[updatingBileIndex].bikeImage)
+                        .indexOf(bike[updatingBikeIndex].bikeEdition))
+                    bikeImageView.setImageResource(bike[updatingBikeIndex].bikeImage)
 
                 }
 

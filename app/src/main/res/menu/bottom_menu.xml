@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/torquesBottomMenuItem"
+        android:icon="@drawable/ic_baseline_torques"
+        android:title="Torques"/>
+
+    <item
+        android:id="@+id/partsBottomMenuItem"
+        android:icon="@drawable/ic_baseline_parts"
+        android:title="Parts"/>
+
+    <item
+        android:id="@+id/communityBottomMenuItem"
+        android:icon="@drawable/ic_baseline_community"
+        android:title="Community"/>
+
+</menu>

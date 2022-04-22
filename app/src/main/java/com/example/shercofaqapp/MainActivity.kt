@@ -6,12 +6,13 @@ import androidx.databinding.DataBindingUtil
 import com.example.shercofaqapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
-            this, R.layout.activity_main
-        )
+            this, R.layout.activity_main)
 
     }
 
