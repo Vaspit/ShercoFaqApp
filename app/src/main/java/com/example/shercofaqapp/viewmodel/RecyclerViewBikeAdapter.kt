@@ -5,9 +5,7 @@ import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
-import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
@@ -39,7 +37,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
 
                 //Go to AddBikeFragment
                 Navigation.findNavController(itemView)
-                    .navigate(R.id.action_garageFragment_to_bikeFragment)
+                    .navigate(R.id.action_garageFragment_to_workshopFragment)
 
             }
 

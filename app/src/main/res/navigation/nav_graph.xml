@@ -3,16 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/welcomeScreenFragment2">
-    <fragment
-        android:id="@+id/welcomeScreenFragment2"
-        android:name="com.example.shercofaqapp.view.WelcomeScreenFragment"
-        android:label="fragment_welcome_screen"
-        tools:layout="@layout/fragment_welcome_screen" >
-        <action
-            android:id="@+id/action_welcomeScreenFragment2_to_garageFragment"
-            app:destination="@id/garageFragment" />
-    </fragment>
+    app:startDestination="@id/garageFragment">
+
     <fragment
         android:id="@+id/garageFragment"
         android:name="com.example.shercofaqapp.view.GarageFragment"
@@ -20,9 +12,12 @@
         tools:layout="@layout/fragment_garage" >
         <action
             android:id="@+id/action_garageFragment_to_bikeFragment"
-            app:destination="@id/addBikeFragment"
-            app:popUpTo="@id/garageFragment" />
+            app:destination="@id/addBikeFragment" />
+        <action
+            android:id="@+id/action_garageFragment_to_workshopFragment"
+            app:destination="@id/workshopFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/addBikeFragment"
         android:name="com.example.shercofaqapp.view.BikeFragment"
@@ -32,4 +27,10 @@
             android:id="@+id/action_bikeFragment_to_garageFragment"
             app:destination="@id/garageFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/workshopFragment"
+        android:name="com.example.shercofaqapp.WorkshopFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_workshop" />
+
 </navigation>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main.xml"
+    app:startDestination="@id/torquesFragment">
+
+    <fragment
+        android:id="@+id/torquesFragment"
+        android:name="com.example.shercofaqapp.TorquesFragment"
+        android:label="fragment_torques"
+        tools:layout="@layout/fragment_torques" />
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.example.shercofaqapp.CommunityFragment"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community" />
+    <fragment
+        android:id="@+id/partsFragment"
+        android:name="com.example.shercofaqapp.PartsFragment"
+        android:label="fragment_parts"
+        tools:layout="@layout/fragment_parts" />
+</navigation>

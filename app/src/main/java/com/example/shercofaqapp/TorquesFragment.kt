@@ -1,4 +1,4 @@
-package com.example.shercofaqapp.view
+package com.example.shercofaqapp
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.example.shercofaqapp.R
-import com.example.shercofaqapp.databinding.FragmentGarageBinding
 import com.example.shercofaqapp.databinding.FragmentTorquesBinding
 
 class TorquesFragment : Fragment() {
 
     lateinit var binding: FragmentTorquesBinding
+
+    companion object {
+        fun newInstance() = TorquesFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,12 +28,4 @@ class TorquesFragment : Fragment() {
 
     }
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TorquesFragment().apply {
-
-            }
-    }
 }
