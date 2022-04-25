@@ -1,4 +1,4 @@
-package com.example.shercofaqapp
+package com.example.shercofaqapp.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.example.shercofaqapp.databinding.FragmentCommunityBinding
+import com.example.shercofaqapp.R
+import com.example.shercofaqapp.databinding.FragmentPartsBinding
 
-class CommunityFragment : Fragment() {
+class PartsFragment : Fragment() {
 
-    lateinit var binding: FragmentCommunityBinding
+    lateinit var binding: FragmentPartsBinding
 
     companion object {
-        fun newInstance() = CommunityFragment()
+        fun newInstance() = PartsFragment()
     }
 
     override fun onCreateView(
@@ -22,7 +23,7 @@ class CommunityFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_community, container, false)
+            inflater, R.layout.fragment_parts, container, false)
 
         return binding.root
 

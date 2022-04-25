@@ -35,15 +35,16 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
             //Garage item click
             itemView.setOnClickListener {
 
+                editor.putLong("bikeId", bike.bikeId)
+                editor.commit()
                 //Go to AddBikeFragment
                 Navigation.findNavController(itemView)
                     .navigate(R.id.action_garageFragment_to_workshopFragment)
 
             }
 
-            editDeleteImageButton.setOnClickListener {
+            editImageButton.setOnClickListener {
 
-                //Log.d("onClick", "" + adapterPosition)
                 showPopupMenu(itemView, bike)
 
             }

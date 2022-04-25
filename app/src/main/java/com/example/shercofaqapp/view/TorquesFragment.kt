@@ -1,4 +1,4 @@
-package com.example.shercofaqapp
+package com.example.shercofaqapp.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.example.shercofaqapp.databinding.FragmentTorquesBinding
+import com.example.shercofaqapp.R
 
 class TorquesFragment : Fragment() {
 
-    lateinit var binding: FragmentTorquesBinding
+    lateinit var binding: com.example.shercofaqapp.databinding.FragmentTorquesBinding
 
     companion object {
         fun newInstance() = TorquesFragment()

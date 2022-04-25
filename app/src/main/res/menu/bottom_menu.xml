@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/torquesBottomMenuItem"
+        android:id="@+id/torquesFragment"
         android:icon="@drawable/ic_baseline_torques"
         android:title="Torques"/>
 
     <item
-        android:id="@+id/partsBottomMenuItem"
+        android:id="@+id/partsFragment"
         android:icon="@drawable/ic_baseline_parts"
         android:title="Parts"/>
 
     <item
-        android:id="@+id/communityBottomMenuItem"
+        android:id="@+id/communityFragment"
         android:icon="@drawable/ic_baseline_community"
         android:title="Community"/>
 

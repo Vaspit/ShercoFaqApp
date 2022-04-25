@@ -80,7 +80,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/bikeEngineVolumeTextView" />
 
             <ImageButton
-                android:id="@+id/editDeleteImageButton"
+                android:id="@+id/edit_image_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="3dp"

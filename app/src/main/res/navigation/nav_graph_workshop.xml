@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/torquesFragment"
-        android:name="com.example.shercofaqapp.TorquesFragment"
+        android:name="com.example.shercofaqapp.view.TorquesFragment"
         android:label="fragment_torques"
         tools:layout="@layout/fragment_torques" />
     <fragment
         android:id="@+id/communityFragment"
-        android:name="com.example.shercofaqapp.CommunityFragment"
+        android:name="com.example.shercofaqapp.view.CommunityFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
     <fragment
         android:id="@+id/partsFragment"
-        android:name="com.example.shercofaqapp.PartsFragment"
+        android:name="com.example.shercofaqapp.view.PartsFragment"
         android:label="fragment_parts"
         tools:layout="@layout/fragment_parts" />
 </navigation>

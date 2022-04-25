@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/workshopFragment"
-        android:name="com.example.shercofaqapp.WorkshopFragment"
+        android:name="com.example.shercofaqapp.view.WorkshopFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_workshop" />
 
