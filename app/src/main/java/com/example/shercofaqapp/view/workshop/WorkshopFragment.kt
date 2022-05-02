@@ -1,4 +1,4 @@
-package com.example.shercofaqapp.view
+package com.example.shercofaqapp.view.workshop
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -33,9 +33,6 @@ class WorkshopFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_workshop, container, false)
-        sharedPref = binding.root.context
-            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        bikeId = sharedPref.getLong("bikeId", 0)
 
         binding.apply {
 
@@ -60,6 +57,11 @@ class WorkshopFragment : Fragment() {
             val nestedNavHostFragment = childFragmentManager
                 .findFragmentById(R.id.mainContainerView) as? NavHostFragment
             val navController = nestedNavHostFragment?.navController
+
+            //Get bike id
+            sharedPref = root.context
+                .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+            bikeId = sharedPref.getLong("bikeId", 0)
 
             model.bikes.observe(viewLifecycleOwner, bikeObserver)
 

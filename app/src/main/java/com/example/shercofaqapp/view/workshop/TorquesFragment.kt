@@ -1,4 +1,4 @@
-package com.example.shercofaqapp.view
+package com.example.shercofaqapp.view.workshop
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

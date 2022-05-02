@@ -3,12 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/drawable-hdpi/round_corner_button.xml" value="0.338" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.2895" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/drawable/round_corner.xml" value="0.2895" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_add_bike.xml" value="0.25" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_community.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_garage.xml" value="0.25" />
+        <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_login.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_main.xml" value="0.2969298245614035" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_parts.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/fragment_torques.xml" value="0.2675925925925926" />
@@ -21,6 +23,7 @@
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/layout/torques_fragment.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/menu/bottom_menu.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/menu/popup_menu.xml" value="0.3087719298245614" />
+        <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/menu/top_menu.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.214" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/drawable/start_button_background.xml" value="0.3195" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/activity_main.xml" value="0.5" />

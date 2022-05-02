@@ -6,15 +6,16 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,11 @@ import com.example.shercofaqapp.databinding.FragmentGarageBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.RecyclerViewBikeAdapter
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import io.reactivex.rxjava3.internal.util.NotificationLite.getValue
 
 
 class GarageFragment : Fragment() {
@@ -33,6 +39,7 @@ class GarageFragment : Fragment() {
     private val model: GarageFragmentViewModel by viewModels()
     private var bikeArrayList: ArrayList<Bike> = ArrayList()
     lateinit var editor: SharedPreferences.Editor
+    private var userName = "UserName"
     private val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
         override fun onMove(
@@ -44,16 +51,12 @@ class GarageFragment : Fragment() {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
             showAlretDialog(viewHolder)
             recyclerViewAdapter.notifyDataSetChanged()
-
         }
-
     }
 
     private fun showAlretDialog(viewHolder: RecyclerView.ViewHolder) {
-
         val listener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE ->
@@ -62,7 +65,6 @@ class GarageFragment : Fragment() {
                     TODO()
                 }
             }
-
         }
 
         val dialog = AlertDialog.Builder(context)
@@ -74,6 +76,11 @@ class GarageFragment : Fragment() {
             .create()
 
         dialog.show()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -90,7 +97,24 @@ class GarageFragment : Fragment() {
         initialization()
 
         return binding.root
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.topMenuLogOut -> {
+                FirebaseAuth.getInstance().signOut()
+                editor.putBoolean("isLoggedIn", false)
+                editor.commit()
+                findNavController()
+                    .navigate(R.id.action_garageFragment_to_loginFragment)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initialization() {
@@ -98,6 +122,15 @@ class GarageFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(simpleCallback)
 
         binding.apply {
+            val userId = FirebaseAuth.getInstance().currentUser!!.uid
+            val database = Firebase.database.reference
+
+            database.child("users").child(userId).child("userName").get().addOnSuccessListener {
+                userName = it.value.toString()
+                (activity as AppCompatActivity?)?.supportActionBar?.title = userName
+            }.addOnFailureListener{
+                Log.e("firebase", "Error getting data", it)
+            }
 
             garageRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             garageRecyclerView.adapter = recyclerViewAdapter

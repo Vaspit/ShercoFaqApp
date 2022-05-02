@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "518955477322",
+    "project_id": "shercofaq",
+    "storage_bucket": "shercofaq.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518955477322:android:a739829bb59fad9966f9b3",
+        "android_client_info": {
+          "package_name": "com.example.shercofaqapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518955477322-n6a4tk85csjrofp83ihfl3qhjkguha4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shercofaqapp",
+            "certificate_hash": "51a732f5a6d6e53e91529991c55f5861ee66f1b4"
+          }
+        },
+        {
+          "client_id": "518955477322-mglosi32a1er9l6ipskg3arauo8aiiu1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518955477322-mglosi32a1er9l6ipskg3arauo8aiiu1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

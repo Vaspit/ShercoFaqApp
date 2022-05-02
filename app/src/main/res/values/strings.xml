@@ -16,6 +16,19 @@
     <string name="alert_dialog_message">Do you really want to delete this bike?</string>
     <string name="alert_dialog_button_yes">Yes</string>
     <string name="alert_dialog_button_no">No</string>
+    <string name="sign_up_to_continue">Sign Up To Continue</string>
+    <string name="log_in_to_continue">Log In To Continue</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log In</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="do_not_have_an_account">Don\'t have an account?</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="top_menu_log_out">Log out</string>
+    <string name="name">Name</string>
 
     <string-array name="bike_type_spinner_text">
         <item>Enduro</item>

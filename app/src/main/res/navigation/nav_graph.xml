@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/garageFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/garageFragment"
@@ -16,6 +16,11 @@
         <action
             android:id="@+id/action_garageFragment_to_workshopFragment"
             app:destination="@id/workshopFragment" />
+        <action
+            android:id="@+id/action_garageFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/garageFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -29,8 +34,19 @@
     </fragment>
     <fragment
         android:id="@+id/workshopFragment"
-        android:name="com.example.shercofaqapp.view.WorkshopFragment"
+        android:name="com.example.shercofaqapp.view.workshop.WorkshopFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_workshop" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.shercofaqapp.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_garageFragment"
+            app:destination="@id/garageFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>
