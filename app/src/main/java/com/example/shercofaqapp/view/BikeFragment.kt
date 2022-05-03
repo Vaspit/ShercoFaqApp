@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
@@ -96,7 +97,7 @@ class BikeFragment : Fragment() {
                     model.updateBike(bike)
 
                     //Go to GarageFragment
-                    Navigation.findNavController(requireView())
+                    findNavController()
                         .navigate(R.id.action_bikeFragment_to_garageFragment)
 
                 }
@@ -120,7 +121,7 @@ class BikeFragment : Fragment() {
                     model.addNewBike(bike)
 
                     //Go to GarageFragment
-                    Navigation.findNavController(requireView())
+                    findNavController()
                         .navigate(R.id.action_bikeFragment_to_garageFragment)
 
                 }

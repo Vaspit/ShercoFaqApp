@@ -109,7 +109,7 @@ class GarageFragment : Fragment() {
             R.id.topMenuLogOut -> {
                 FirebaseAuth.getInstance().signOut()
                 editor.putBoolean("isLoggedIn", false)
-                editor.commit()
+                editor.apply()
                 findNavController()
                     .navigate(R.id.action_garageFragment_to_loginFragment)
             }
@@ -147,10 +147,10 @@ class GarageFragment : Fragment() {
             floatingActionButton.setOnClickListener {
 
                 editor.putBoolean("isUpdate", false)
-                editor.commit()
+                editor.apply()
 
                 //Go to AddBikeFragment
-                Navigation.findNavController(requireView())
+                findNavController()
                     .navigate(R.id.action_garageFragment_to_bikeFragment)
 
             }

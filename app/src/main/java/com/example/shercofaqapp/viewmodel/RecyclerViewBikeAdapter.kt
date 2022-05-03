@@ -27,6 +27,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
 
             bikeNameTextView.text = bike.bikeName
             bikeModelYearTextView.text = bike.bikeModelYear
+            bikeTypeTextView.text = bike.bikeType
             bikeEngineTypeTextView.text = bike.bikeEngineType
             bikeEngineVolumeTextView.text = bike.bikeEngineVolume
             bikeEditionTextView.text = bike.bikeEdition

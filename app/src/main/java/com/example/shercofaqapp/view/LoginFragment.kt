@@ -85,7 +85,7 @@ class LoginFragment : Fragment() {
 //                                        editor.putString("userId",
 //                                            FirebaseAuth.getInstance().currentUser!!.uid)
                                         editor.putBoolean("isLoggedIn", isLoggedIn)
-                                        editor.commit()
+                                        editor.apply()
                                         Navigation.findNavController(requireView())
                                             .navigate(R.id.action_loginFragment_to_garageFragment)
                                     } else {
@@ -115,7 +115,7 @@ class LoginFragment : Fragment() {
                                             isLoggedIn = true
 
                                             editor.putBoolean("isLoggedIn", isLoggedIn)
-                                            editor.commit()
+                                            editor.apply()
                                             //Go to GarageFragment
                                             Navigation.findNavController(requireView())
                                                 .navigate(R.id.action_loginFragment_to_garageFragment)
