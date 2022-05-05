@@ -11,13 +11,22 @@
         android:label="fragment_torques"
         tools:layout="@layout/fragment_torques" />
     <fragment
-        android:id="@+id/communityFragment"
-        android:name="com.example.shercofaqapp.view.workshop.CommunityFragment"
+        android:id="@+id/faqFragment"
+        android:name="com.example.shercofaqapp.view.workshop.FaqFragment"
         android:label="fragment_community"
-        tools:layout="@layout/fragment_community" />
+        tools:layout="@layout/fragment_faq" />
     <fragment
         android:id="@+id/partsFragment"
-        android:name="com.example.shercofaqapp.view.workshop.PartsFragment"
+        android:name="com.example.shercofaqapp.view.workshop.PartsTypeFragment"
         android:label="fragment_parts"
-        tools:layout="@layout/fragment_parts" />
+        tools:layout="@layout/fragment_parts_type" >
+        <action
+            android:id="@+id/action_partsFragment_to_partsListFragment"
+            app:destination="@id/partsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/partsListFragment"
+        android:name="com.example.shercofaqapp.view.workshop.PartsListFragment"
+        android:label="fragment_parts_list"
+        tools:layout="@layout/fragment_parts_list" />
 </navigation>

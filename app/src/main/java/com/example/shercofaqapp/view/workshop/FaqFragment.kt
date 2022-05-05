@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.shercofaqapp.R
-import com.example.shercofaqapp.databinding.FragmentCommunityBinding
+import com.example.shercofaqapp.databinding.FragmentFaqBinding
 
-class CommunityFragment : Fragment() {
+class FaqFragment : Fragment() {
 
-    lateinit var binding: FragmentCommunityBinding
+    lateinit var binding: FragmentFaqBinding
 
     companion object {
-        fun newInstance() = CommunityFragment()
+        fun newInstance() = FaqFragment()
     }
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class CommunityFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_community, container, false)
+            inflater, R.layout.fragment_faq, container, false)
 
         return binding.root
 

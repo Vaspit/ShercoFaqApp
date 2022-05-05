@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.GarageItemBinding
@@ -39,7 +40,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
                 editor.putLong("bikeId", bike.bikeId)
                 editor.commit()
                 //Go to AddBikeFragment
-                Navigation.findNavController(itemView)
+                findNavController(itemView)
                     .navigate(R.id.action_garageFragment_to_workshopFragment)
 
             }
