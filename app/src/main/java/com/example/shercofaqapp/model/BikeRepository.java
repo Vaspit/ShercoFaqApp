@@ -8,12 +8,12 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-public class AppRepository {
+public class BikeRepository {
 
     private BikeDao bikeDao;
     private LiveData<List<Bike>> bikes;
 
-    public AppRepository(Application application) {
+    public BikeRepository(Application application) {
 
         MyBikesDatabase myBikesDatabase = MyBikesDatabase.getInstance(application);
         bikeDao = myBikesDatabase.getBikeDao();

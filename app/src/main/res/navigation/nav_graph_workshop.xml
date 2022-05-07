@@ -28,5 +28,23 @@
         android:id="@+id/partsListFragment"
         android:name="com.example.shercofaqapp.view.workshop.PartsListFragment"
         android:label="fragment_parts_list"
-        tools:layout="@layout/fragment_parts_list" />
+        tools:layout="@layout/fragment_parts_list" >
+        <action
+            android:id="@+id/action_partsListFragment_to_sparePartsFragment"
+            app:destination="@id/sparePartsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sparePartsFragment"
+        android:name="com.example.shercofaqapp.view.workshop.SparePartsFragment"
+        android:label="fragment_spare_parts"
+        tools:layout="@layout/fragment_spare_parts" >
+        <action
+            android:id="@+id/action_sparePartsFragment_to_sparePartFragment"
+            app:destination="@id/sparePartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sparePartFragment"
+        android:name="com.example.shercofaqapp.view.workshop.SparePartFragment"
+        android:label="fragment_spare_part"
+        tools:layout="@layout/fragment_spare_part" />
 </navigation>

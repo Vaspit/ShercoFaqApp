@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
@@ -31,11 +32,19 @@ class PartsListFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_parts_list, container, false)
         binding.apply {
-            val recyclerViewAdapter = RecyclerViewPartsListAdapter(setPartListUI(partType!!))
+            if (setPartListUI(partType!!).size != 0) {
+                val recyclerViewAdapter = RecyclerViewPartsListAdapter(setPartListUI(partType))
 
-            partsListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-            partsListRecyclerView.adapter = recyclerViewAdapter
-            partsListRecyclerView.setHasFixedSize(true)
+                partsListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                partsListRecyclerView.adapter = recyclerViewAdapter
+                partsListRecyclerView.setHasFixedSize(true)
+
+                //get bike parameters from bikeDataBase
+
+            } else {
+                Toast.makeText(context,
+                    "There are no known spare parts yet!", Toast.LENGTH_LONG).show()
+            }
         }
 
         //---test------
@@ -69,15 +78,25 @@ class PartsListFragment : Fragment() {
             Part("Rear wheel", "Sprocket", R.drawable.ic_baseline_parts),
             Part("Brakes", "Front brake pads", R.drawable.ic_baseline_parts),
             Part("Brakes", "Rear brake pads", R.drawable.ic_baseline_parts),
-            Part("Brakes", "Brake pedal bearing", R.drawable.ic_baseline_parts)
+            Part("Brakes", "Brake pedal bearing", R.drawable.ic_baseline_parts),
+            Part("Brakes", "Brake pedal bearing", R.drawable.ic_baseline_parts),
+            Part("Plastic", "Plastic kit", R.drawable.ic_baseline_parts),
+            Part("Case", "Cylinder head seal", R.drawable.ic_baseline_parts),
+            Part("Case", "Crankshaft oil seal", R.drawable.ic_baseline_parts),
+            Part("Case", "Drive sprocket oil seal", R.drawable.ic_baseline_parts),
+            Part("Case", "Connecting rod", R.drawable.ic_baseline_parts),
+            Part("Case", "Crankshaft bearings", R.drawable.ic_baseline_parts),
+            Part("Carburetor", "Carburetor", R.drawable.ic_baseline_parts),
+            Part("Clutch", "Friction plates", R.drawable.ic_baseline_parts),
+            Part("Clutch", "Clutch basket inserts", R.drawable.ic_baseline_parts),
+            Part("Cooling", "Pump oil seal", R.drawable.ic_baseline_parts),
+            Part("Ignition", "Starter", R.drawable.ic_baseline_parts),
+            Part("Ignition", "Starter brushes", R.drawable.ic_baseline_parts),
+            Part("Gearbox", "Gearbox lever bolt", R.drawable.ic_baseline_parts)
         )
 
         //Fill out the array by corresponding parts type
         for (index in arrayList.indices) {
-
-            Log.d("PARTS", arrayList[index].partType.toString().trim())
-            Log.d("PARTS", partType)
-
             if (arrayList[index].partType.toString().trim() == partType) {
                 filteredArrayList.add(arrayList[index])
             }

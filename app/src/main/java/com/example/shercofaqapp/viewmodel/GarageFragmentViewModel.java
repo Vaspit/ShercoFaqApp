@@ -5,53 +5,52 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.shercofaqapp.model.AppRepository;
+import com.example.shercofaqapp.model.BikeRepository;
 import com.example.shercofaqapp.model.Bike;
 
 import java.util.List;
 
 public class GarageFragmentViewModel extends AndroidViewModel {
 
-    AppRepository appRepository;
+    BikeRepository bikeRepository;
     private LiveData<List<Bike>> bikes;
 
     public GarageFragmentViewModel(@NonNull Application application) {
         super(application);
 
-        appRepository = new AppRepository(application);
+        bikeRepository = new BikeRepository(application);
 
     }
 
     public LiveData<List<Bike>> getBikes() {
 
-        bikes = appRepository.getBikes();
+        bikes = bikeRepository.getBikes();
         return bikes;
 
     }
 
     public void addNewBike(Bike bike) {
 
-        appRepository.insertBike(bike);
+        bikeRepository.insertBike(bike);
 
     }
 
     public void deleteBike(Bike bike) {
 
-        appRepository.deleteBike(bike);
+        bikeRepository.deleteBike(bike);
 
     }
 
     public void updateBike(Bike bike) {
 
-        appRepository.updateBike(bike);
+        bikeRepository.updateBike(bike);
 
     }
 
     public Bike getBike(long id) {
 
-        return appRepository.getBike(id);
+        return bikeRepository.getBike(id);
 
     }
 

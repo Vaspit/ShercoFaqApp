@@ -3,6 +3,7 @@ package com.example.shercofaqapp.view.workshop
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,7 @@ class WorkshopFragment : Fragment() {
     lateinit var binding: FragmentWorkshopBinding
     private lateinit var sharedPref: SharedPreferences
     private var bikeId: Long = 0
-    private val model: GarageFragmentViewModel by viewModels()
+    private val bikeModel: GarageFragmentViewModel by viewModels()
     lateinit var bike: Bike
 
     override fun onCreateView(
@@ -38,21 +39,14 @@ class WorkshopFragment : Fragment() {
 
             var currentBikeIndex = 0
             val bikeObserver = Observer<List<Bike>> { bike ->
-
                 //find updatable index of bike by bike id
                 for (bikeItem: Int in bike.indices) {
-
                     if (bike[bikeItem].bikeId == bikeId) {
-
                         currentBikeIndex = bikeItem
                         break
-
                     }
-
                 }
-
                 currentBikeNameTextView.text = bike[currentBikeIndex].bikeName
-
             }
             val nestedNavHostFragment = childFragmentManager
                 .findFragmentById(R.id.mainContainerView) as? NavHostFragment
@@ -63,7 +57,7 @@ class WorkshopFragment : Fragment() {
                 .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             bikeId = sharedPref.getLong("bikeId", 0)
 
-            model.bikes.observe(viewLifecycleOwner, bikeObserver)
+            bikeModel.bikes.observe(viewLifecycleOwner, bikeObserver)
 
             if (navController != null) {
 

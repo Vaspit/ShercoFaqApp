@@ -34,13 +34,6 @@ class PartsTypeFragment : Fragment() {
             partsTypeRecyclerView.setHasFixedSize(true)
         }
 
-        //---test------
-//        database.child("parts").get().addOnSuccessListener {
-//            Log.d("PARTS", it.value.toString())
-//        }.addOnFailureListener{
-//            Log.e("firebase", "Error getting data", it)
-//        }
-        //-----------------------
         return binding.root
 
     }

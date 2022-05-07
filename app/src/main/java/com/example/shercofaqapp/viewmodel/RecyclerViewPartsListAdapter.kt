@@ -1,8 +1,11 @@
 package com.example.shercofaqapp.viewmodel
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.PartListItemBinding
@@ -16,16 +19,20 @@ class RecyclerViewPartsListAdapter(private val partListList: ArrayList<Part>):
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
         val binding = PartListItemBinding.bind(item)
-//        private val sharedPref: SharedPreferences = item.context
-//            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//        private val editor: SharedPreferences.Editor = sharedPref.edit()
+        private val sharedPref: SharedPreferences = item.context
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        private val editor: SharedPreferences.Editor = sharedPref.edit()
 
         fun bind(part: Part) = with(binding) {
             partsNameTextView.text = part.partName
             partsImageView.setImageResource(part.partImage!!)
 
             itemView.setOnClickListener {
-
+                editor.putString("currentSparePartType", part.partType)
+                editor.putString("currentSparePartName", part.partName)
+                editor.apply()
+                Navigation.findNavController(itemView)
+                    .navigate(R.id.action_partsListFragment_to_sparePartsFragment)
             }
         }
     }

@@ -38,7 +38,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
             itemView.setOnClickListener {
 
                 editor.putLong("bikeId", bike.bikeId)
-                editor.commit()
+                editor.apply()
                 //Go to AddBikeFragment
                 findNavController(itemView)
                     .navigate(R.id.action_garageFragment_to_workshopFragment)

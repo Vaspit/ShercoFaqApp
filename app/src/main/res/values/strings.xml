@@ -49,8 +49,8 @@
     </string-array>
 
     <string-array name="engine_type_spinner_text">
-        <item>Two stroke</item>
-        <item>Four stroke</item>
+        <item>2S</item>
+        <item>4S</item>
     </string-array>
 
     <string-array name="engine_volume_spinner_text">
