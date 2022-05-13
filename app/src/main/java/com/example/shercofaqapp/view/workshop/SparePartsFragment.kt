@@ -54,12 +54,14 @@ class SparePartsFragment : Fragment() {
                             bike[currentBikeIndex].bikeEngineType +
                             bike[currentBikeIndex].bikeEngineVolume +
                             bike[currentBikeIndex].bikeEdition
+
                 currentSparePartAddress.trim()
 
                 sparePartsModel.getSpareParts(
                     currentSparePartAddress,
                     currentSparePartType,
-                    currentSparePartName
+                    currentSparePartName,
+                    requireContext()
                 )
 
                 Log.d("SPARE_PARTS", currentSparePartAddress )
