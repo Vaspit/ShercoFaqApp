@@ -59,12 +59,14 @@ class SparePartsFragment : Fragment() {
                             bike[currentBikeIndex].bikeEngineType +
                             bike[currentBikeIndex].bikeEngineVolume +
                             bike[currentBikeIndex].bikeEdition
+
                 currentSparePartAddress.trim()
 
                 val sparePartsArrayList = sparePartsModel.getSpareParts(
                     currentSparePartAddress,
                     currentSparePartType,
-                    currentSparePartName
+                    currentSparePartName,
+                    requireContext()
                 )
 
                 if (sparePartsArrayList.size != 0) {
