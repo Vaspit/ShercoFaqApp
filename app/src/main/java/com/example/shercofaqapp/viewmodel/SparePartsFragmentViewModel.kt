@@ -13,14 +13,33 @@ import kotlin.reflect.typeOf
 
 class SparePartsFragmentViewModel: ViewModel() {
 
+    private val sparePartsArrayList = arrayListOf<SparePart>()
+
     fun getSpareParts(
         currentSparePartAddress: String,
         currentSparePartType: String,
         currentSparePartName: String,
     ): ArrayList<SparePart> {
 
+        fillTheArrayList(
+            currentSparePartAddress,
+            currentSparePartType,
+            currentSparePartName,
+            sparePartsArrayList
+        )
+
+        Log.d("SPARE_PARTS", "Before 'return': " + sparePartsArrayList.toString())
+
+        return sparePartsArrayList
+    }
+
+    private fun fillTheArrayList(
+        currentSparePartAddress: String,
+        currentSparePartType: String,
+        currentSparePartName: String,
+        sparePartsArrayList: ArrayList<SparePart>) {
+
         val database = Firebase.database.reference
-        val sparePartsArrayList = ArrayList<SparePart>()
 
         try {
             database.child("parts").child(currentSparePartAddress)
@@ -29,11 +48,8 @@ class SparePartsFragmentViewModel: ViewModel() {
                 .get().addOnSuccessListener {
                     val gson = Gson()
                     val json = JSONObject(gson.toJson(it.value).toString())
-                    Log.d("SPARE_PARTS", json.toString())
 
                     val sparePartsArray = json.getJSONArray(currentSparePartName)
-//
-                    Log.d("SPARE_PARTS", sparePartsArray.toString())
 
                     for (i in 0 until sparePartsArray.length()) {
                         val sparePartJSONObject = sparePartsArray.getJSONObject(i)
@@ -47,14 +63,14 @@ class SparePartsFragmentViewModel: ViewModel() {
                         sparePartsArrayList.add(sparePart)
                     }
 
+                    Log.d("SPARE_PARTS", "Inside the loop:" + sparePartsArrayList.toString())
+
                 }.addOnFailureListener{
                     Log.e("firebase", "Error getting data", it)
                 }
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        
-        return sparePartsArrayList
     }
 
 }

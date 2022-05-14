@@ -9,16 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentSparePartsBinding
 import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.model.SparePart
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
-import com.example.shercofaqapp.viewmodel.RecyclerViewSparePartsAdapter
 import com.example.shercofaqapp.viewmodel.SparePartsFragmentViewModel
 
 class SparePartsFragment : Fragment() {
@@ -32,7 +28,6 @@ class SparePartsFragment : Fragment() {
     private var currentSparePartAddress = ""
     private lateinit var currentSparePartType: String
     private lateinit var currentSparePartName: String
-    private var sparePartsArrayList = arrayListOf<SparePart>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +44,6 @@ class SparePartsFragment : Fragment() {
                 for (bikeItem: Int in bike.indices) {
                     if (bike[bikeItem].bikeId == bikeId) {
                         currentBikeIndex = bikeItem
-//                        Log.d("SPARE_PARTS", currentBikeIndex.toString())
                         break
                     }
                 }
@@ -62,18 +56,11 @@ class SparePartsFragment : Fragment() {
 
                 currentSparePartAddress.trim()
 
-                val sparePartsArrayList = sparePartsModel.getSpareParts(
+                sparePartsModel.getSpareParts(
                     currentSparePartAddress,
                     currentSparePartType,
                     currentSparePartName,
-                    requireContext()
                 )
-
-                if (sparePartsArrayList.size != 0) {
-                    sparePartsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                    sparePartsRecyclerView.adapter = RecyclerViewSparePartsAdapter(sparePartsArrayList)
-                    sparePartsRecyclerView.setHasFixedSize(true)
-                }
             }
 
             //get bike id and current spare part

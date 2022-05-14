@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Studio Projects/ShercoFaqApp/app/src/main/res/layout/fragment_parts_type.xml" value="0.36666666666666664" />
-        <entry key="..\:/Android Studio Projects/ShercoFaqApp/app/src/main/res/layout/fragment_spare_part.xml" value="0.33" />
-        <entry key="..\:/Android Studio Projects/ShercoFaqApp/app/src/main/res/layout/fragment_spare_parts.xml" value="0.17831813576494426" />
-        <entry key="..\:/Android Studio Projects/ShercoFaqApp/app/src/main/res/layout/spare_parts_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android Studio Projects/ShercoFaqApp/app/src/main/res/layout/fragment_spare_part.xml" value="0.358695652173913" />
+        <entry key="..\:/Android Studio Projects/ShercoFaqApp/app/src/main/res/layout/garage_item.xml" value="0.358695652173913" />
+        <entry key="..\:/Android Studio Projects/ShercoFaqApp/app/src/main/res/layout/part_list_item.xml" value="0.33" />
+        <entry key="..\:/Android Studio Projects/ShercoFaqApp/app/src/main/res/layout/part_type_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/drawable-hdpi/round_corner_button.xml" value="0.338" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.2895" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/drawable/round_corner.xml" value="0.2895" />

@@ -40,7 +40,6 @@ android {
     dataBinding {
         enabled = true
     }
-    namespace 'com.example.shercofaqapp'
 
 
 }
