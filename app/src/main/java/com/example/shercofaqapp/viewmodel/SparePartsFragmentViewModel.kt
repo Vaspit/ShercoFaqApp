@@ -1,6 +1,7 @@
 package com.example.shercofaqapp.viewmodel
 
 import android.util.Log
+import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.ViewModel
 import com.example.shercofaqapp.model.SparePart
 import com.google.firebase.database.ktx.database
@@ -13,6 +14,8 @@ import kotlin.reflect.typeOf
 
 class SparePartsFragmentViewModel: ViewModel() {
 
+    private val sparePartsArrayList = arrayListOf<SparePart>()
+
     fun getSpareParts(
         currentSparePartAddress: String,
         currentSparePartType: String,
@@ -20,7 +23,7 @@ class SparePartsFragmentViewModel: ViewModel() {
     ): ArrayList<SparePart> {
 
         val database = Firebase.database.reference
-        val sparePartsArrayList = ArrayList<SparePart>()
+//        val sparePartsArrayList = ArrayList<SparePart>()
 
         try {
             database.child("parts").child(currentSparePartAddress)
@@ -29,12 +32,12 @@ class SparePartsFragmentViewModel: ViewModel() {
                 .get().addOnSuccessListener {
                     val gson = Gson()
                     val json = JSONObject(gson.toJson(it.value).toString())
-                    Log.d("SPARE_PARTS", json.toString())
+//                    Log.d("SPARE_PARTS", json.toString())
 
                     val sparePartsArray = json.getJSONArray(currentSparePartName)
-//
-                    Log.d("SPARE_PARTS", sparePartsArray.toString())
+//                    Log.d("SPARE_PARTS", sparePartsArray.toString())
 
+                    //Fill spare parts array
                     for (i in 0 until sparePartsArray.length()) {
                         val sparePartJSONObject = sparePartsArray.getJSONObject(i)
                         val sparePart = SparePart(
@@ -45,15 +48,17 @@ class SparePartsFragmentViewModel: ViewModel() {
                         )
 
                         sparePartsArrayList.add(sparePart)
+                        Log.d("SPARE_PARTS", sparePartsArrayList.toString())
                     }
-
                 }.addOnFailureListener{
                     Log.e("firebase", "Error getting data", it)
                 }
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        
+
+        Log.d("SPARE_PARTS", sparePartsArrayList.toString())
+
         return sparePartsArrayList
     }
 

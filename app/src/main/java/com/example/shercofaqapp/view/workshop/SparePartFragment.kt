@@ -1,19 +1,26 @@
 package com.example.shercofaqapp.view.workshop
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.example.shercofaqapp.R
+import com.example.shercofaqapp.databinding.FragmentSparePartBinding
+
 
 class SparePartFragment : Fragment() {
+
+    lateinit var binding: FragmentSparePartBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_spare_part, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_spare_part, container, false)
+
+        return binding.root
     }
 }

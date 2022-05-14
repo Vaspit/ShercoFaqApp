@@ -30,6 +30,9 @@
     <string name="top_menu_log_out">Log out</string>
     <string name="name">Name</string>
     <string name="parts_name">Parts name</string>
+    <string name="description">Description</string>
+    <string name="the_description_of_current_spare_part">The description of current spare part...</string>
+    <string name="links">Links</string>
 
     <string-array name="bike_type_spinner_text">
         <item>Enduro</item>
