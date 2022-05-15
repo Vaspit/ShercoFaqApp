@@ -21,6 +21,7 @@ import com.example.shercofaqapp.databinding.FragmentSparePartsBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.model.SparePart
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
+import com.example.shercofaqapp.viewmodel.SparePartsAdapter
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
@@ -38,7 +39,7 @@ class SparePartsFragment : Fragment() {
     private lateinit var currentSparePartType: String
     private lateinit var currentSparePartName: String
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mAdapter: FirebaseRecyclerAdapter<SparePart,SparePartsHolder>
+    private lateinit var mAdapter: FirebaseRecyclerAdapter<SparePart, SparePartsHolder>
     private lateinit var mRefSpareParts:DatabaseReference
     private var currentBikeIndex = 0
 
@@ -64,7 +65,6 @@ class SparePartsFragment : Fragment() {
                         break
                     }
                 }
-                Log.d("RecyclerViewDebugging", "Fill the recyclerview from onCreate()")
                 initRecyclerView(bike, currentBikeIndex)
             }
 
@@ -72,14 +72,14 @@ class SparePartsFragment : Fragment() {
             sharedPref = root.context
                 .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             bikeId = sharedPref.getLong("bikeId", 0)
-            currentSparePartType = sharedPref.getString("currentSparePartsType", "").toString()
-            currentSparePartName = sharedPref.getString("currentSparePartsName", "").toString()
+            currentSparePartType =
+                sharedPref.getString("currentSparePartsType", "").toString()
+            currentSparePartName =
+                sharedPref.getString("currentSparePartsName", "").toString()
 
-            //forming parts address
             bikeModel.bikes.observe(viewLifecycleOwner, bikeObserver)
         }
 
-        // Inflate the layout for this fragment
         return binding.root
     }
 
