@@ -2,7 +2,9 @@ package com.example.shercofaqapp.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.model.SparePart
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -18,28 +20,10 @@ class SparePartsFragmentViewModel: ViewModel() {
     fun getSpareParts(
         currentSparePartAddress: String,
         currentSparePartType: String,
-        currentSparePartName: String,
-    ): ArrayList<SparePart> {
+        currentSparePartName: String
+    ) {
 
-        fillTheArrayList(
-            currentSparePartAddress,
-            currentSparePartType,
-            currentSparePartName,
-            sparePartsArrayList
-        )
-
-        Log.d("SPARE_PARTS", "Before 'return': " + sparePartsArrayList.toString())
-
-        return sparePartsArrayList
-    }
-
-    private fun fillTheArrayList(
-        currentSparePartAddress: String,
-        currentSparePartType: String,
-        currentSparePartName: String,
-        sparePartsArrayList: ArrayList<SparePart>) {
-
-        val database = Firebase.database.reference
+                val database = Firebase.database.reference
 
         try {
             database.child("parts").child(currentSparePartAddress)
@@ -71,6 +55,10 @@ class SparePartsFragmentViewModel: ViewModel() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+
+//        Log.d("SPARE_PARTS", "Before 'return': " + sparePartsArrayList.toString())
+
+//        return sparePartsArrayList
     }
 
 }

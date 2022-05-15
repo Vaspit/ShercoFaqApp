@@ -46,6 +46,7 @@ class RecyclerViewSparePartsAdapter(private val sparePartsList: ArrayList<SpareP
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(sparePartsList[position])
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
