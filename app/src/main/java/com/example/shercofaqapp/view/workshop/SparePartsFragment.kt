@@ -3,6 +3,7 @@ package com.example.shercofaqapp.view.workshop
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +21,6 @@ import com.example.shercofaqapp.databinding.FragmentSparePartsBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.model.SparePart
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
-import com.example.shercofaqapp.viewmodel.RecyclerViewSparePartsAdapter
-import com.example.shercofaqapp.viewmodel.SparePartsFragmentViewModel
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
@@ -34,12 +33,10 @@ class SparePartsFragment : Fragment() {
     private var bikeId: Long = 0
     private val bikeModel: GarageFragmentViewModel by viewModels()
     private lateinit var sharedPref: SharedPreferences
-//    private val sparePartsModel: SparePartsFragmentViewModel by viewModels()
     lateinit var bike: Bike
     private var currentSparePartAddress = ""
     private lateinit var currentSparePartType: String
     private lateinit var currentSparePartName: String
-    private var sparePartsArrayList = emptyList<SparePart>()
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: FirebaseRecyclerAdapter<SparePart,SparePartsHolder>
     private lateinit var mRefSpareParts:DatabaseReference
@@ -67,35 +64,35 @@ class SparePartsFragment : Fragment() {
                         break
                     }
                 }
-
+                Log.d("RecyclerViewDebugging", "Fill the recyclerview from onCreate()")
                 initRecyclerView(bike, currentBikeIndex)
-
-
-
             }
 
             //get bike id and current spare part
             sharedPref = root.context
                 .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             bikeId = sharedPref.getLong("bikeId", 0)
-            currentSparePartType = sharedPref.getString("currentSparePartType", "").toString()
-            currentSparePartName = sharedPref.getString("currentSparePartName", "").toString()
+            currentSparePartType = sharedPref.getString("currentSparePartsType", "").toString()
+            currentSparePartName = sharedPref.getString("currentSparePartsName", "").toString()
 
             //forming parts address
             bikeModel.bikes.observe(viewLifecycleOwner, bikeObserver)
         }
 
-
         // Inflate the layout for this fragment
         return binding.root
     }
 
+    //fill the recyclerview
     private fun initRecyclerView(bike: List<Bike>, currentBikeIndex: Int) {
         mRecyclerView = binding.sparePartsRecyclerView
+        val editor = sharedPref.edit()
         mRefSpareParts = Firebase.database.getReference("parts")
             .child(getCurrentSparePartAddress(bike, currentBikeIndex))
             .child(currentSparePartType)
             .child(currentSparePartName)
+
+        Log.d("RecyclerViewDebugging", "" + mRefSpareParts)
 
         val options = FirebaseRecyclerOptions.Builder<SparePart>()
             .setQuery(mRefSpareParts, SparePart::class.java)
@@ -117,23 +114,21 @@ class SparePartsFragment : Fragment() {
             ) {
                 holder.name.text = model.sparePartName
                 holder.image.setImageResource(R.drawable.ic_baseline_parts)
-//                holder.itemView.setOnClickListener {
-//                    editor.putString("currentSparePartName", model.sparePartName.toString().trim())
-//                    editor.putString("currentSparePartDescription", model.sparePartDescription.toString().trim())
-//                    editor.putString("currentSparePartLink", model.sparePartLink.toString().trim())
-//                    editor.putInt("currentSparePartImage", model.sparePartImage!!)
-//                    editor.apply()
-//                    Navigation.findNavController(requireView())
-//                        .navigate(R.id.action_sparePartsFragment_to_sparePartFragment)
-//                }
+                holder.itemView.setOnClickListener {
+                    editor.putString("currentSparePartName", model.sparePartName.toString().trim())
+                    editor.putString("currentSparePartDescription", model.sparePartDescription.toString().trim())
+                    editor.putString("currentSparePartLink", model.sparePartLink.toString().trim())
+                    editor.putInt("currentSparePartImage", model.sparePartImage!!)
+                    editor.apply()
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_sparePartsFragment_to_sparePartFragment)
+                }
             }
-
         }
 
         mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         mRecyclerView.adapter = mAdapter
         mAdapter.startListening()
-
     }
 
     private fun getCurrentSparePartAddress(

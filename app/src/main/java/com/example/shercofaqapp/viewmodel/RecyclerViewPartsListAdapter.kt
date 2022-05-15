@@ -28,8 +28,8 @@ class RecyclerViewPartsListAdapter(private val partListList: ArrayList<Part>):
             partsImageView.setImageResource(part.partImage!!)
 
             itemView.setOnClickListener {
-                editor.putString("currentSparePartType", part.partType)
-                editor.putString("currentSparePartName", part.partName)
+                editor.putString("currentSparePartsType", part.partType)
+                editor.putString("currentSparePartsName", part.partName)
                 editor.apply()
                 Navigation.findNavController(itemView)
                     .navigate(R.id.action_partsListFragment_to_sparePartsFragment)
