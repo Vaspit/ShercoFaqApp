@@ -39,14 +39,9 @@ class SparePartsFragment : Fragment() {
     private lateinit var currentSparePartType: String
     private lateinit var currentSparePartName: String
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mAdapter: FirebaseRecyclerAdapter<SparePart, SparePartsHolder>
+    private lateinit var mAdapter: SparePartsAdapter
     private lateinit var mRefSpareParts:DatabaseReference
     private var currentBikeIndex = 0
-
-    class SparePartsHolder(view: View): RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.sparePartsTextView)
-        val image: ImageView = view.findViewById(R.id.sparePartsImageView)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +60,7 @@ class SparePartsFragment : Fragment() {
                         break
                     }
                 }
-                initRecyclerView(bike, currentBikeIndex)
+                initRecyclerView1(bike, currentBikeIndex)
             }
 
             //get bike id and current spare part
@@ -83,10 +78,8 @@ class SparePartsFragment : Fragment() {
         return binding.root
     }
 
-    //fill the recyclerview
-    private fun initRecyclerView(bike: List<Bike>, currentBikeIndex: Int) {
+    private fun initRecyclerView1(bike: List<Bike>, currentBikeIndex: Int) {
         mRecyclerView = binding.sparePartsRecyclerView
-        val editor = sharedPref.edit()
         mRefSpareParts = Firebase.database.getReference("parts")
             .child(getCurrentSparePartAddress(bike, currentBikeIndex))
             .child(currentSparePartType)
@@ -97,36 +90,9 @@ class SparePartsFragment : Fragment() {
         val options = FirebaseRecyclerOptions.Builder<SparePart>()
             .setQuery(mRefSpareParts, SparePart::class.java)
             .build()
-        mAdapter = object: FirebaseRecyclerAdapter<SparePart, SparePartsHolder>(options) {
-
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SparePartsHolder {
-                val view = LayoutInflater
-                    .from(parent.context)
-                    .inflate(R.layout.spare_parts_item, parent, false)
-
-                return SparePartsHolder(view)
-            }
-
-            override fun onBindViewHolder(
-                holder: SparePartsHolder,
-                position: Int,
-                model: SparePart
-            ) {
-                holder.name.text = model.sparePartName
-                holder.image.setImageResource(R.drawable.ic_baseline_parts)
-                holder.itemView.setOnClickListener {
-                    editor.putString("currentSparePartName", model.sparePartName.toString().trim())
-                    editor.putString("currentSparePartDescription", model.sparePartDescription.toString().trim())
-                    editor.putString("currentSparePartLink", model.sparePartLink.toString().trim())
-                    editor.putInt("currentSparePartImage", model.sparePartImage!!)
-                    editor.apply()
-                    Navigation.findNavController(requireView())
-                        .navigate(R.id.action_sparePartsFragment_to_sparePartFragment)
-                }
-            }
-        }
 
         mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        mAdapter = SparePartsAdapter(options)
         mRecyclerView.adapter = mAdapter
         mAdapter.startListening()
     }
