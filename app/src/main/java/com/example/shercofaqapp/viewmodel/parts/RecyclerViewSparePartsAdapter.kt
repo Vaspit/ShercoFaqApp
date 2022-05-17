@@ -1,8 +1,7 @@
-package com.example.shercofaqapp.viewmodel
+package com.example.shercofaqapp.viewmodel.parts
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,9 @@ import com.example.shercofaqapp.model.SparePart
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class SparePartsAdapter(
+class RecyclerViewSparePartsAdapter(
     options: FirebaseRecyclerOptions<SparePart>
-    ) : FirebaseRecyclerAdapter<SparePart, SparePartsAdapter.SparePartHolder>(options){
+    ) : FirebaseRecyclerAdapter<SparePart, RecyclerViewSparePartsAdapter.SparePartHolder>(options){
 
     class SparePartHolder(item: View): RecyclerView.ViewHolder(item) {
 
@@ -61,7 +60,6 @@ class SparePartsAdapter(
             Navigation.findNavController(holder.itemView)
                 .navigate(R.id.action_sparePartsFragment_to_sparePartFragment)
         }
-        Log.d("RecyclerViewDebugging", "Item $position has created")
     }
 
 

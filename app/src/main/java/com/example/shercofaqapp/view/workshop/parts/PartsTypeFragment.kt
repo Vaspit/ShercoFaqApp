@@ -1,4 +1,4 @@
-package com.example.shercofaqapp.view.workshop
+package com.example.shercofaqapp.view.workshop.parts
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentPartsTypeBinding
 import com.example.shercofaqapp.model.PartType
-import com.example.shercofaqapp.viewmodel.RecyclerViewPartsTypeAdapter
+import com.example.shercofaqapp.viewmodel.parts.RecyclerViewPartsTypeAdapter
 import java.util.ArrayList
 
 

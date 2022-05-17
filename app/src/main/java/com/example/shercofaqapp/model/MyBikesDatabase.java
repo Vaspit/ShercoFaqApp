@@ -21,24 +21,19 @@ public abstract class MyBikesDatabase extends RoomDatabase {
     public static synchronized MyBikesDatabase getInstance(Context context) {
 
         if (instance == null) {
-
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     MyBikesDatabase.class, "myBikesDB")
                     .fallbackToDestructiveMigration()
                     .addCallback(callback)
                     .build();
-
         }
-
         return instance;
-
     }
 
     private static RoomDatabase.Callback callback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-
         }
     };
 

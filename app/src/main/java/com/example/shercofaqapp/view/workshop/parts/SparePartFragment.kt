@@ -1,4 +1,4 @@
-package com.example.shercofaqapp.view.workshop
+package com.example.shercofaqapp.view.workshop.parts
 
 import android.content.Context
 import android.content.Intent

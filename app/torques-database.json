@@ -1,0 +1,200 @@
+{
+  "2019Enduro2S250Factory": {
+    "engine": {
+      "Drain plug": [
+        {
+          "torqueValue": "10Nm",
+          "wrenchSize": "M16",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Sparkplug": [
+        {
+          "torqueValue": "15Nm",
+          "wrenchSize": "",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Water pump housing screws": [
+        {
+          "torqueValue": "10Nm",
+          "wrenchSize": "M6",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Clutch cover screws": [
+        {
+          "torqueValue": "10Nm",
+          "wrenchSize": "M6",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ]
+    },
+    "chassis": {
+      "Shock screw lock nut": [
+        {
+          "torqueValue": "5Nm",
+          "wrenchSize": "M5",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Other chassis screws M6": [
+        {
+          "torqueValue": "10Nm",
+          "wrenchSize": "M6",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Other chassis screws M8": [
+        {
+          "torqueValue": "24Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Disc brake screws front / rear": [
+        {
+          "torqueValue": "24Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": "Loctite 243"
+        }
+      ],
+      "Crown screw": [
+        {
+          "torqueValue": "23Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Handlebar clamp fastetning screws": [
+        {
+          "torqueValue": "25Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Fork upper screw": [
+        {
+          "torqueValue": "17Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Fork lower screw": [
+        {
+          "torqueValue": "12Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Upper screw": [
+        {
+          "torqueValue": "17Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Fork pinch bolt screw": [
+        {
+          "torqueValue": "12Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Side support screw": [
+        {
+          "torqueValue": "25Nm",
+          "wrenchSize": "M8",
+          "toqueImage": 0,
+          "note": "Loctite 243"
+        }
+      ],
+      "Other chassis screw": [
+        {
+          "torqueValue": "40Nm",
+          "wrenchSize": "M10",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Handlebar fixing screw": [
+        {
+          "torqueValue": "40Nm",
+          "wrenchSize": "M10",
+          "toqueImage": 0,
+          "note": "Loctite 243"
+        }
+      ],
+      "Top shock screw": [
+        {
+          "torqueValue": "40Nm",
+          "wrenchSize": "M10",
+          "toqueImage": 0,
+          "note": " Loctite 2701.\n Loctite 243 is acceptable."
+        }
+      ],
+      "Motor mounting bolts": [
+        {
+          "torqueValue": "40Nm",
+          "wrenchSize": "M10",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Suspension delta / H-links bolts": [
+        {
+          "torqueValue": "40Nm",
+          "wrenchSize": "M12",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Swing arm pivot bolt": [
+        {
+          "torqueValue": "100Nm",
+          "wrenchSize": "M16",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Front wheel nut": [
+        {
+          "torqueValue": "25Nm",
+          "wrenchSize": "M20",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Steering shaft nut": [
+        {
+          "torqueValue": "30Nm",
+          "wrenchSize": "M20",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ],
+      "Rear wheel nut": [
+        {
+          "torqueValue": "100Nm",
+          "wrenchSize": "M24",
+          "toqueImage": 0,
+          "note": ""
+        }
+      ]
+    }
+  }
+}

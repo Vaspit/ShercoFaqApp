@@ -1,9 +1,8 @@
-package com.example.shercofaqapp.view.workshop
+package com.example.shercofaqapp.view.workshop.parts
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentPartsListBinding
 import com.example.shercofaqapp.model.Part
-import com.example.shercofaqapp.viewmodel.RecyclerViewPartsListAdapter
+import com.example.shercofaqapp.viewmodel.parts.RecyclerViewPartsListAdapter
 import java.util.ArrayList
 
 class PartsListFragment : Fragment() {
@@ -38,22 +37,11 @@ class PartsListFragment : Fragment() {
                 partsListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 partsListRecyclerView.adapter = recyclerViewAdapter
                 partsListRecyclerView.setHasFixedSize(true)
-
-                //get bike parameters from bikeDataBase
-
             } else {
                 Toast.makeText(context,
                     "There are no known spare parts yet!", Toast.LENGTH_LONG).show()
             }
         }
-
-        //---test------
-//        database.child("parts").get().addOnSuccessListener {
-//            Log.d("PARTS", it.value.toString())
-//        }.addOnFailureListener{
-//            Log.e("firebase", "Error getting data", it)
-//        }
-        //-----------------------
         return binding.root
     }
 
@@ -75,11 +63,11 @@ class PartsListFragment : Fragment() {
             Part("Front wheel", "Oil seals", R.drawable.ic_baseline_parts),
             Part("Rear wheel", "Wheel bearings", R.drawable.ic_baseline_parts),
             Part("Rear wheel", "Oil seals", R.drawable.ic_baseline_parts),
-            Part("Rear wheel", "Sprocket", R.drawable.ic_baseline_parts),
+            Part("Rear wheel", "Sprocket Z49", R.drawable.ic_baseline_parts),
             Part("Brakes", "Front brake pads", R.drawable.ic_baseline_parts),
             Part("Brakes", "Rear brake pads", R.drawable.ic_baseline_parts),
-            Part("Brakes", "Brake pedal bearing", R.drawable.ic_baseline_parts),
-            Part("Brakes", "Brake pedal bearing", R.drawable.ic_baseline_parts),
+            Part("Brakes", "Brake pedal bearings", R.drawable.ic_baseline_parts),
+            Part("Brakes", "Brake pedal bearings", R.drawable.ic_baseline_parts),
             Part("Plastic", "Plastic kit", R.drawable.ic_baseline_parts),
             Part("Case", "Cylinder head seal", R.drawable.ic_baseline_parts),
             Part("Case", "Crankshaft oil seal", R.drawable.ic_baseline_parts),

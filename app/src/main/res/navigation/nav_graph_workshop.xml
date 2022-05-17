@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_faq" />
     <fragment
         android:id="@+id/partsFragment"
-        android:name="com.example.shercofaqapp.view.workshop.PartsTypeFragment"
+        android:name="com.example.shercofaqapp.view.workshop.parts.PartsTypeFragment"
         android:label="fragment_parts"
         tools:layout="@layout/fragment_parts_type" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/partsListFragment"
-        android:name="com.example.shercofaqapp.view.workshop.PartsListFragment"
+        android:name="com.example.shercofaqapp.view.workshop.parts.PartsListFragment"
         android:label="fragment_parts_list"
         tools:layout="@layout/fragment_parts_list" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/sparePartsFragment"
-        android:name="com.example.shercofaqapp.view.workshop.SparePartsFragment"
+        android:name="com.example.shercofaqapp.view.workshop.parts.SparePartsFragment"
         android:label="fragment_spare_parts"
         tools:layout="@layout/fragment_spare_parts" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/sparePartFragment"
-        android:name="com.example.shercofaqapp.view.workshop.SparePartFragment"
+        android:name="com.example.shercofaqapp.view.workshop.parts.SparePartFragment"
         android:label="fragment_spare_part"
         tools:layout="@layout/fragment_spare_part" />
 </navigation>

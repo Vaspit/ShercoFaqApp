@@ -1,4 +1,4 @@
-package com.example.shercofaqapp.viewmodel
+package com.example.shercofaqapp.viewmodel.parts
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,9 +9,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.PartListItemBinding
-import com.example.shercofaqapp.databinding.PartTypeItemBinding
 import com.example.shercofaqapp.model.Part
-import com.example.shercofaqapp.model.PartType
 
 class RecyclerViewPartsListAdapter(private val partListList: ArrayList<Part>):
     RecyclerView.Adapter<RecyclerViewPartsListAdapter.ViewHolder>() {

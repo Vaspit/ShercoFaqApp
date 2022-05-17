@@ -2,7 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.workshop.PartsListFragment">
+    tools:context=".view.workshop.parts.PartsListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/partsListRecyclerView"

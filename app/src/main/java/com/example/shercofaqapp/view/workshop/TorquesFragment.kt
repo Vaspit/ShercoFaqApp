@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.shercofaqapp.R
+import com.example.shercofaqapp.databinding.FragmentTorquesBinding
 
 class TorquesFragment : Fragment() {
 
-    lateinit var binding: com.example.shercofaqapp.databinding.FragmentTorquesBinding
-
-    companion object {
-        fun newInstance() = TorquesFragment()
-    }
+    lateinit var binding: FragmentTorquesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

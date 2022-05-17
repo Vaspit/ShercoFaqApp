@@ -1,17 +1,13 @@
-package com.example.shercofaqapp.viewmodel
+package com.example.shercofaqapp.viewmodel.parts
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.model.SparePart
-import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
-import java.lang.Exception
-import kotlin.reflect.typeOf
 
 class SparePartsFragmentViewModel: ViewModel() {
 
