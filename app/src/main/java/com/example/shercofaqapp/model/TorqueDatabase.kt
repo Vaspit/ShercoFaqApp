@@ -6,13 +6,16 @@ import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.Charset
 
-class TorqueDatabase(private val context: Context) {
+class TorqueDatabase(
+    private val context: Context,
+    val bikeAddress: String
+    ) {
     lateinit var torque: Torque
     lateinit var torquesList: ArrayList<Torque>
 
     fun getTorque() {
         // Instance of users list using the data model class.
-        val usersList: ArrayList<Torque> = ArrayList()
+        val torqueList: ArrayList<Torque> = ArrayList()
 
 //        try {
 //            // As we have JSON object, so we are getting the object
@@ -26,8 +29,8 @@ class TorqueDatabase(private val context: Context) {
 //                // Create a JSONObject for fetching single User's Data
 //                val torque = torquesArray.getJSONObject(i)
 //                // Fetch id store it in variable
-//                val id = torque.getInt("id")
-//                val name = torque.getString("name")
+//                val torqueBikeAddress = torque.getInt(bikeAddress)
+//                val torqueName = torque.getString("Drain plug")
 //                val email = torque.getString("email")
 //                val gender = torque.getString("gender")
 //                val weight = torque.getDouble("weight")
