@@ -1,59 +1,44 @@
 package com.example.shercofaqapp.model
 
 import android.content.Context
+import android.util.Log
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.Charset
 
-class TorqueDatabase(
-    private val context: Context,
-    val bikeAddress: String
-    ) {
+class TorqueDatabase(private val context: Context) {
     lateinit var torque: Torque
-    lateinit var torquesList: ArrayList<Torque>
 
-    fun getTorque() {
+    fun getTorque(bikeAddress: String) {
         // Instance of users list using the data model class.
-        val torqueList: ArrayList<Torque> = ArrayList()
+        val torquesList: ArrayList<String> = ArrayList()
 
-//        try {
-//            // As we have JSON object, so we are getting the object
-//            //Here we are calling a Method which is returning the JSON object
-//            val obj = JSONObject(getJSONFromAssets()!!)
-//            // fetch JSONArray named users by using getJSONArray
-//            val torquesArray = obj.getJSONArray("users")
-//            // Get the users data using for loop i.e. id, name, email and so on
-//
+        try {
+            val obj = JSONObject(getJSONFromAssets()!!)
+            val torquesArray = obj.getJSONObject(bikeAddress)
+
+
+            Log.d("DATABASE_TORQUE",
+                torquesArray.toString())
 //            for (i in 0 until torquesArray.length()) {
 //                // Create a JSONObject for fetching single User's Data
-//                val torque = torquesArray.getJSONObject(i)
+//                val torqueFromFile = torquesArray.getJSONObject(i)
 //                // Fetch id store it in variable
-//                val torqueBikeAddress = torque.getInt(bikeAddress)
-//                val torqueName = torque.getString("Drain plug")
-//                val email = torque.getString("email")
-//                val gender = torque.getString("gender")
-//                val weight = torque.getDouble("weight")
-//                val height = torque.getInt("height")
+//                val torque = torqueFromFile.getString(bikeAddress)
 //
-//                // create a object for getting phone numbers data from JSONObject
-//                val phone = torque.getJSONObject("phone")
-//                // fetch mobile number
-//                val mobile = phone.getString("mobile")
-//                // fetch office number
-//                val office = phone.getString("office")
-//
-//                // Now add all the variables to the data model class and the data model class to the array list.
-//                val torqueDetails =
-//                    Torque(id, name, email, gender, weight, height, mobile, office)
+//                val currentTorque =
+//                    Torque(torqueBikeAddress, torqueType, torqueName, torqueValue, troqueImage)
 //
 //                // add the details in the list
-//                torquesList.add(torqueDetails)
+//                torquesList.add(torque)
+//
+//                Log.d("DATABASE_TORQUE", torquesList[i])
 //            }
-//        } catch (e: JSONException) {
-//            //exception
-//            e.printStackTrace()
-//        }
+        } catch (e: JSONException) {
+            //exception
+            e.printStackTrace()
+        }
     }
 
     private fun getJSONFromAssets(): String? {
@@ -61,7 +46,7 @@ class TorqueDatabase(
         var json: String? = null
         val charset: Charset = Charsets.UTF_8
         try {
-            val torquesJSONFile = context.assets.open("Users.json")
+            val torquesJSONFile = context.assets.open("torques-database.json")
             val size = torquesJSONFile.available()
             val buffer = ByteArray(size)
             torquesJSONFile.read(buffer)
@@ -71,6 +56,7 @@ class TorqueDatabase(
             ex.printStackTrace()
             return null
         }
+
         return json
 
     }
