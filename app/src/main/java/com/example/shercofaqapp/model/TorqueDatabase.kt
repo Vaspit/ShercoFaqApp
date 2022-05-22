@@ -10,36 +10,30 @@ import java.nio.charset.Charset
 class TorqueDatabase(private val context: Context) {
     lateinit var torque: Torque
 
-    fun getTorque(bikeAddress: String) {
-        // Instance of users list using the data model class.
-        val torquesList: ArrayList<String> = ArrayList()
-
-        try {
-            val obj = JSONObject(getJSONFromAssets()!!)
-            val torquesArray = obj.getJSONObject(bikeAddress)
-
-
-            Log.d("DATABASE_TORQUE",
-                torquesArray.toString())
-//            for (i in 0 until torquesArray.length()) {
-//                // Create a JSONObject for fetching single User's Data
-//                val torqueFromFile = torquesArray.getJSONObject(i)
-//                // Fetch id store it in variable
-//                val torque = torqueFromFile.getString(bikeAddress)
+//    fun getTorque(bikeAddress: String): ArrayList<Torque> {
+//        // Instance of users list using the data model class.
+//        val torquesArrayList: ArrayList<String> = ArrayList()
 //
-//                val currentTorque =
-//                    Torque(torqueBikeAddress, torqueType, torqueName, torqueValue, troqueImage)
+//        try {
+//            val obj = JSONObject(getJSONFromAssets()!!)
+//            val torquesArray = obj.getJSONObject(bikeAddress)
 //
-//                // add the details in the list
-//                torquesList.add(torque)
 //
-//                Log.d("DATABASE_TORQUE", torquesList[i])
+//            Log.d("DATABASE_TORQUE",
+//                torquesArray.toString())
+//            Log.d("DATABASE_TORQUE", torquesArray.length().toString())
+//
+//            for (item in torquesArray.keys()) {
+//
 //            }
-        } catch (e: JSONException) {
-            //exception
-            e.printStackTrace()
-        }
-    }
+//
+//        } catch (e: JSONException) {
+//            //exception
+//            e.printStackTrace()
+//        }
+//
+//        return torquesList
+//    }
 
     private fun getJSONFromAssets(): String? {
 
