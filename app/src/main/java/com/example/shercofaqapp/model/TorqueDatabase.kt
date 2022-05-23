@@ -10,30 +10,33 @@ import java.nio.charset.Charset
 class TorqueDatabase(private val context: Context) {
     lateinit var torque: Torque
 
-//    fun getTorque(bikeAddress: String): ArrayList<Torque> {
-//        // Instance of users list using the data model class.
-//        val torquesArrayList: ArrayList<String> = ArrayList()
-//
-//        try {
-//            val obj = JSONObject(getJSONFromAssets()!!)
-//            val torquesArray = obj.getJSONObject(bikeAddress)
-//
-//
-//            Log.d("DATABASE_TORQUE",
-//                torquesArray.toString())
-//            Log.d("DATABASE_TORQUE", torquesArray.length().toString())
-//
-//            for (item in torquesArray.keys()) {
+    fun getTorque(bikeAddress: String): ArrayList<Torque> {
+        // Instance of users list using the data model class.
+        val torquesArrayList: ArrayList<Torque> = ArrayList()
+        var index = 0
+
+        try {
+            val obj = JSONObject(getJSONFromAssets()!!)
+            val json = obj.getJSONObject(bikeAddress)
+            val torqueName: String
+            val torqueType: String
+            val torqueValue: String
+            val torqueImage: Int
+
+            Log.d("DATABASE_TORQUE",
+                json.toString())
+            Log.d("DATABASE_TORQUE", json.length().toString())
+
+//            for (item in json.keys()) {
 //
 //            }
-//
-//        } catch (e: JSONException) {
-//            //exception
-//            e.printStackTrace()
-//        }
-//
-//        return torquesList
-//    }
+        } catch (e: JSONException) {
+            //exception
+            e.printStackTrace()
+        }
+
+        return torquesArrayList
+    }
 
     private fun getJSONFromAssets(): String? {
 
