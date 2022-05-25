@@ -39,16 +39,12 @@ class RecyclerViewPartsListAdapter(private val partListList: ArrayList<Part>):
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-
         return ViewHolder(item = LayoutInflater.from(parent.context)
             .inflate(R.layout.part_list_item, parent, false))
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         holder.bind(partListList[position])
-
     }
 
     override fun getItemCount(): Int {

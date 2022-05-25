@@ -4,5 +4,7 @@ data class Torque (
     val torqueType: String,
     val torqueName: String,
     val torqueValue: String,
-    val torqueImage: Int
+    val wrenchSize: String,
+    val torqueImage: Int,
+    val torqueNote: String
     )

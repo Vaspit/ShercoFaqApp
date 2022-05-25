@@ -32,10 +32,8 @@ class PartsListFragment : Fragment() {
             inflater, R.layout.fragment_parts_list, container, false)
         binding.apply {
             if (setPartListUI(partType!!).size != 0) {
-                val recyclerViewAdapter = RecyclerViewPartsListAdapter(setPartListUI(partType))
-
                 partsListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                partsListRecyclerView.adapter = recyclerViewAdapter
+                partsListRecyclerView.adapter = RecyclerViewPartsListAdapter(setPartListUI(partType))
                 partsListRecyclerView.setHasFixedSize(true)
             } else {
                 Toast.makeText(context,

@@ -1,0 +1,436 @@
+{
+  "2019Enduro2S250Factory": {
+    "Drain plug": [
+      {
+        "torqueType": "engine",
+        "torqueValue": "10Nm",
+        "wrenchSize": "M16",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Spark plug": [
+      {
+        "torqueType": "engine",
+        "torqueValue": "15Nm",
+        "wrenchSize": "",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Water pump housing screws": [
+      {
+        "torqueType": "engine",
+        "torqueValue": "10Nm",
+        "wrenchSize": "M6",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Clutch cover screws": [
+      {
+        "torqueType": "engine",
+        "torqueValue": "10Nm",
+        "wrenchSize": "M6",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Shock screw lock nut": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "5Nm",
+        "wrenchSize": "M5",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Other chassis screws M6": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "10Nm",
+        "wrenchSize": "M6",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Other chassis screws M8": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "24Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Disc brake screws front / rear": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "24Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": "Loctite 243"
+      }
+    ],
+    "Crown screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "23Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Handlebar clamp fastening screws": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "25Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Fork upper screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "17Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Fork lower screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "12Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Upper screw": [
+      {
+        "torqueValue": "17Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Fork pinch bolt screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "12Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Side support screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "25Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": "Loctite 243"
+      }
+    ],
+    "Other chassis screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M10",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Handlebar fixing screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M10",
+        "torqueImage": 0,
+        "torqueNote": "Loctite 243"
+      }
+    ],
+    "Top shock screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M10",
+        "torqueImage": 0,
+        "torqueNote": " Loctite 2701.\n Loctite 243 is acceptable."
+      }
+    ],
+    "Motor mounting bolts": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M10",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Suspension delta / H-links bolts": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M12",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Swing arm pivot bolt": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "100Nm",
+        "wrenchSize": "M16",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Front wheel nut": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "25Nm",
+        "wrenchSize": "M20",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Steering shaft nut": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "30Nm",
+        "wrenchSize": "M20",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Rear wheel nut": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "100Nm",
+        "wrenchSize": "M24",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ]
+  },
+  "2019Enduro2S300Factory": {
+    "Drain plug": [
+      {
+        "torqueType": "engine",
+        "torqueValue": "10Nm",
+        "wrenchSize": "M16",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Spark plug": [
+      {
+        "torqueType": "engine",
+        "torqueValue": "15Nm",
+        "wrenchSize": "",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Water pump housing screws": [
+      {
+        "torqueType": "engine",
+        "torqueValue": "10Nm",
+        "wrenchSize": "M6",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Clutch cover screws": [
+      {
+        "torqueType": "engine",
+        "torqueValue": "10Nm",
+        "wrenchSize": "M6",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Shock screw lock nut": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "5Nm",
+        "wrenchSize": "M5",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Other chassis screws M6": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "10Nm",
+        "wrenchSize": "M6",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Other chassis screws M8": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "24Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Disc brake screws front / rear": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "24Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": "Loctite 243"
+      }
+    ],
+    "Crown screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "23Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Handlebar clamp fastening screws": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "25Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Fork upper screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "17Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Fork lower screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "12Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Upper screw": [
+      {
+        "torqueValue": "17Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Fork pinch bolt screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "12Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Side support screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "25Nm",
+        "wrenchSize": "M8",
+        "torqueImage": 0,
+        "torqueNote": "Loctite 243"
+      }
+    ],
+    "Other chassis screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M10",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Handlebar fixing screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M10",
+        "torqueImage": 0,
+        "torqueNote": "Loctite 243"
+      }
+    ],
+    "Top shock screw": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M10",
+        "torqueImage": 0,
+        "torqueNote": " Loctite 2701.\n Loctite 243 is acceptable."
+      }
+    ],
+    "Motor mounting bolts": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M10",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Suspension delta / H-links bolts": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "40Nm",
+        "wrenchSize": "M12",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Swing arm pivot bolt": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "100Nm",
+        "wrenchSize": "M16",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Front wheel nut": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "25Nm",
+        "wrenchSize": "M20",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Steering shaft nut": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "30Nm",
+        "wrenchSize": "M20",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ],
+    "Rear wheel nut": [
+      {
+        "torqueType": "chassis",
+        "torqueValue": "100Nm",
+        "wrenchSize": "M24",
+        "torqueImage": 0,
+        "torqueNote": ""
+      }
+    ]
+  }
+}

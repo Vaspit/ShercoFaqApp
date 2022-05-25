@@ -8,28 +8,29 @@ import java.io.IOException
 import java.nio.charset.Charset
 
 class TorqueDatabase(private val context: Context) {
-    lateinit var torque: Torque
 
-    fun getTorque(bikeAddress: String): ArrayList<Torque> {
+    fun getTorques(bikeAddress: String): ArrayList<Torque> {
         // Instance of users list using the data model class.
         val torquesArrayList: ArrayList<Torque> = ArrayList()
-        var index = 0
 
         try {
             val obj = JSONObject(getJSONFromAssets()!!)
-            val json = obj.getJSONObject(bikeAddress)
-            val torqueName: String
-            val torqueType: String
-            val torqueValue: String
-            val torqueImage: Int
+            val torquesArray = obj.getJSONArray(bikeAddress)
 
-            Log.d("DATABASE_TORQUE",
-                json.toString())
-            Log.d("DATABASE_TORQUE", json.length().toString())
-
-//            for (item in json.keys()) {
-//
-//            }
+            for (i in 0 until torquesArray.length()) {
+                val torqueObject = torquesArray.getJSONObject(i)
+                Log.d("DATABASE_TORQUE", torqueObject.toString())
+                val torqueType = torqueObject.getString("torqueType")
+                val torqueName = torqueObject.getString("torqueName")
+                val torqueValue = torqueObject.getString("torqueValue")
+                val wrenchSize = torqueObject.getString("wrenchSize")
+                val torqueImage = torqueObject.getInt("torqueImage")
+                val torqueNote = torqueObject.getString("torqueNote")
+                val torque =
+                    Torque(torqueType, torqueName, torqueValue, wrenchSize, torqueImage, torqueNote)
+//                // add the torques in the list
+                torquesArrayList.add(torque)
+            }
         } catch (e: JSONException) {
             //exception
             e.printStackTrace()
