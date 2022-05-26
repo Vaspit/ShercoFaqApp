@@ -18,11 +18,18 @@ class TorqueFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val torqueName = arguments?.getString("currentTorqueName")
-
+        val torqueValue = arguments?.getString("currentTorqueValue")
+        val threadSize = arguments?.getString("currentThreadSize")
+        val torqueImage = arguments?.getInt("currentTorqueImage")
+        val torqueNote = arguments?.getString("currentTorqueNote")
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_torque, container, false)
         binding.torqueNameTextView.text = torqueName
+        binding.torqueValueTextView.text = torqueValue
+        binding.threadSizeTextView.text = threadSize
+        binding.torqueImageImageView.setImageResource(torqueImage!!)
+        binding.torqueNoteTextView.text = torqueNote
 
         return binding.root
     }

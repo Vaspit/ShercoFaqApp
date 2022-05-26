@@ -7,7 +7,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.Charset
 
-class TorqueRepository(private val context: Context) {
+class TorquesRepository(private val context: Context) {
 
     fun getTorques(bikeAddress: String): ArrayList<Torque> {
         // Instance of users list using the data model class.
@@ -23,11 +23,11 @@ class TorqueRepository(private val context: Context) {
                 val torqueType = torqueObject.getString("torqueType")
                 val torqueName = torqueObject.getString("torqueName")
                 val torqueValue = torqueObject.getString("torqueValue")
-                val wrenchSize = torqueObject.getString("wrenchSize")
+                val threadSize = torqueObject.getString("threadSize")
                 val torqueImage = torqueObject.getInt("torqueImage")
                 val torqueNote = torqueObject.getString("torqueNote")
                 val torque =
-                    Torque(torqueType, torqueName, torqueValue, wrenchSize, torqueImage, torqueNote)
+                    Torque(torqueType, torqueName, torqueValue, threadSize, torqueImage, torqueNote)
 //                // add the torques in the list
                 torquesArrayList.add(torque)
             }

@@ -1,7 +1,5 @@
 package com.example.shercofaqapp.viewmodel.torques
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +23,9 @@ class RecyclerViewTorquesAdapter(private val torquesArrayList: List<Torque>):
             itemView.setOnClickListener {
                 val bundle = bundleOf(
                     "currentTorqueName" to torque.torqueName,
-                    "currentTorqueImage" to torque.torqueImage,
                     "currentTorqueValue" to torque.torqueValue,
+                    "currentThreadSize" to torque.threadSize,
+                    "currentTorqueImage" to torque.torqueImage,
                     "currentTorqueNote" to torque.torqueNote
                 )
                 Navigation.findNavController(itemView)
