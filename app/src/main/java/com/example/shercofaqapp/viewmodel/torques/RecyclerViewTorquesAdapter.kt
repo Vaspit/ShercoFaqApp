@@ -1,8 +1,12 @@
 package com.example.shercofaqapp.viewmodel.torques
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.TorqueItemBinding
@@ -14,26 +18,26 @@ class RecyclerViewTorquesAdapter(private val torquesArrayList: List<Torque>):
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
         val binding = TorqueItemBinding.bind(item)
-//        private val sharedPref: SharedPreferences = item.context
-//            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//        private val editor: SharedPreferences.Editor = sharedPref.edit()
 
         fun bind(torque: Torque) = with(binding) {
             torqueName.text = torque.torqueName
 
             itemView.setOnClickListener {
-//                editor.putString("currentSparePartsType", part.partType)
-//                editor.putString("currentSparePartsName", part.partName)
-//                editor.apply()
-//                Navigation.findNavController(itemView)
-//                    .navigate(R.id.action_partsListFragment_to_sparePartsFragment)
+                val bundle = bundleOf(
+                    "currentTorqueName" to torque.torqueName,
+                    "currentTorqueImage" to torque.torqueImage,
+                    "currentTorqueValue" to torque.torqueValue,
+                    "currentTorqueNote" to torque.torqueNote
+                )
+                Navigation.findNavController(itemView)
+                    .navigate(R.id.action_torquesFragment_to_torqueFragment, bundle)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        return RecyclerViewTorquesAdapter.ViewHolder(
+        return ViewHolder(
             item = LayoutInflater.from(parent.context)
                 .inflate(R.layout.torque_item, parent, false)
         )

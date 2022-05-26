@@ -1,4 +1,4 @@
-package com.example.shercofaqapp.view.workshop
+package com.example.shercofaqapp.view.workshop.torques
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,6 +19,7 @@ import com.example.shercofaqapp.utils.CurrentBikeAddress
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.example.shercofaqapp.viewmodel.torques.RecyclerViewTorquesAdapter
 import com.example.shercofaqapp.viewmodel.torques.TorquesViewModel
+import kotlinx.coroutines.*
 
 
 class TorquesFragment : Fragment() {
@@ -26,16 +27,14 @@ class TorquesFragment : Fragment() {
     private var currentBikeIndex = 0
     private var bikeId: Long = 0
     private lateinit var sharedPref: SharedPreferences
-    var currentBikeAddress = ""
-    private lateinit var engineTorques: ArrayList<Torque>
-    private lateinit var chassisTorques: ArrayList<Torque>
+    private var currentBikeAddress = ""
     private val bikeModel: GarageFragmentViewModel by viewModels()
     lateinit var binding: FragmentTorquesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_torques, container, false)
@@ -49,16 +48,10 @@ class TorquesFragment : Fragment() {
                 }
             }
             currentBikeAddress = CurrentBikeAddress(bike, currentBikeIndex).getCurrentBikeAddress()
-            engineTorques = TorquesViewModel(requireContext()).getEngineTorques(currentBikeAddress)
-            chassisTorques = TorquesViewModel(requireContext()).getChassisTorques(currentBikeAddress)
 
-            binding.engineRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.engineRecyclerView.adapter = RecyclerViewTorquesAdapter(engineTorques)
-            binding.engineRecyclerView.setHasFixedSize(true)
-
-            binding.chassisRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.chassisRecyclerView.adapter = RecyclerViewTorquesAdapter(chassisTorques)
-            binding.chassisRecyclerView.setHasFixedSize(true)
+            CoroutineScope(Dispatchers.IO).launch {
+                setRecyclerViews()
+            }
         }
 
         sharedPref = binding.root.context
@@ -70,4 +63,26 @@ class TorquesFragment : Fragment() {
         return binding.root
     }
 
+    private suspend  fun setRecyclerViews() {
+        val engineTorques = getEngineTorquesFromViewModel()
+        val chassisTorques = getChassisTorquesFromViewModel()
+
+        withContext(Dispatchers.Main) {
+            binding.engineRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.engineRecyclerView.adapter = RecyclerViewTorquesAdapter(engineTorques)
+            binding.engineRecyclerView.setHasFixedSize(true)
+
+            binding.chassisRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.chassisRecyclerView.adapter = RecyclerViewTorquesAdapter(chassisTorques)
+            binding.chassisRecyclerView.setHasFixedSize(true)
+        }
+    }
+
+    private fun getEngineTorquesFromViewModel(): ArrayList<Torque> {
+        return TorquesViewModel(requireContext()).getEngineTorques(currentBikeAddress)
+    }
+
+    private fun getChassisTorquesFromViewModel(): ArrayList<Torque> {
+        return TorquesViewModel(requireContext()).getChassisTorques(currentBikeAddress)
+    }
 }

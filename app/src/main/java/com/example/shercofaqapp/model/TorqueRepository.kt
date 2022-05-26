@@ -7,7 +7,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.Charset
 
-class TorqueDatabase(private val context: Context) {
+class TorqueRepository(private val context: Context) {
 
     fun getTorques(bikeAddress: String): ArrayList<Torque> {
         // Instance of users list using the data model class.

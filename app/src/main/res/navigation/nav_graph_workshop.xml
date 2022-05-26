@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/torquesFragment"
-        android:name="com.example.shercofaqapp.view.workshop.TorquesFragment"
+        android:name="com.example.shercofaqapp.view.workshop.torques.TorquesFragment"
         android:label="fragment_torques"
-        tools:layout="@layout/fragment_torques" />
+        tools:layout="@layout/fragment_torques" >
+        <action
+            android:id="@+id/action_torquesFragment_to_torqueFragment"
+            app:destination="@id/torqueFragment" />
+    </fragment>
     <fragment
         android:id="@+id/faqFragment"
         android:name="com.example.shercofaqapp.view.workshop.FaqFragment"
@@ -47,4 +51,9 @@
         android:name="com.example.shercofaqapp.view.workshop.parts.SparePartFragment"
         android:label="fragment_spare_part"
         tools:layout="@layout/fragment_spare_part" />
+    <fragment
+        android:id="@+id/torqueFragment"
+        android:name="com.example.shercofaqapp.view.workshop.torques.TorqueFragment"
+        android:label="fragment_torque"
+        tools:layout="@layout/fragment_torque" />
 </navigation>

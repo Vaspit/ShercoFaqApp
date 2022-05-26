@@ -7,16 +7,12 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,10 +22,8 @@ import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.RecyclerViewBikeAdapter
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import io.reactivex.rxjava3.internal.util.NotificationLite.getValue
 
 
 class GarageFragment : Fragment() {
@@ -40,7 +34,7 @@ class GarageFragment : Fragment() {
     private var bikeArrayList: ArrayList<Bike> = ArrayList()
     lateinit var editor: SharedPreferences.Editor
     private var userName = "UserName"
-    private val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+    private val garageItemCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
         override fun onMove(
             recyclerView: RecyclerView,
@@ -119,7 +113,7 @@ class GarageFragment : Fragment() {
 
     private fun initialization() {
 
-        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        val itemTouchHelper = ItemTouchHelper(garageItemCallback)
 
         binding.apply {
             val userId = FirebaseAuth.getInstance().currentUser!!.uid
