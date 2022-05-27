@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/faqFragment"
-        android:name="com.example.shercofaqapp.view.workshop.FaqFragment"
+        android:name="com.example.shercofaqapp.view.workshop.faq.FaqFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_faq" />
     <fragment

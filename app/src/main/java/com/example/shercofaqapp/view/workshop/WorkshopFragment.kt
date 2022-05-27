@@ -60,15 +60,10 @@ class WorkshopFragment : Fragment() {
             bikeModel.bikes.observe(viewLifecycleOwner, bikeObserver)
 
             if (navController != null) {
-
                 bottomNavigationView.setupWithNavController(navController)
-
             } else {
-
                 throw RuntimeException("Controller not found")
-
             }
-
         }
 
         return binding.root

@@ -38,6 +38,7 @@ class SparePartsFragment : Fragment() {
     private lateinit var mAdapter: RecyclerViewSparePartsAdapter
     private lateinit var mRefSpareParts:DatabaseReference
     private var currentBikeIndex = 0
+    private var bikes: List<Bike> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +57,8 @@ class SparePartsFragment : Fragment() {
                         break
                     }
                 }
-                initRecyclerView(bike, currentBikeIndex)
+                bikes = bike
+                initRecyclerView(bikes, currentBikeIndex)
             }
 
             //get bike id and current spare part
@@ -69,6 +71,12 @@ class SparePartsFragment : Fragment() {
                 sharedPref.getString("currentSparePartsName", "").toString()
 
             bikeModel.bikes.observe(viewLifecycleOwner, bikeObserver)
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            initRecyclerView(bikes, currentBikeIndex)
+            mAdapter.notifyDataSetChanged()
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         return binding.root

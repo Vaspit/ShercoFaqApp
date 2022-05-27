@@ -2,18 +2,18 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.workshop.parts.PartsListFragment">
+    tools:context=".view.workshop.faq.SolutionFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/partsListRecyclerView"
+        <TextView
+            android:id="@+id/solutionTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"/>
-        
+            android:text="@string/hello_blank_fragment"/>
+
     </FrameLayout>
 
 </layout>

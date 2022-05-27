@@ -1,0 +1,58 @@
+{
+  "2019Enduro2S250Factory": [
+    {
+      "issueDescription": "Quick wearing of friction discs",
+      "issueSolutions": [
+        {
+          "solutionText": "Install friction discs from 2020 MY",
+          "solutionImage": 0
+        },
+        {
+          "solutionText": "Rekluse RMS-4813",
+          "solutionImage": 0
+        },
+        {
+          "solutionText": "Install friction discs from bikes belong: \n Polaris Outlaw 500 ATV (2006 - 2007) \n Polaris Predator 500 ATV (2003 - 2007) \n Kawasaki KFX400 (2003 - 2006) \n Kawasaki KX450F (2006 - 2014) \n Kawasaki KX250F (2004 - 2014) \n Kawasaki KFX450 (2008 - 2012) \n Kawasaki KFX400 (2003 - 2006) \n Suzuki DRZ 400 (2000 - 2012) \n Suzuki LT-Z400 ATV (2012 - 2013) \n Arctic Cat DVX400 ATV 2004-2008 \n Honda CRF450R (2002-2014) \n Honda CRF450X (2005-2009) \n Honda CRF450X (2012-2013) \n Honda CR250R (1997-2007) \n Honda CR500 AF/R (1990-2007) \n Honda TRX450 (2004-2009) \n Honda TRX450 (2013-2014) ",
+          "solutionImage": 0
+        }
+      ]
+    },
+    {
+      "issueDescription": "Quick wearing of spark plugs",
+      "issueSolutions": [
+        {
+          "solutionText": "For 300m altitude: \n 30 \n 170 \n N8RE \n *You also may try to tune by KTM/Husqvarna \n manual for your engine volume",
+          "solutionImage": 0
+        }
+      ]
+    }
+  ],
+  "2019Enduro2S300Factory": [
+    {
+      "issueDescription": "Quick wearing of friction discs",
+      "issueSolutions": [
+        {
+          "solutionText": "Install friction discs from 2020 MY",
+          "solutionImage": 0
+        },
+        {
+          "solutionText": "Rekluse RMS-4813",
+          "solutionImage": 0
+        },
+        {
+          "solutionText": "Install friction discs from bikes belong: \n Polaris Outlaw 500 ATV (2006 - 2007) \n Polaris Predator 500 ATV (2003 - 2007) \n Kawasaki KFX400 (2003 - 2006) \n Kawasaki KX450F (2006 - 2014) \n Kawasaki KX250F (2004 - 2014) \n Kawasaki KFX450 (2008 - 2012) \n Kawasaki KFX400 (2003 - 2006) \n Suzuki DRZ 400 (2000 - 2012) \n Suzuki LT-Z400 ATV (2012 - 2013) \n Arctic Cat DVX400 ATV 2004-2008 \n Honda CRF450R (2002-2014) \n Honda CRF450X (2005-2009) \n Honda CRF450X (2012-2013) \n Honda CR250R (1997-2007) \n Honda CR500 AF/R (1990-2007) \n Honda TRX450 (2004-2009) \n Honda TRX450 (2013-2014) ",
+          "solutionImage": 0
+        }
+      ]
+    },
+    {
+      "issueDescription": "Quick wearing of spark plugs",
+      "issueSolutions": [
+        {
+          "solutionText": "For 300m altitude: \n 30 \n 170 \n N8RE \n *You also may try to tune by KTM/Husqvarna \n manual for your engine volume",
+          "solutionImage": 0
+        }
+      ]
+    }
+  ]
+}
