@@ -1,5 +1,6 @@
 package com.example.shercofaqapp.viewmodel.torques
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.TorqueItemBinding
 import com.example.shercofaqapp.model.Torque
 
-class RecyclerViewTorquesAdapter(private val torquesArrayList: List<Torque>):
+class RecyclerViewTorquesAdapter(private val torquesArrayList: ArrayList<Torque>):
     RecyclerView.Adapter<RecyclerViewTorquesAdapter.ViewHolder>(){
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {

@@ -9,7 +9,7 @@ import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FaqItemBinding
 import com.example.shercofaqapp.model.Issue
 
-class RecyclerViewFaqAdapter(private val issuesArrayList: List<Issue>):
+class RecyclerViewFaqAdapter(private val issuesArrayList: ArrayList<Issue>):
     RecyclerView.Adapter<RecyclerViewFaqAdapter.ViewHolder>() {
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {

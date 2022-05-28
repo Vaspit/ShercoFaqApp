@@ -16,14 +16,12 @@ class FaqRepository(private val context: Context) {
             val obj = JSONObject(JSONReader(context).getJSONFromAssets("faq-database.json")!!)
             val issuesArray = obj.getJSONArray(bikeAddress)
 
-
             //Get issues
             for (issueItem in 0 until issuesArray.length()) {
                 val issueObject = issuesArray.getJSONObject(issueItem)
                 val issueDescription = issueObject.getString("issueDescription")
                 val issueSolutionsArray = issueObject.getJSONArray("issueSolutions")
                 val solutionsArrayList: ArrayList<Solution> = ArrayList()
-
 
                 //Get solutions from issues array
                 for (solutionItem in 0 until issueSolutionsArray.length()) {
@@ -48,5 +46,4 @@ class FaqRepository(private val context: Context) {
         Log.d("FAQ_REPOSITORY", issuesArrayList.toString())
         return issuesArrayList
     }
-
 }
