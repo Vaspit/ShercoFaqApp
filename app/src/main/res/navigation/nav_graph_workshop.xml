@@ -18,7 +18,11 @@
         android:id="@+id/faqFragment"
         android:name="com.example.shercofaqapp.view.workshop.faq.FaqFragment"
         android:label="fragment_community"
-        tools:layout="@layout/fragment_faq" />
+        tools:layout="@layout/fragment_faq" >
+        <action
+            android:id="@+id/action_faqFragment_to_solutionsListFragment"
+            app:destination="@id/solutionsListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/partsFragment"
         android:name="com.example.shercofaqapp.view.workshop.parts.PartsTypeFragment"
@@ -56,4 +60,9 @@
         android:name="com.example.shercofaqapp.view.workshop.torques.TorqueFragment"
         android:label="fragment_torque"
         tools:layout="@layout/fragment_torque" />
+    <fragment
+        android:id="@+id/solutionsListFragment"
+        android:name="com.example.shercofaqapp.view.workshop.faq.SolutionsListFragment"
+        android:label="fragment_solutions_list"
+        tools:layout="@layout/fragment_solutions_list" />
 </navigation>

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FaqItemBinding
@@ -22,10 +23,10 @@ class RecyclerViewFaqAdapter(private val issuesArrayList: ArrayList<Issue>):
             itemView.setOnClickListener {
                 val bundle = bundleOf(
                     "currentIssueDescription" to issue.issueDescription,
-                    "currentIssueImage" to issue.issueSolutions,
+                    "currentIssueSolutions" to issue.issueSolutions,
                 )
-//                Navigation.findNavController(itemView)
-//                    .navigate(R.id.action_torquesFragment_to_torqueFragment, bundle)
+                Navigation.findNavController(itemView)
+                    .navigate(R.id.action_faqFragment_to_solutionsListFragment, bundle)
             }
         }
     }

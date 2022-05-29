@@ -35,6 +35,8 @@
     <string name="buy">Buy</string>
     <string name="engine_tightening_torques">Engine tightening torques</string>
     <string name="chassis_tightening_torques">Chassis tightening torques</string>
+    <string name="solutions">Solutions</string>
+    <string name="issues">Issues</string>
 
     <string-array name="bike_type_spinner_text">
         <item>Enduro</item>
