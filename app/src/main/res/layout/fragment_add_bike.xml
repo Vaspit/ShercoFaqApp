@@ -64,26 +64,36 @@
                 app:layout_constraintTop_toTopOf="@+id/editionTextView"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-            <ImageView
-                android:id="@+id/bikeImageView"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/imageCardView"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/garage_item_icon"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/bikeImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/garage_item_icon" />
+            </androidx.cardview.widget.CardView>
+
 
             <TextView
                 android:id="@+id/typeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="78dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/bike_type"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bikeImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/bikeNameEditText" />
 
             <TextView
                 android:id="@+id/modelYearTextView"
@@ -152,7 +162,7 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bikeImageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageCardView"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

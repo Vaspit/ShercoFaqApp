@@ -58,7 +58,8 @@ class PartsTypeFragment : Fragment() {
             PartType("Clutch", R.drawable.clutch),
             PartType("Cooling", R.drawable.cooling),
             PartType("Ignition", R.drawable.ignition),
-            PartType("Gearbox", R.drawable.gearbox)
+            PartType("Gearbox", R.drawable.gearbox),
+            PartType("Protection", R.drawable.ic_protection)
         )
 
     }

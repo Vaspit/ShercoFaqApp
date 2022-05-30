@@ -61,6 +61,4 @@ class RecyclerViewSparePartsAdapter(
                 .navigate(R.id.action_sparePartsFragment_to_sparePartFragment)
         }
     }
-
-
 }

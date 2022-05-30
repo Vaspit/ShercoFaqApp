@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.ShercoFaqApp" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#0F26F8</item>
-        <item name="colorPrimaryVariant">#023CEA</item>
-        <item name="colorOnPrimary">#FFF200</item>
+        <item name="colorPrimary">#0550E6</item>
+        <item name="colorPrimaryVariant">#0550E6</item>
+        <item name="colorOnPrimary">#F7DA4C</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>

@@ -72,8 +72,6 @@ class FaqFragment : Fragment() {
 
     private suspend  fun setRecyclerView() {
         val issuesArrayList = getIssuesFromViewModel()
-        Log.d("FAQ_FRAGMENT", issuesArrayList.toString())
-
         withContext(Dispatchers.Main) {
             binding.faqRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.faqRecyclerView.adapter = RecyclerViewFaqAdapter(issuesArrayList)

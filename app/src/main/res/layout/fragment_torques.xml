@@ -11,7 +11,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background_white_grey">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -44,7 +45,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/engineTextView"
                     app:cardCornerRadius="8dp"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    app:cardElevation="0dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/engineRecyclerView"
@@ -80,7 +82,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chassisTextView">
+                    app:layout_constraintTop_toBottomOf="@+id/chassisTextView"
+                    app:cardElevation="0dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/chassisRecyclerView"

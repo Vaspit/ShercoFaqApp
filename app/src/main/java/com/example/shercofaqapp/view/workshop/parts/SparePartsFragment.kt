@@ -58,7 +58,7 @@ class SparePartsFragment : Fragment() {
                     }
                 }
                 bikes = bike
-                initRecyclerView(bikes, currentBikeIndex)
+                setRecyclerViewUI(bikes, currentBikeIndex)
             }
 
             //get bike id and current spare part
@@ -74,7 +74,7 @@ class SparePartsFragment : Fragment() {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            initRecyclerView(bikes, currentBikeIndex)
+            setRecyclerViewUI(bikes, currentBikeIndex)
             mAdapter.notifyDataSetChanged()
             binding.swipeRefreshLayout.isRefreshing = false
         }
@@ -82,7 +82,7 @@ class SparePartsFragment : Fragment() {
         return binding.root
     }
 
-    private fun initRecyclerView(bike: List<Bike>, currentBikeIndex: Int) {
+    private fun setRecyclerViewUI(bike: List<Bike>, currentBikeIndex: Int) {
         currentBikeAddress = CurrentBikeAddress(bike, currentBikeIndex).getCurrentBikeAddress()
         mRecyclerView = binding.sparePartsRecyclerView
         mRefSpareParts = Firebase.database.getReference("parts")

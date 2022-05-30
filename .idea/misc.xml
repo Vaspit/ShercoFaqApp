@@ -43,12 +43,13 @@
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/menu/bottom_menu.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/menu/popup_menu.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Vaspit/Documents/GitHub/shercofaqapp/app/src/main/res/menu/top_menu.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.3805" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.214" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/drawable/start_button_background.xml" value="0.3195" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/activity_workshop.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/faq_item.xml" value="0.4548952543822146" />
-        <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_add_bike.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_add_bike.xml" value="0.5" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_delete_dialog.xml" value="0.5" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_faq.xml" value="0.4548952543822146" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_faq_solution.xml" value="0.4548952543822146" />
@@ -58,6 +59,7 @@
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_parts_list.xml" value="0.33363553943789664" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_parts_type.xml" value="0.4548952543822146" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_solution.xml" value="0.4548952543822146" />
+        <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_solutions_list.xml" value="0.4548952543822146" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_spare_part.xml" value="0.33363553943789664" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_spare_parts.xml" value="0.4548952543822146" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/fragment_torque.xml" value="0.4548952543822146" />
@@ -70,10 +72,12 @@
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/part_list_item.xml" value="0.4548952543822146" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/part_type_item.xml" value="0.4548952543822146" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/parts_item.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/solution_list_item.xml" value="0.4548952543822146" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/spare_parts_item.xml" value="0.44514959202175886" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/spinner_item_3.xml" value="0.6229508196721312" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/layout/torque_item.xml" value="0.4925925925925926" />
         <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/menu/bottom_menu.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/vasvk/Documents/GitHub/ShercoFaqApp/app/src/main/res/menu/top_menu.xml" value="0.4548952543822146" />
       </map>
     </option>
   </component>

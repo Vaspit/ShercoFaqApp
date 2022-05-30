@@ -76,9 +76,13 @@ class PartsListFragment : Fragment() {
             Part("Clutch", "Friction plates", R.drawable.ic_baseline_parts),
             Part("Clutch", "Clutch basket inserts", R.drawable.ic_baseline_parts),
             Part("Cooling", "Pump oil seal", R.drawable.ic_baseline_parts),
+            Part("Cooling", "Radiator cooler", R.drawable.ic_baseline_parts),
             Part("Ignition", "Starter", R.drawable.ic_baseline_parts),
             Part("Ignition", "Starter brushes", R.drawable.ic_baseline_parts),
-            Part("Gearbox", "Gearbox lever bolt", R.drawable.ic_baseline_parts)
+            Part("Electric", "Battery", R.drawable.ic_baseline_parts),
+            Part("Gearbox", "Gearbox lever bolt", R.drawable.ic_baseline_parts),
+            Part("Protection", "Clutch cover", R.drawable.ic_baseline_parts),
+            Part("Protection", "Ignition cover", R.drawable.ic_baseline_parts)
         )
 
         //Fill out the array by corresponding parts type
