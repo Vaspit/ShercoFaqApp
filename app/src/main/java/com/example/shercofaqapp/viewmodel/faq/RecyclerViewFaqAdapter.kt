@@ -27,6 +27,8 @@ class RecyclerViewFaqAdapter(private val issuesArrayList: ArrayList<Issue>):
                 )
                 Navigation.findNavController(itemView)
                     .navigate(R.id.action_faqFragment_to_solutionsListFragment, bundle)
+//                Navigation.findNavController(itemView)
+//                    .navigate(R.id.action_faqFragment_to_solutionListComposeFragment)
             }
         }
     }

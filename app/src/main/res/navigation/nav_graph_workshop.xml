@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_faqFragment_to_solutionsListFragment"
             app:destination="@id/solutionsListFragment" />
+        <action
+            android:id="@+id/action_faqFragment_to_solutionListComposeFragment"
+            app:destination="@id/solutionListComposeFragment" />
     </fragment>
     <fragment
         android:id="@+id/partsFragment"
@@ -65,4 +68,8 @@
         android:name="com.example.shercofaqapp.view.workshop.faq.SolutionsListFragment"
         android:label="fragment_solutions_list"
         tools:layout="@layout/fragment_solutions_list" />
+    <fragment
+        android:id="@+id/solutionListComposeFragment"
+        android:name="com.example.shercofaqapp.view.workshop.faq.SolutionsListComposeFragment"
+        android:label="SolutionListComposeFragment" />
 </navigation>

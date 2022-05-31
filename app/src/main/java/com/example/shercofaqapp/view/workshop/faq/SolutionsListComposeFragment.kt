@@ -1,0 +1,28 @@
+package com.example.shercofaqapp.view.workshop.faq
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.material.Text
+import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.Fragment
+
+class SolutionsListComposeFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = ComposeView(requireContext())
+        view.apply {
+            setContent {
+                Text(text = "Solution fragment with Compose")
+            }
+        }
+
+        return view
+    }
+
+}
