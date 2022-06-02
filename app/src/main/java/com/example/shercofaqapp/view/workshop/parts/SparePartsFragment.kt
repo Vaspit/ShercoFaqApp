@@ -3,6 +3,7 @@ package com.example.shercofaqapp.view.workshop.parts
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,17 +50,6 @@ class SparePartsFragment : Fragment() {
             inflater, R.layout.fragment_spare_parts, container, false)
 
         binding.apply {
-            val bikeObserver = Observer<List<Bike>> { bike ->
-                //find updatable index of bike by bike id
-                for (bikeItem: Int in bike.indices) {
-                    if (bike[bikeItem].bikeId == bikeId) {
-                        currentBikeIndex = bikeItem
-                        break
-                    }
-                }
-                bikes = bike
-                setRecyclerViewUI(bikes, currentBikeIndex)
-            }
 
             //get bike id and current spare part
             sharedPref = root.context
@@ -70,7 +60,17 @@ class SparePartsFragment : Fragment() {
             currentSparePartName =
                 sharedPref.getString("currentSparePartsName", "").toString()
 
-            bikeModel.bikes.observe(viewLifecycleOwner, bikeObserver)
+            bikeModel.bikes.observe(viewLifecycleOwner, Observer<List<Bike>> { bike ->
+                //find updatable index of bike by bike id
+                for (bikeItem: Int in bike.indices) {
+                    if (bike[bikeItem].bikeId == bikeId) {
+                        currentBikeIndex = bikeItem
+                        break
+                    }
+                }
+                bikes = bike
+                setRecyclerViewUI(bikes, currentBikeIndex)
+            })
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -85,6 +85,7 @@ class SparePartsFragment : Fragment() {
     private fun setRecyclerViewUI(bike: List<Bike>, currentBikeIndex: Int) {
         currentBikeAddress = CurrentBikeAddress(bike, currentBikeIndex).getCurrentBikeAddress()
         mRecyclerView = binding.sparePartsRecyclerView
+
         mRefSpareParts = Firebase.database.getReference("parts")
             .child(currentBikeAddress)
             .child(currentSparePartType)
@@ -94,9 +95,12 @@ class SparePartsFragment : Fragment() {
             .setQuery(mRefSpareParts, SparePart::class.java)
             .build()
 
+
+
         mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         mAdapter = RecyclerViewSparePartsAdapter(options)
         mRecyclerView.adapter = mAdapter
         mAdapter.startListening()
     }
+
 }

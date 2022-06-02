@@ -27,16 +27,16 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="40dp"
             android:background="@android:drawable/dark_header"
-            android:backgroundTint="#F7DA4B"
+            android:backgroundTint="@color/wattie"
             android:clickable="true"
             android:scaleType="center"
             android:src="@drawable/ic_baseline_add_24"
-            app:backgroundTint="#F7DA4B"
+            app:backgroundTint="@color/wattie"
             app:borderWidth="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:maxImageSize="48dp"
-            app:rippleColor="#F7DA4B"
+            app:rippleColor="@color/wattie"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
