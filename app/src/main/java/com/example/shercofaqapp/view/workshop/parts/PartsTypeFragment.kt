@@ -6,17 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentPartsTypeBinding
-import com.example.shercofaqapp.model.PartType
 import com.example.shercofaqapp.viewmodel.parts.RecyclerViewPartsTypeAdapter
-import java.util.ArrayList
+import com.example.shercofaqapp.viewmodel.parts.PartTypeViewModel
 
 
 class PartsTypeFragment : Fragment() {
 
     lateinit var binding: FragmentPartsTypeBinding
+    lateinit var viewModel: PartTypeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +26,11 @@ class PartsTypeFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_parts_type, container, false)
+        viewModel = ViewModelProvider(this)[PartTypeViewModel::class.java]
+
         binding.apply {
 
-            val recyclerViewAdapter = RecyclerViewPartsTypeAdapter(setPartTypeUI())
+            val recyclerViewAdapter = RecyclerViewPartsTypeAdapter(viewModel.getPartTypeArray())
 
             partsTypeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             partsTypeRecyclerView.adapter = recyclerViewAdapter
@@ -38,31 +41,31 @@ class PartsTypeFragment : Fragment() {
 
     }
 
-    private fun setPartTypeUI(): ArrayList<PartType> {
-
-        return arrayListOf(
-            PartType("Fork", R.drawable.fork),
-            PartType("Handlebar", R.drawable.handlebar),
-            PartType("Frame", R.drawable.frame),
-            PartType("Shock and arm", R.drawable.shockarm),
-            PartType("Exhaust", R.drawable.exhaust),
-            PartType("Filter", R.drawable.filter),
-            PartType("Front wheel", R.drawable.frontwheel),
-            PartType("Rear wheel", R.drawable.rearwheel),
-            PartType("Brakes", R.drawable.brakes),
-            PartType("Seat", R.drawable.seat),
-            PartType("Electric", R.drawable.electric),
-            PartType("Plastic", R.drawable.plastic),
-            PartType("Case", R.drawable.casecase),
-            PartType("Carburetor", R.drawable.carburetor),
-            PartType("Clutch", R.drawable.clutch),
-            PartType("Cooling", R.drawable.cooling),
-            PartType("Ignition", R.drawable.ignition),
-            PartType("Gearbox", R.drawable.gearbox),
-            PartType("Protection", R.drawable.ic_protection)
-        )
-
-    }
+//    private fun setPartTypeArray(): ArrayList<PartType> {
+//
+//        return arrayListOf(
+//            PartType("Fork", R.drawable.fork),
+//            PartType("Handlebar", R.drawable.handlebar),
+//            PartType("Frame", R.drawable.frame),
+//            PartType("Shock and arm", R.drawable.shockarm),
+//            PartType("Exhaust", R.drawable.exhaust),
+//            PartType("Filter", R.drawable.filter),
+//            PartType("Front wheel", R.drawable.frontwheel),
+//            PartType("Rear wheel", R.drawable.rearwheel),
+//            PartType("Brakes", R.drawable.brakes),
+//            PartType("Seat", R.drawable.seat),
+//            PartType("Electric", R.drawable.electric),
+//            PartType("Plastic", R.drawable.plastic),
+//            PartType("Case", R.drawable.casecase),
+//            PartType("Carburetor", R.drawable.carburetor),
+//            PartType("Clutch", R.drawable.clutch),
+//            PartType("Cooling", R.drawable.cooling),
+//            PartType("Ignition", R.drawable.ignition),
+//            PartType("Gearbox", R.drawable.gearbox),
+//            PartType("Protection", R.drawable.ic_protection)
+//        )
+//
+//    }
 
 
 }

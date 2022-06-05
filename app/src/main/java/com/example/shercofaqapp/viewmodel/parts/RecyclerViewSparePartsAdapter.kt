@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
@@ -48,17 +49,16 @@ class RecyclerViewSparePartsAdapter(
         }
         holder.sparePartImage.setImageResource(model.sparePartImage!!)
         holder.itemView.setOnClickListener {
-            holder.editor.putString("currentSparePartName",
-                model.sparePartName.toString().trim())
-            holder.editor.putString("currentSparePartDescription",
-                model.sparePartDescription.toString().trim())
-            holder.editor.putString("currentSparePartLink",
-                model.sparePartLink.toString().trim())
-            holder.editor.putInt("currentSparePartImage",
-                model.sparePartImage!!)
-            holder.editor.apply()
+
+            val bundle = bundleOf(
+                "currentSparePartName" to model.sparePartName,
+                "currentSparePartDescription" to model.sparePartDescription,
+                "currentSparePartLink" to model.sparePartLink,
+                "currentSparePartImage" to model.sparePartImage
+            )
+
             Navigation.findNavController(holder.itemView)
-                .navigate(R.id.action_sparePartsFragment_to_sparePartFragment)
+                .navigate(R.id.action_sparePartsFragment_to_sparePartFragment, bundle)
         }
     }
 }

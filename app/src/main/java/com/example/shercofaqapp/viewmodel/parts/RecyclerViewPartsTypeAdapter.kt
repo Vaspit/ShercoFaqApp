@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
@@ -28,10 +29,15 @@ class RecyclerViewPartsTypeAdapter(private val partTypeList: ArrayList<PartType>
             partsImageView.setImageResource(partType.partImage!!)
 
             itemView.setOnClickListener {
-                editor.putString("partType", partType.partTypeName.toString().trim())
-                editor.apply()
+//                editor.putString("partType", partType.partTypeName.toString().trim())
+//                editor.apply()
+//                Navigation.findNavController(itemView)
+//                    .navigate(R.id.action_partsFragment_to_partsListFragment)
+                val bundle = bundleOf(
+                    "currentPartType" to partType.partTypeName
+                )
                 Navigation.findNavController(itemView)
-                    .navigate(R.id.action_partsFragment_to_partsListFragment)
+                    .navigate(R.id.action_partsFragment_to_partsListFragment, bundle)
             }
         }
     }
