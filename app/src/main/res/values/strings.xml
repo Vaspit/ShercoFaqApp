@@ -37,6 +37,7 @@
     <string name="chassis_tightening_torques">Chassis tightening torques</string>
     <string name="solutions">Solutions</string>
     <string name="issues">Issues</string>
+    <string name="account">Account</string>
 
     <string-array name="bike_type_spinner_text">
         <item>Enduro</item>
