@@ -54,7 +54,7 @@ class GarageFragment : Fragment() {
         val listener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE ->
-                    model.deleteBike(bikeArrayList[viewHolder.adapterPosition])
+                    model.deleteBike(bikeArrayList[viewHolder.absoluteAdapterPosition])
                 DialogInterface.BUTTON_NEGATIVE -> {
                     TODO()
                 }
@@ -130,27 +130,21 @@ class GarageFragment : Fragment() {
             garageRecyclerView.adapter = recyclerViewAdapter
             garageRecyclerView.setHasFixedSize(true)
 
-            model.bikes.observe(viewLifecycleOwner,
-                Observer<List<Any?>> { bikes ->
-
+            model.bikes.observe(viewLifecycleOwner, Observer<List<Any?>> { bikes ->
                     bikeArrayList = bikes as kotlin.collections.ArrayList<Bike>
                     recyclerViewAdapter.addBikeList(bikeArrayList)
                     recyclerViewAdapter.notifyDataSetChanged()
                 })
 
             floatingActionButton.setOnClickListener {
-
                 editor.putBoolean("isUpdate", false)
                 editor.apply()
 
                 //Go to AddBikeFragment
                 findNavController()
                     .navigate(R.id.action_garageFragment_to_bikeFragment)
-
             }
-
             itemTouchHelper.attachToRecyclerView(garageRecyclerView)
-
         }
 
     }

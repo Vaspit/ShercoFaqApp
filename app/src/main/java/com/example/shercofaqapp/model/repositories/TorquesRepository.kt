@@ -1,12 +1,10 @@
-package com.example.shercofaqapp.model
+package com.example.shercofaqapp.model.repositories
 
 import android.content.Context
-import android.util.Log
+import com.example.shercofaqapp.model.Torque
 import com.example.shercofaqapp.utils.JSONReader
 import org.json.JSONException
 import org.json.JSONObject
-import java.io.IOException
-import java.nio.charset.Charset
 
 class TorquesRepository(private val context: Context) {
 

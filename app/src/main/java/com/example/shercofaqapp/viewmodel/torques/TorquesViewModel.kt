@@ -1,14 +1,13 @@
 package com.example.shercofaqapp.viewmodel.torques
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.shercofaqapp.model.Torque
-import com.example.shercofaqapp.model.TorquesRepository
+import com.example.shercofaqapp.model.repositories.TorquesRepository
 
-class TorquesViewModel(@SuppressLint("StaticFieldLeak") private val context: Context): ViewModel() {
+class TorquesViewModel: ViewModel() {
 
-    fun getEngineTorques(bikeAddress: String): ArrayList<Torque> {
+    fun getEngineTorques(context: Context, bikeAddress: String): ArrayList<Torque> {
 
         val engineTorquesArrayList: ArrayList<Torque> = ArrayList()
         val torquesArrayList = TorquesRepository(context).getTorques(bikeAddress)
@@ -22,7 +21,7 @@ class TorquesViewModel(@SuppressLint("StaticFieldLeak") private val context: Con
         return engineTorquesArrayList
     }
 
-    fun getChassisTorques(bikeAddress: String): ArrayList<Torque> {
+    fun getChassisTorques(context: Context, bikeAddress: String): ArrayList<Torque> {
         val chassisTorquesArrayList: ArrayList<Torque> = ArrayList()
         val torquesArrayList = TorquesRepository(context).getTorques(bikeAddress)
 

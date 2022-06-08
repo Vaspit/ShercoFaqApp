@@ -54,7 +54,8 @@
         android:id="@+id/sparePartFragment"
         android:name="com.example.shercofaqapp.view.workshop.parts.SparePartFragment"
         android:label="fragment_spare_part"
-        tools:layout="@layout/fragment_spare_part" />
+        tools:layout="@layout/fragment_spare_part">
+    </fragment>
     <fragment
         android:id="@+id/torqueFragment"
         android:name="com.example.shercofaqapp.view.workshop.torques.TorqueFragment"

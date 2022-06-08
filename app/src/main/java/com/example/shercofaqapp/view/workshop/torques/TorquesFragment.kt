@@ -8,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentTorquesBinding
 import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.model.Torque
 import com.example.shercofaqapp.utils.CurrentBikeAddress
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.example.shercofaqapp.viewmodel.torques.RecyclerViewTorquesAdapter
@@ -28,7 +27,8 @@ class TorquesFragment : Fragment() {
     private var bikeId: Long = 0
     private lateinit var sharedPref: SharedPreferences
     private var currentBikeAddress = ""
-    private val bikeModel: GarageFragmentViewModel by viewModels()
+    private lateinit var bikeModel: GarageFragmentViewModel
+    private lateinit var torquesViewModel: TorquesViewModel
     lateinit var binding: FragmentTorquesBinding
 
     override fun onCreateView(
@@ -39,7 +39,14 @@ class TorquesFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_torques, container, false)
 
-        val bikeObserver = Observer<List<Bike>> { bike ->
+        bikeModel = ViewModelProvider(this)[GarageFragmentViewModel::class.java]
+        torquesViewModel = ViewModelProvider(this)[TorquesViewModel::class.java]
+
+        sharedPref = binding.root.context
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        bikeId = sharedPref.getLong("bikeId", 0)
+
+        bikeModel.bikes.observe(viewLifecycleOwner, Observer { bike ->
             //find updatable index of bike by bike id
             for (bikeItem: Int in bike.indices) {
                 if (bike[bikeItem].bikeId == bikeId) {
@@ -47,25 +54,20 @@ class TorquesFragment : Fragment() {
                     break
                 }
             }
+
             currentBikeAddress = CurrentBikeAddress(bike, currentBikeIndex).getCurrentBikeAddress()
 
             CoroutineScope(Dispatchers.IO).launch {
                 setRecyclerViews()
             }
-        }
-
-        sharedPref = binding.root.context
-            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        bikeId = sharedPref.getLong("bikeId", 0)
-
-        bikeModel.bikes.observe(viewLifecycleOwner, bikeObserver)
+        })
 
         return binding.root
     }
 
     private suspend  fun setRecyclerViews() {
-        val engineTorques = getEngineTorquesFromViewModel()
-        val chassisTorques = getChassisTorquesFromViewModel()
+        val engineTorques = torquesViewModel.getEngineTorques(requireContext(), currentBikeAddress)
+        val chassisTorques = torquesViewModel.getChassisTorques(requireContext(), currentBikeAddress)
 
         withContext(Dispatchers.Main) {
             binding.engineRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -76,13 +78,5 @@ class TorquesFragment : Fragment() {
             binding.chassisRecyclerView.adapter = RecyclerViewTorquesAdapter(chassisTorques)
             binding.chassisRecyclerView.setHasFixedSize(true)
         }
-    }
-
-    private fun getEngineTorquesFromViewModel(): ArrayList<Torque> {
-        return TorquesViewModel(requireContext()).getEngineTorques(currentBikeAddress)
-    }
-
-    private fun getChassisTorquesFromViewModel(): ArrayList<Torque> {
-        return TorquesViewModel(requireContext()).getChassisTorques(currentBikeAddress)
     }
 }

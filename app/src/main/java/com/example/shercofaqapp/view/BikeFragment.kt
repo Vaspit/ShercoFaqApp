@@ -41,113 +41,31 @@ class BikeFragment : Fragment() {
             createUI(isUpdate)
 
             if (isUpdate) {
-
-                val modelYearArrayList = root.resources.getStringArray(R.array.model_year_spinner_text)
-                val bikeTypeArrayList = root.resources.getStringArray(R.array.bike_type_spinner_text)
-                val engineTypeArrayList = root.resources.getStringArray(R.array.engine_type_spinner_text)
-                val engineVolumeArrayList = root.resources.getStringArray(R.array.engine_volume_spinner_text)
-                val editionArrayList = root.resources.getStringArray(R.array.edition_spinner_text)
                 val bikeId = sharedPref.getLong("bikeId", 0)
                 var updatingBikeIndex = 0
-
-                //Set an observer for selected bike from recyclerview
-                val bikeObserver = Observer<List<Bike>> { bike ->
-
+                //Get the bike data from selected bike item
+                model.bikes.observe(viewLifecycleOwner, Observer { bike ->
                     //find updatable index of bike by bike id
                     for (bikeItem: Int in bike.indices) {
-
                         if (bike[bikeItem].bikeId == bikeId) {
                             updatingBikeIndex = bikeItem
                             break
                         }
                     }
-
-                    bikeNameEditText.setText(bike[updatingBikeIndex].bikeName)
-                    modelYearSpinner.setSelection(modelYearArrayList
-                        .indexOf(bike[updatingBikeIndex].bikeModelYear))
-                    typeSpinner.setSelection(bikeTypeArrayList
-                        .indexOf(bike[updatingBikeIndex].bikeType))
-                    engineTypeSpinner.setSelection(engineTypeArrayList
-                        .indexOf(bike[updatingBikeIndex].bikeEngineType))
-                    engineVolumeSpinner.setSelection(engineVolumeArrayList
-                        .indexOf(bike[updatingBikeIndex].bikeEngineVolume))
-                    editionSpinner.setSelection(editionArrayList
-                        .indexOf(bike[updatingBikeIndex].bikeEdition))
-                    bikeImageView.setImageResource(bike[updatingBikeIndex].bikeImage)
-
-                }
-
-                //Get the bike data from selected bike item
-                model.bikes.observe(viewLifecycleOwner, bikeObserver)
-
-                addBikeButton.setOnClickListener {
-
-                    //Update bike within Database
-                    val bike = Bike()
-//                    bike.bikeId = (bikeAdapterPosition + 1).toLong()
-                    bike.bikeId = bikeId
-                    bike.bikeName = bikeNameEditText.text.trim().toString()
-                    bike.bikeModelYear = modelYearSpinner.selectedItem.toString()
-                    bike.bikeType = typeSpinner.selectedItem.toString()
-                    bike.bikeEngineType = engineTypeSpinner.selectedItem.toString()
-                    bike.bikeEngineVolume = engineVolumeSpinner.selectedItem.toString()
-                    bike.bikeEdition = editionSpinner.selectedItem.toString()
-                    bike.bikeImage = R.drawable.garage_item_icon
-
-                    model.updateBike(bike)
-
-                    //Go to GarageFragment
-                    findNavController()
-                        .navigate(R.id.action_bikeFragment_to_garageFragment)
-
-                }
-
+                    setBike(binding.root, bike, updatingBikeIndex)
+                })
+                addBikeButton.setOnClickListener { onUpdate(bikeId) }
             } else {
-
                 createFragmentFields()
-
-                addBikeButton.setOnClickListener {
-
-                    //Add new bike to Database
-                    val bike = Bike()
-                    bike.bikeName = bikeNameEditText.text.trim().toString()
-                    bike.bikeModelYear = modelYearSpinner.selectedItem.toString()
-                    bike.bikeType = typeSpinner.selectedItem.toString()
-                    bike.bikeEngineType = engineTypeSpinner.selectedItem.toString()
-                    bike.bikeEngineVolume = engineVolumeSpinner.selectedItem.toString()
-                    bike.bikeEdition = editionSpinner.selectedItem.toString()
-                    bike.bikeImage = R.drawable.garage_item_icon
-
-                    model.addNewBike(bike)
-
-                    //Go to GarageFragment
-                    findNavController()
-                        .navigate(R.id.action_bikeFragment_to_garageFragment)
-
-                }
-
+                addBikeButton.setOnClickListener { onAdd() }
             }
-
         }
-
         return binding.root
-
     }
 
     private fun createUI(isUpdate: Boolean) {
-
         createFragmentFields()
-
-        if (isUpdate) {
-
-            binding.addBikeButton.text = getString(R.string.update_bike_button_text)
-
-        } else {
-
-            binding.addBikeButton.text = getString(R.string.add_bike_button_text)
-
-        }
-
+        if (isUpdate) { binding.addBikeButton.text = getString(R.string.update_bike_button_text) } else { binding.addBikeButton.text = getString(R.string.add_bike_button_text) }
     }
 
     private fun createFragmentFields() {
@@ -207,6 +125,66 @@ class BikeFragment : Fragment() {
             binding.editionSpinner.adapter = editionSpinnerAdapter
         }
 
+    }
+
+    private fun onAdd() {
+        //Add new bike to Database
+        val bike = Bike()
+        bike.bikeName = binding.bikeNameEditText.text.trim().toString()
+        bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
+        bike.bikeType = binding.typeSpinner.selectedItem.toString()
+        bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
+        bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
+        bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
+        bike.bikeImage = R.drawable.garage_item_icon
+
+        model.addNewBike(bike)
+
+        //Go to GarageFragment
+        findNavController()
+            .navigate(R.id.action_bikeFragment_to_garageFragment)
+    }
+
+    private fun onUpdate(bikeId: Long) {
+        //Update bike within Database
+        val bike = Bike()
+
+        bike.bikeId = bikeId
+        bike.bikeName = binding.bikeNameEditText.text.trim().toString()
+        bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
+        bike.bikeType = binding.typeSpinner.selectedItem.toString()
+        bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
+        bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
+        bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
+        bike.bikeImage = R.drawable.garage_item_icon
+
+        model.updateBike(bike)
+
+        //Go to GarageFragment
+        findNavController()
+            .navigate(R.id.action_bikeFragment_to_garageFragment)
+    }
+
+    private fun setBike(root: View, bike: List<Bike>, updatingBikeIndex: Int) {
+
+        val modelYearArrayList = root.resources.getStringArray(R.array.model_year_spinner_text)
+        val bikeTypeArrayList = root.resources.getStringArray(R.array.bike_type_spinner_text)
+        val engineTypeArrayList = root.resources.getStringArray(R.array.engine_type_spinner_text)
+        val engineVolumeArrayList = root.resources.getStringArray(R.array.engine_volume_spinner_text)
+        val editionArrayList = root.resources.getStringArray(R.array.edition_spinner_text)
+
+        binding.bikeNameEditText.setText(bike[updatingBikeIndex].bikeName)
+        binding.modelYearSpinner.setSelection(modelYearArrayList
+            .indexOf(bike[updatingBikeIndex].bikeModelYear))
+        binding.typeSpinner.setSelection(bikeTypeArrayList
+            .indexOf(bike[updatingBikeIndex].bikeType))
+        binding.engineTypeSpinner.setSelection(engineTypeArrayList
+            .indexOf(bike[updatingBikeIndex].bikeEngineType))
+        binding.engineVolumeSpinner.setSelection(engineVolumeArrayList
+            .indexOf(bike[updatingBikeIndex].bikeEngineVolume))
+        binding.editionSpinner.setSelection(editionArrayList
+            .indexOf(bike[updatingBikeIndex].bikeEdition))
+        binding.bikeImageView.setImageResource(bike[updatingBikeIndex].bikeImage)
     }
 
 }

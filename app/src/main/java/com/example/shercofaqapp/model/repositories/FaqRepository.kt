@@ -1,7 +1,9 @@
-package com.example.shercofaqapp.model
+package com.example.shercofaqapp.model.repositories
 
 import android.content.Context
 import android.util.Log
+import com.example.shercofaqapp.model.Issue
+import com.example.shercofaqapp.model.Solution
 import com.example.shercofaqapp.utils.JSONReader
 import org.json.JSONException
 import org.json.JSONObject

@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,8 +48,7 @@ class SolutionsListComposeFragment : Fragment() {
 
         view.apply {
             setContent {
-                SetSolutionListTitle(solutionTitle!!)
-                SetSolutionsList(solutionsArrayList)
+                SetSolutionsList(solutionsArrayList, solutionTitle!!)
             }
         }
 
@@ -71,7 +71,7 @@ fun SolutionCard(solution: Solution) {
 
     Column(
         modifier = Modifier
-            .padding(bottom = 4.dp)
+            .padding(start = 4.dp, end = 4.dp, bottom = 4.dp)
     ) {
         Surface(
             shape = MaterialTheme.shapes.medium,
@@ -87,7 +87,9 @@ fun SolutionCard(solution: Solution) {
                     Text(
                         text = solution.solutionText,
                         color = Color(R.color.black),
-                        modifier = Modifier.padding(start = 4.dp, end = 4.dp, top = 4.dp),
+                        modifier = Modifier
+                            .padding(start = 4.dp, end = 4.dp, top = 4.dp)
+                            .width(250.dp),
                         fontSize = 16.sp,
                         maxLines = if (isExpanded) Int.MAX_VALUE else 2,
                     )
@@ -114,19 +116,30 @@ fun SolutionCard(solution: Solution) {
 }
 
 @Composable
-fun SetSolutionsList(solutions: ArrayList<Solution>) {
-    LazyColumn {
-        items(solutions) { solution ->
-            SolutionCard(solution)
+fun SetSolutionsList(solutions: ArrayList<Solution>, solutionTitle: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Text(
+            text = solutionTitle,
+            color = Color.Gray,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+
+    Box(
+        modifier = Modifier
+            .padding(top = 48.dp)
+    ) {
+        LazyColumn {
+            items(solutions) { solution ->
+                SolutionCard(solution)
+            }
         }
     }
-}
-
-@Composable
-fun SetSolutionListTitle(solutionTitle: String) {
-    Text(
-        text = solutionTitle,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold
-    )
 }

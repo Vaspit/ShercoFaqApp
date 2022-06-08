@@ -3,7 +3,6 @@ package com.example.shercofaqapp.view.workshop.parts
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,22 +10,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentSparePartsBinding
 import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.model.SparePart
-import com.example.shercofaqapp.utils.CurrentBikeAddress
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.example.shercofaqapp.viewmodel.parts.RecyclerViewSparePartsAdapter
 import com.example.shercofaqapp.viewmodel.parts.SparePartsViewModel
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class SparePartsFragment : Fragment() {
 
@@ -40,7 +32,6 @@ class SparePartsFragment : Fragment() {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: RecyclerViewSparePartsAdapter
     private lateinit var sparePartsViewModel: SparePartsViewModel
-    private lateinit var mRefSpareParts:DatabaseReference
     private var currentBikeIndex = 0
     private var bikes: List<Bike> = listOf()
 
@@ -72,14 +63,12 @@ class SparePartsFragment : Fragment() {
                     }
                 }
                 bikes = bike
-//                setRecyclerView(bikes, currentBikeIndex)
                 setRecyclerView(bikes, currentBikeIndex, sparePartsViewModel, currentSparePartType,
                     currentSparePartName)
             })
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-//            setRecyclerView(bikes, currentBikeIndex)
             setRecyclerView(bikes, currentBikeIndex, sparePartsViewModel, currentSparePartType,
                 currentSparePartName)
             mAdapter.notifyDataSetChanged()
@@ -89,34 +78,12 @@ class SparePartsFragment : Fragment() {
         return binding.root
     }
 
-//    private fun setRecyclerView(bike: List<Bike>, currentBikeIndex: Int) {
-//        val currentBikeAddress = CurrentBikeAddress(bike, currentBikeIndex).getCurrentBikeAddress()
-//
-//        Log.d("SPARE_PARTS_FRAGMENT", currentBikeAddress)
-//
-//        mRecyclerView = binding.sparePartsRecyclerView
-//
-//        mRefSpareParts = Firebase.database.getReference("parts")
-//            .child(currentBikeAddress)
-//            .child(currentSparePartType)
-//            .child(currentSparePartName)
-//
-//        val options = FirebaseRecyclerOptions.Builder<SparePart>()
-//            .setQuery(mRefSpareParts, SparePart::class.java)
-//            .build()
-//
-//        mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        mAdapter = RecyclerViewSparePartsAdapter(options)
-//        mRecyclerView.adapter = mAdapter
-//        mAdapter.startListening()
-//    }
-
     private fun setRecyclerView(bike: List<Bike>,
                                 currentBikeIndex: Int,
                                 viewModel: SparePartsViewModel,
                                 currentSparePartType: String,
                                 currentSparePartName: String
-    ) {
+    ){
         mRecyclerView = binding.sparePartsRecyclerView
         mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         mAdapter = viewModel.getRecyclerViewAdapter(

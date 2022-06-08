@@ -22,9 +22,6 @@ class RecyclerViewSparePartsAdapter(
 
     class SparePartHolder(item: View): RecyclerView.ViewHolder(item) {
 
-        val sharedPref: SharedPreferences = item.context
-            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPref.edit()
         val binding = SparePartsItemBinding.bind(item)
         val sparePartName: TextView = item.findViewById(R.id.sparePartsTextView)
         val sparePartImage: ImageView = item.findViewById(R.id.sparePartsImageView)

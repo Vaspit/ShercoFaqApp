@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentSparePartBinding
 import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.model.SparePart
 
 class SparePartFragment : Fragment() {
 
@@ -34,7 +35,6 @@ class SparePartFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_spare_part, container, false)
-
         binding.sparePartImageView.setImageResource(currentSparePartImage)
         binding.sparePartDescriptionTextView.text = currentSparePartDescription
         binding.sparePartNameTextView.text = currentSparePartName

@@ -1,9 +1,13 @@
-package com.example.shercofaqapp.model;
+package com.example.shercofaqapp.model.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.shercofaqapp.model.Bike;
+import com.example.shercofaqapp.model.BikeDao;
+import com.example.shercofaqapp.model.MyBikesDatabase;
 
 import java.util.List;
 

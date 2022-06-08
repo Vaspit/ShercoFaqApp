@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.shercofaqapp.model.BikeRepository;
+import com.example.shercofaqapp.model.repositories.BikeRepository;
 import com.example.shercofaqapp.model.Bike;
 
 import java.util.List;
