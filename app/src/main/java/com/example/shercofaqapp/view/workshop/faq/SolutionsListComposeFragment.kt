@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
@@ -117,29 +118,39 @@ fun SolutionCard(solution: Solution) {
 
 @Composable
 fun SetSolutionsList(solutions: ArrayList<Solution>, solutionTitle: String) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        Text(
-            text = solutionTitle,
-            color = Color.Gray,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
 
-    Box(
-        modifier = Modifier
-            .padding(top = 48.dp)
-    ) {
-        LazyColumn {
-            items(solutions) { solution ->
-                SolutionCard(solution)
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Text(
+                text = solutionTitle,
+                color = Color.Gray,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(top = 8.dp)
+        ) {
+            LazyColumn {
+                items(solutions) { solution ->
+                    SolutionCard(solution)
+                }
             }
         }
     }
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun ScreenPreview() {
+//    SetSolutionsList(solutions = listOf<Solution>() as ArrayList<Solution>, solutionTitle = "Title")
+//}
+

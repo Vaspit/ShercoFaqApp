@@ -107,6 +107,11 @@ class GarageFragment : Fragment() {
                 findNavController()
                     .navigate(R.id.action_garageFragment_to_loginFragment)
             }
+
+            R.id.account -> {
+                findNavController()
+                    .navigate(R.id.action_garageFragment_to_accountFragment)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

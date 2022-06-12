@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_torques" >
         <action
             android:id="@+id/action_torquesFragment_to_torqueFragment"
-            app:destination="@id/torqueFragment" />
+            app:destination="@id/torqueFragment"
+            app:popUpTo="@id/torquesFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/faqFragment"
@@ -21,7 +23,9 @@
         tools:layout="@layout/fragment_faq" >
         <action
             android:id="@+id/action_faqFragment_to_solutionListComposeFragment"
-            app:destination="@id/solutionListComposeFragment" />
+            app:destination="@id/solutionListComposeFragment"
+            app:popUpTo="@id/faqFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/partsFragment"
@@ -30,7 +34,9 @@
         tools:layout="@layout/fragment_parts_type" >
         <action
             android:id="@+id/action_partsFragment_to_partsListFragment"
-            app:destination="@id/partsListFragment" />
+            app:destination="@id/partsListFragment"
+            app:popUpTo="@id/partsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/partsListFragment"
@@ -39,7 +45,9 @@
         tools:layout="@layout/fragment_parts_list" >
         <action
             android:id="@+id/action_partsListFragment_to_sparePartsFragment"
-            app:destination="@id/sparePartsFragment" />
+            app:destination="@id/sparePartsFragment"
+            app:popUpTo="@id/partsListFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/sparePartsFragment"
@@ -48,7 +56,9 @@
         tools:layout="@layout/fragment_spare_parts" >
         <action
             android:id="@+id/action_sparePartsFragment_to_sparePartFragment"
-            app:destination="@id/sparePartFragment" />
+            app:destination="@id/sparePartFragment"
+            app:popUpTo="@id/sparePartsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/sparePartFragment"

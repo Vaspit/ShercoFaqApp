@@ -1,5 +1,5 @@
 buildscript {
-    ext.coil_version = "2.1.0"
+//    ext.coil_version = "2.1.0"
 
     repositories {
         google()

@@ -31,6 +31,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    composeOptions {
+        kotlinCompilerVersion "1.5.10"
+        kotlinCompilerExtensionVersion = "1.2.0-beta03"
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
         freeCompilerArgs = ['-Xjvm-default=compatibility']
@@ -125,8 +130,8 @@ dependencies {
     // UI Tests
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
 
-    //Coil
-    implementation("io.coil-kt:coil:$coil_version")
-    implementation("io.coil-kt:coil-compose:$coil_version")
+//    //Coil
+//    implementation("io.coil-kt:coil:$coil_version")
+//    implementation("io.coil-kt:coil-compose:$coil_version")
 
 }
