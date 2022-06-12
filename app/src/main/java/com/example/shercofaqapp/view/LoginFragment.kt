@@ -16,6 +16,7 @@ import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.properties.Delegates
@@ -108,9 +109,12 @@ class LoginFragment : Fragment() {
                                             val firebaseUser: FirebaseUser = task.result!!.user!!
                                             val database = Firebase.database
 
-                                            database.getReference("users")
-                                                .child(firebaseUser.uid)
-                                                .child("userName").setValue(userName)
+                                            createUserInDatabase(
+                                                database,
+                                                firebaseUser,
+                                                userName,
+                                                email
+                                            )
 
                                             isLoggedIn = true
 
@@ -156,5 +160,30 @@ class LoginFragment : Fragment() {
             binding.haveAccountTextView.setText(R.string.already_have_an_account)
             binding.loginRegisterTextView.setText(R.string.log_in)
         }
+    }
+
+    private fun createUserInDatabase(
+        database: FirebaseDatabase,
+        firebaseUser: FirebaseUser,
+        userName: String,
+        userEmail: String
+    ) {
+
+        database.getReference("users")
+            .child(firebaseUser.uid)
+            .child("userName").setValue(userName)
+
+        database.getReference("users")
+            .child(firebaseUser.uid)
+            .child("userEmail").setValue(userEmail)
+
+        database.getReference("users")
+            .child(firebaseUser.uid)
+            .child("userProfileImage").setValue(R.drawable.default_profile_icon)
+
+        database.getReference("users")
+            .child(firebaseUser.uid)
+            .child("bikes").setValue(listOf("My first bike"))
+
     }
 }
