@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shercofaqapp.R
+import com.example.shercofaqapp.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -24,8 +25,8 @@ class AccountViewModel: ViewModel() {
     val userEmail : LiveData<String>
         get() = _userEmail
 
-    private val _userProfileImage = MutableLiveData<Int>()
-    val userProfileImage : LiveData<Int>
+    private val _userProfileImage = MutableLiveData<Long>()
+    val userProfileImage : LiveData<Long>
         get() = _userProfileImage
 
     fun setUser() {
@@ -69,9 +70,9 @@ class AccountViewModel: ViewModel() {
     private fun getUserProfileImage(userId: String, database: DatabaseReference) {
         database.child("users").child(userId).child("userProfileImage").get().addOnSuccessListener {
             if (it.value != null) {
-                _userProfileImage.value = it.value as Int?
+                _userProfileImage.value = it.value as Long
             } else {
-                _userProfileImage.value = R.drawable.default_profile_icon
+                _userProfileImage.value = R.drawable.default_profile_icon.toLong()
             }
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
