@@ -34,6 +34,7 @@ class GarageFragment : Fragment() {
     private var bikeArrayList: ArrayList<Bike> = ArrayList()
     lateinit var editor: SharedPreferences.Editor
     private var userName = "UserName"
+    private lateinit var itemTouchHelper: ItemTouchHelper
     private val garageItemCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
         override fun onMove(
@@ -88,7 +89,26 @@ class GarageFragment : Fragment() {
         editor = sharedPref.edit()
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_garage, container, false)
-        initialization()
+
+        itemTouchHelper = ItemTouchHelper(garageItemCallback)
+
+        binding.apply {
+
+            setTitle()
+
+            garageRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            garageRecyclerView.adapter = recyclerViewAdapter
+            garageRecyclerView.setHasFixedSize(true)
+
+            model.bikes.observe(viewLifecycleOwner, Observer<List<Any?>> { bikes ->
+                bikeArrayList = bikes as kotlin.collections.ArrayList<Bike>
+                recyclerViewAdapter.addBikeList(bikeArrayList)
+                recyclerViewAdapter.notifyDataSetChanged()
+            })
+
+            floatingActionButton.setOnClickListener { onAddBike() }
+            itemTouchHelper.attachToRecyclerView(garageRecyclerView)
+        }
 
         return binding.root
     }
@@ -116,42 +136,25 @@ class GarageFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initialization() {
+    private fun setTitle() {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        val database = Firebase.database.reference
 
-        val itemTouchHelper = ItemTouchHelper(garageItemCallback)
-
-        binding.apply {
-            val userId = FirebaseAuth.getInstance().currentUser!!.uid
-            val database = Firebase.database.reference
-
-            database.child("users").child(userId).child("userName").get().addOnSuccessListener {
-                userName = it.value.toString()
-                (activity as AppCompatActivity?)?.supportActionBar?.title = userName
-            }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
-            }
-
-            garageRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-            garageRecyclerView.adapter = recyclerViewAdapter
-            garageRecyclerView.setHasFixedSize(true)
-
-            model.bikes.observe(viewLifecycleOwner, Observer<List<Any?>> { bikes ->
-                    bikeArrayList = bikes as kotlin.collections.ArrayList<Bike>
-                    recyclerViewAdapter.addBikeList(bikeArrayList)
-                    recyclerViewAdapter.notifyDataSetChanged()
-                })
-
-            floatingActionButton.setOnClickListener {
-                editor.putBoolean("isUpdate", false)
-                editor.apply()
-
-                //Go to AddBikeFragment
-                findNavController()
-                    .navigate(R.id.action_garageFragment_to_bikeFragment)
-            }
-            itemTouchHelper.attachToRecyclerView(garageRecyclerView)
+        database.child("users").child(userId).child("userName").get().addOnSuccessListener {
+            userName = it.value.toString()
+            (activity as AppCompatActivity?)?.supportActionBar?.title = userName
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
         }
+    }
 
+    private fun onAddBike() {
+        editor.putBoolean("isUpdate", false)
+        editor.apply()
+
+        //Go to AddBikeFragment
+        findNavController()
+            .navigate(R.id.action_garageFragment_to_bikeFragment)
     }
 
 }

@@ -130,6 +130,7 @@ class BikeFragment : Fragment() {
     private fun onAdd() {
         //Add new bike to Database
         val bike = Bike()
+
         bike.bikeName = binding.bikeNameEditText.text.trim().toString()
         bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
         bike.bikeType = binding.typeSpinner.selectedItem.toString()
@@ -139,6 +140,8 @@ class BikeFragment : Fragment() {
         bike.bikeImage = R.drawable.garage_item_icon
 
         model.addNewBike(bike)
+
+
 
         //Go to GarageFragment
         findNavController()

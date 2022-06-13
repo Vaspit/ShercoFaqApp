@@ -80,28 +80,34 @@ private fun SetUI(user: User) {
                 .padding(8.dp)
                 .fillMaxWidth()
         ) {
-        Row() {
-            Image(
-                painter = painterResource(user.userProfileImage.toInt()),
-                contentDescription = "userProfileImage",
-                modifier = Modifier.padding(8.dp).size(128.dp)
-            )
+            Row() {
+                val rowHeight = 128.dp
+                Image(
+                    painter = painterResource(user.userProfileImage.toInt()),
+                    contentDescription = "userProfileImage",
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .size(rowHeight)
+                )
 
-            Column() {
-                Text(
-                    text = user.userName,
-                    fontSize = 20.sp
-                )
-                Text(
-                    text = user.userEmail,
-                    fontSize = 20.sp
-                )
-                Text(
-                    text = user.bikes.toString(),
-                    fontSize = 20.sp
-                )
+                Column(
+                    modifier = Modifier.padding(8.dp).height(rowHeight),
+                    verticalArrangement = Arrangement.SpaceAround
+                ) {
+                    Text(
+                        text = user.userName,
+                        fontSize = 20.sp
+                    )
+                    Text(
+                        text = user.userEmail,
+                        fontSize = 20.sp
+                    )
+                    Text(
+                        text = user.bikes.toString(),
+                        fontSize = 20.sp
+                    )
+                }
             }
-        }
         }
     }
 }
