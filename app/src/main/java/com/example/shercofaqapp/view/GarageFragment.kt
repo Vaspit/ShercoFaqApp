@@ -47,7 +47,7 @@ class GarageFragment : Fragment() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             showAlretDialog(viewHolder)
-            recyclerViewAdapter.notifyDataSetChanged()
+//            recyclerViewAdapter.notifyDataSetChanged()
         }
     }
 
@@ -103,7 +103,6 @@ class GarageFragment : Fragment() {
             model.bikes.observe(viewLifecycleOwner, Observer<List<Any?>> { bikes ->
                 bikeArrayList = bikes as kotlin.collections.ArrayList<Bike>
                 recyclerViewAdapter.addBikeList(bikeArrayList)
-                recyclerViewAdapter.notifyDataSetChanged()
             })
 
             floatingActionButton.setOnClickListener { onAddBike() }
@@ -114,20 +113,12 @@ class GarageFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_menu, menu)
+        inflater.inflate(R.menu.top_menu_garage, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.topMenuLogOut -> {
-                FirebaseAuth.getInstance().signOut()
-                editor.putBoolean("isLoggedIn", false)
-                editor.apply()
-                findNavController()
-                    .navigate(R.id.action_garageFragment_to_loginFragment)
-            }
-
             R.id.account -> {
                 findNavController()
                     .navigate(R.id.action_garageFragment_to_accountFragment)

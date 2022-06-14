@@ -1,7 +1,5 @@
 package com.example.shercofaqapp.viewmodel.parts
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +21,8 @@ class RecyclerViewSparePartsAdapter(
     class SparePartHolder(item: View): RecyclerView.ViewHolder(item) {
 
         val binding = SparePartsItemBinding.bind(item)
-        val sparePartName: TextView = item.findViewById(R.id.sparePartsTextView)
-        val sparePartImage: ImageView = item.findViewById(R.id.sparePartsImageView)
+        val sparePartName: TextView = binding.sparePartsTextView
+        val sparePartImage: ImageView = binding.sparePartsImageView
 
     }
 
@@ -44,6 +42,7 @@ class RecyclerViewSparePartsAdapter(
         if (model.sparePartImage == 0) {
             model.sparePartImage = R.drawable.ic_baseline_parts
         }
+
         holder.sparePartImage.setImageResource(model.sparePartImage!!)
         holder.itemView.setOnClickListener {
 

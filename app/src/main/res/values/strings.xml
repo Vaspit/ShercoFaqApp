@@ -27,7 +27,7 @@
     <string name="do_not_have_an_account">Don\'t have an account?</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="top_menu_log_out">Log out</string>
+    <string name="top_menu_account_log_out">Log out</string>
     <string name="name">Name</string>
     <string name="parts_name">Parts name</string>
     <string name="description">Description</string>

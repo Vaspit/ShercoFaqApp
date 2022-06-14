@@ -42,38 +42,25 @@ class SparePartsFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_spare_parts, container, false)
-
         sparePartsViewModel = ViewModelProvider(this)[SparePartsViewModel::class.java]
 
-        binding.apply {
+        /** Get bike id and current spare part */
+        getOuterArguments(binding.root)
 
-            //get bike id and current spare part
-            sharedPref = root.context
-                .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-            bikeId = sharedPref.getLong("bikeId", 0)
-            currentSparePartType = arguments?.getString("currentSparePartsType").toString()
-            currentSparePartName = arguments?.getString("currentSparePartsName").toString()
-
-            bikeModel.bikes.observe(viewLifecycleOwner, Observer<List<Bike>> { bike ->
-                //find updatable index of bike by bike id
-                for (bikeItem: Int in bike.indices) {
-                    if (bike[bikeItem].bikeId == bikeId) {
-                        currentBikeIndex = bikeItem
-                        break
-                    }
+        bikeModel.bikes.observe(viewLifecycleOwner, Observer<List<Bike>> { bike ->
+            //find updatable index of bike by bike id
+            for (bikeItem: Int in bike.indices) {
+                if (bike[bikeItem].bikeId == bikeId) {
+                    currentBikeIndex = bikeItem
+                    break
                 }
-                bikes = bike
-                setRecyclerView(bikes, currentBikeIndex, sparePartsViewModel, currentSparePartType,
-                    currentSparePartName)
-            })
-        }
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
+            }
+            bikes = bike
             setRecyclerView(bikes, currentBikeIndex, sparePartsViewModel, currentSparePartType,
                 currentSparePartName)
-            mAdapter.notifyDataSetChanged()
-            binding.swipeRefreshLayout.isRefreshing = false
-        }
+        })
+
+        binding.swipeRefreshLayout.setOnRefreshListener { onRefresh() }
 
         return binding.root
     }
@@ -96,4 +83,23 @@ class SparePartsFragment : Fragment() {
         mAdapter.startListening()
     }
 
+    private fun getOuterArguments(view: View) {
+        sharedPref = view.context
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        bikeId = sharedPref.getLong("bikeId", 0)
+
+        currentSparePartType = arguments?.getString("currentSparePartsType").toString()
+        currentSparePartName = arguments?.getString("currentSparePartsName").toString()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mAdapter.stopListening()
+    }
+
+    private fun onRefresh() {
+        setRecyclerView(bikes, currentBikeIndex, sparePartsViewModel, currentSparePartType,
+            currentSparePartName)
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
 }
