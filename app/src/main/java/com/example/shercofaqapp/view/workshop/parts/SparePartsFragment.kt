@@ -19,6 +19,7 @@ import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.example.shercofaqapp.viewmodel.parts.RecyclerViewSparePartsAdapter
 import com.example.shercofaqapp.viewmodel.parts.SparePartsViewModel
+import com.example.shercofaqapp.viewmodel.parts.SparePartsViewModelFactory
 
 class SparePartsFragment : Fragment() {
 
@@ -32,6 +33,7 @@ class SparePartsFragment : Fragment() {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: RecyclerViewSparePartsAdapter
     private lateinit var sparePartsViewModel: SparePartsViewModel
+    private lateinit var sparePartsViewModelFactory: SparePartsViewModelFactory
     private var currentBikeIndex = 0
     private var bikes: List<Bike> = listOf()
 
@@ -42,7 +44,9 @@ class SparePartsFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_spare_parts, container, false)
-        sparePartsViewModel = ViewModelProvider(this)[SparePartsViewModel::class.java]
+
+        sparePartsViewModelFactory = SparePartsViewModelFactory(requireContext())
+        sparePartsViewModel = ViewModelProvider(this, sparePartsViewModelFactory)[SparePartsViewModel::class.java]
 
         /** Get bike id and current spare part */
         getOuterArguments(binding.root)

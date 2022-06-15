@@ -1,14 +1,14 @@
 package com.example.shercofaqapp.viewmodel.parts
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.shercofaqapp.model.SparePart
 
-class SparePartViewModelFactory(private val sparePart: SparePart) : ViewModelProvider.Factory {
+class SparePartsViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SparePartViewModel::class.java)) {
-            return SparePartViewModel(sparePart) as T
+        if (modelClass.isAssignableFrom(SparePartsViewModel::class.java)) {
+            return SparePartsViewModel(context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

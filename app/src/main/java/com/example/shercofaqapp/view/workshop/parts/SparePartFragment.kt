@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentSparePartBinding
 import com.example.shercofaqapp.model.Bike
@@ -21,7 +22,7 @@ class SparePartFragment : Fragment() {
     private lateinit var currentSparePartDescription: String
     private lateinit var currentSparePartName: String
     private lateinit var currentSparePartLink: String
-    private var currentSparePartImage = R.drawable.ic_baseline_parts
+    private lateinit var currentSparePartImage: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +32,19 @@ class SparePartFragment : Fragment() {
         currentSparePartDescription = arguments?.getString("currentSparePartDescription").toString()
         currentSparePartName = arguments?.getString("currentSparePartName").toString()
         currentSparePartLink = arguments?.getString("currentSparePartLink").toString()
-        currentSparePartImage = arguments?.getInt("currentSparePartImage")!!
+        currentSparePartImage = arguments?.getString("currentSparePartImage")!!
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_spare_part, container, false)
-        binding.sparePartImageView.setImageResource(currentSparePartImage)
+        Glide.with(requireContext())
+            .load(currentSparePartImage)
+            .placeholder(R.drawable.ic_baseline_parts)
+            .error(R.drawable.ic_baseline_parts)
+            .fitCenter()
+            .into(binding.sparePartImageView)
         binding.sparePartDescriptionTextView.text = currentSparePartDescription
         binding.sparePartNameTextView.text = currentSparePartName
-        binding.buyButton.setOnClickListener { onBuy(currentSparePartLink) }
+        binding.buyButton.setOnClickListener { onBuy(currentSparePartLink, currentSparePartName) }
 
         return binding.root
     }
@@ -48,15 +54,12 @@ class SparePartFragment : Fragment() {
         startActivity(Intent(Intent.ACTION_VIEW, uri))
     }
 
-    private fun onBuy(currentSparePartLink: String) {
+    private fun onBuy(currentSparePartLink: String, currentSparePartName: String) {
+
         if (currentSparePartLink != "") {
             gotToUrl(currentSparePartLink)
         } else {
-            Toast.makeText(
-                requireContext(),
-                "There are no parts in the shop yet...",
-                Toast.LENGTH_LONG
-            ).show()
+            gotToUrl("https://www.google.com/search?q={$currentSparePartName}")
         }
     }
 }

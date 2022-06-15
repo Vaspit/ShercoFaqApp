@@ -1,5 +1,7 @@
 package com.example.shercofaqapp.viewmodel.parts
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.model.SparePart
@@ -8,7 +10,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class SparePartsViewModel() : ViewModel() {
+class SparePartsViewModel(val context: Context) : ViewModel() {
 
     fun getRecyclerViewAdapter(
         bike: List<Bike>,
@@ -22,12 +24,13 @@ class SparePartsViewModel() : ViewModel() {
             .child(currentBikeAddress)
             .child(currentSparePartType)
             .child(currentSparePartName)
+
         val options = FirebaseRecyclerOptions.Builder<SparePart>()
             .setQuery(mRefSpareParts, SparePart::class.java)
             .build()
 
 
-        return RecyclerViewSparePartsAdapter(options)
+        return RecyclerViewSparePartsAdapter(options, context)
     }
 
 }

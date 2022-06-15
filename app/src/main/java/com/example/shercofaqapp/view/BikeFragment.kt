@@ -27,7 +27,7 @@ class BikeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val sharedPref = requireActivity()
             .getSharedPreferences("MyPreferences",Context.MODE_PRIVATE)
@@ -59,8 +59,13 @@ class BikeFragment : Fragment() {
                 createFragmentFields()
                 addBikeButton.setOnClickListener { onAdd() }
             }
+            bikeImageView.setOnClickListener { onImageClick() }
         }
         return binding.root
+    }
+
+    private fun onImageClick() {
+
     }
 
     private fun createUI(isUpdate: Boolean) {

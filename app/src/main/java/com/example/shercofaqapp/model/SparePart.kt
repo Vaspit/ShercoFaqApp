@@ -1,11 +1,9 @@
 package com.example.shercofaqapp.model
 
-import com.example.shercofaqapp.R
-
 data class SparePart(
     val sparePartName: String ?= null,
     val sparePartDescription: String ?= null,
     val sparePartLink: String ?= null,
-    var sparePartImage: Int ?= R.drawable.ic_baseline_parts,
+    var sparePartImage: String ?= "",
     val sparePartFor: ArrayList<String> ?= null
 )
