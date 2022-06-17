@@ -8,6 +8,9 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity(tableName = "bikes_table")
 public class Bike extends BaseObservable {
 
@@ -122,5 +125,20 @@ public class Bike extends BaseObservable {
     public void setBikeImage(Integer bikeImage) {
         this.bikeImage = bikeImage;
         notifyPropertyChanged(BR.bikeImage);
+    }
+
+    public Map<String, Object> toMap() {
+
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("bikeName", bikeName);
+        result.put("bikeModelYear", bikeModelYear);
+        result.put("bikeType", bikeType);
+        result.put("bikeEngineType", bikeEngineType);
+        result.put("bikeEngineVolume", bikeEngineVolume);
+        result.put("bikeEdition", bikeEdition);
+//        result.put("bikeImage", bikeImage);
+
+        return result;
     }
 }

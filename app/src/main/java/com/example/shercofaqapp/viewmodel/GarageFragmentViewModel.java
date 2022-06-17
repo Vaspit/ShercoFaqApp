@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.shercofaqapp.model.repositories.BikeFireBaseRepository;
 import com.example.shercofaqapp.model.repositories.BikeRepository;
 import com.example.shercofaqapp.model.Bike;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class GarageFragmentViewModel extends AndroidViewModel {
 
     BikeRepository bikeRepository;
+    BikeFireBaseRepository bikeFireBaseRepository;
     private LiveData<List<Bike>> bikes;
 
     public GarageFragmentViewModel(@NonNull Application application) {
@@ -33,6 +35,7 @@ public class GarageFragmentViewModel extends AndroidViewModel {
     public void addNewBike(Bike bike) {
 
         bikeRepository.insertBike(bike);
+//        bikeFireBaseRepository.createBike(bike, userId);
 
     }
 

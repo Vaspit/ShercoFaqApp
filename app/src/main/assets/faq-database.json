@@ -1,4 +1,34 @@
 {
+  "2017Enduro4S300Factory": [
+    {
+      "issueDescription": "Voltage regulator is hot",
+      "issueSolutions": [
+        {
+          "solutionText": "Replace the old thyristor to TYN 616",
+          "solutionImage": 0
+        },
+        {
+          "solutionText": "Install a voltage regulator from a newer bike model",
+          "solutionImage": 0
+        }
+      ]
+    }
+  ],
+  "2017Enduro4S300Racing": [
+    {
+      "issueDescription": "Voltage regulator is hot",
+      "issueSolutions": [
+        {
+          "solutionText": "Replace the old thyristor to TYN 616",
+          "solutionImage": 0
+        },
+        {
+          "solutionText": "Install a voltage regulator from a newer bike model",
+          "solutionImage": 0
+        }
+      ]
+    }
+  ],
   "2019Enduro2S250Factory": [
     {
       "issueDescription": "Quick wearing of friction discs",

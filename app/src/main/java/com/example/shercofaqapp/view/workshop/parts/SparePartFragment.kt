@@ -40,7 +40,7 @@ class SparePartFragment : Fragment() {
             .load(currentSparePartImage)
             .placeholder(R.drawable.ic_baseline_parts)
             .error(R.drawable.ic_baseline_parts)
-            .fitCenter()
+            .centerInside()
             .into(binding.sparePartImageView)
         binding.sparePartDescriptionTextView.text = currentSparePartDescription
         binding.sparePartNameTextView.text = currentSparePartName

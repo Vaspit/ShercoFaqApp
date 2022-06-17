@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import com.example.shercofaqapp.model.Bike;
 import com.example.shercofaqapp.model.BikeDao;
 import com.example.shercofaqapp.model.MyBikesDatabase;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ktx.Firebase;
 
 import java.util.List;
 
@@ -54,6 +56,7 @@ public class BikeRepository {
         protected Void doInBackground(Bike... bikes) {
 
             bikeDao.insert(bikes[0]);
+
 
             return null;
         }

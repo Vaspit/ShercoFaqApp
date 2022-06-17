@@ -44,7 +44,7 @@ class RecyclerViewSparePartsAdapter(
             .load(model.sparePartImage)
             .placeholder(R.drawable.ic_baseline_parts)
             .error(R.drawable.ic_baseline_parts)
-            .fitCenter()
+            .centerInside()
             .into(holder.sparePartImage)
         holder.itemView.setOnClickListener {
 

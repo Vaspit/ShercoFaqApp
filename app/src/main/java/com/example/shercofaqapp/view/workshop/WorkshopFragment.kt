@@ -38,16 +38,6 @@ class WorkshopFragment : Fragment() {
         binding.apply {
 
             var currentBikeIndex = 0
-            val bikeObserver = Observer<List<Bike>> { bike ->
-                //find updatable index of bike by bike id
-                for (bikeItem: Int in bike.indices) {
-                    if (bike[bikeItem].bikeId == bikeId) {
-                        currentBikeIndex = bikeItem
-                        break
-                    }
-                }
-                currentBikeNameTextView.text = bike[currentBikeIndex].bikeName
-            }
             val nestedNavHostFragment = childFragmentManager
                 .findFragmentById(R.id.mainContainerView) as? NavHostFragment
             val navController = nestedNavHostFragment?.navController
@@ -57,7 +47,16 @@ class WorkshopFragment : Fragment() {
                 .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             bikeId = sharedPref.getLong("bikeId", 0)
 
-            bikeModel.bikes.observe(viewLifecycleOwner, bikeObserver)
+            bikeModel.bikes.observe(viewLifecycleOwner, Observer<List<Bike>> { bike ->
+                //find updatable index of bike by bike id
+                for (bikeItem: Int in bike.indices) {
+                    if (bike[bikeItem].bikeId == bikeId) {
+                        currentBikeIndex = bikeItem
+                        break
+                    }
+                }
+                currentBikeNameTextView.text = bike[currentBikeIndex].bikeName
+            })
 
             if (navController != null) {
                 bottomNavigationView.setupWithNavController(navController)
