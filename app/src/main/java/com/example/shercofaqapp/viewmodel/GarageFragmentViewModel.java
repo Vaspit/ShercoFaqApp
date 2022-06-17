@@ -1,6 +1,7 @@
 package com.example.shercofaqapp.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,6 +23,7 @@ public class GarageFragmentViewModel extends AndroidViewModel {
         super(application);
 
         bikeRepository = new BikeRepository(application);
+        bikeFireBaseRepository = new BikeFireBaseRepository();
 
     }
 
@@ -32,10 +34,10 @@ public class GarageFragmentViewModel extends AndroidViewModel {
 
     }
 
-    public void addNewBike(Bike bike) {
+    public void addNewBike(Bike bike, String userId) {
 
         bikeRepository.insertBike(bike);
-//        bikeFireBaseRepository.createBike(bike, userId);
+        bikeFireBaseRepository.createBike(bike, userId);
 
     }
 

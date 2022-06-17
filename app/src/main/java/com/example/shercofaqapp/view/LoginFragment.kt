@@ -83,8 +83,6 @@ class LoginFragment : Fragment() {
                                     //If the registration is successfully done
                                     if (task.isSuccessful) {
                                         isLoggedIn = true
-//                                        editor.putString("userId",
-//                                            FirebaseAuth.getInstance().currentUser!!.uid)
                                         editor.putBoolean("isLoggedIn", isLoggedIn)
                                         editor.apply()
                                         Navigation.findNavController(requireView())

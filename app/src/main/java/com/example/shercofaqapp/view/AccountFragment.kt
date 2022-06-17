@@ -3,6 +3,7 @@ package com.example.shercofaqapp.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -50,7 +51,7 @@ class AccountFragment : Fragment() {
             "UserName",
             "UserEmail",
             "",
-            listOf("First bike")
+            hashMapOf()
         )
 
         accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
@@ -66,6 +67,8 @@ class AccountFragment : Fragment() {
         })
         accountViewModel.bikeList.observe(viewLifecycleOwner, Observer {
             user.bikes = it
+
+            Log.d("BIKES_HASH_MAP", it.toString())
 
             view.apply {
                 setContent {

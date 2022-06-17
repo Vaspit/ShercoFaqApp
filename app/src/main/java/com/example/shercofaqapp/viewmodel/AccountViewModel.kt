@@ -16,8 +16,8 @@ class AccountViewModel: ViewModel() {
     val userName : LiveData<String>
         get() = _userName
 
-    private val _bikesList = MutableLiveData<List<String>>()
-    val bikeList : LiveData<List<String>>
+    private val _bikesList = MutableLiveData<HashMap<String, Any>>()
+    val bikeList : LiveData<HashMap<String, Any>>
         get() = _bikesList
 
     private val _userEmail = MutableLiveData<String>()
@@ -48,11 +48,7 @@ class AccountViewModel: ViewModel() {
 
     private fun getBikeList(userId: String, database: DatabaseReference) {
         database.child("users").child(userId).child("bikes").get().addOnSuccessListener {
-            if ((it.value as List<String>).isNotEmpty()) {
-                _bikesList.value = it.value as List<String>?
-            } else {
-                _bikesList.value = listOf("There are no bikes")
-            }
+            _bikesList.value = it.value as HashMap<String, Any>?
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
         }

@@ -137,7 +137,7 @@ public class Bike extends BaseObservable {
         result.put("bikeEngineType", bikeEngineType);
         result.put("bikeEngineVolume", bikeEngineVolume);
         result.put("bikeEdition", bikeEdition);
-//        result.put("bikeImage", bikeImage);
+        result.put("bikeImage", bikeImage);
 
         return result;
     }

@@ -1,5 +1,6 @@
 package com.example.shercofaqapp.model.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.shercofaqapp.model.Bike
 import com.google.firebase.database.ktx.database
@@ -15,7 +16,8 @@ class BikeFireBaseRepository {
     }
 
     fun createBike(bike: Bike, userId: String) {
-        databaseReference.child("users").setValue(bike)
+        val key = databaseReference.child("users").child(userId).child("bikes").push().key
+        databaseReference.child("users").child(userId).child("bikes").child(key!!).setValue(bike)
     }
 
     fun readBikes(): LiveData<List<Bike>> {

@@ -2,6 +2,7 @@ package com.example.shercofaqapp.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class BikeFragment : Fragment() {
 
@@ -135,6 +138,7 @@ class BikeFragment : Fragment() {
     private fun onAdd() {
         //Add new bike to Database
         val bike = Bike()
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         bike.bikeName = binding.bikeNameEditText.text.trim().toString()
         bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
@@ -144,7 +148,7 @@ class BikeFragment : Fragment() {
         bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
         bike.bikeImage = R.drawable.garage_item_icon
 
-        model.addNewBike(bike)
+        model.addNewBike(bike, userId)
 
 
 

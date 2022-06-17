@@ -47,7 +47,6 @@ class GarageFragment : Fragment() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             showAlretDialog(viewHolder)
-//            recyclerViewAdapter.notifyDataSetChanged()
         }
     }
 
