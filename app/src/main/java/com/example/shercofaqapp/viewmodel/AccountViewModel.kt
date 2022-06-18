@@ -41,27 +41,31 @@ class AccountViewModel: ViewModel() {
         val database = Firebase.database.reference
 
         getUserName(userId, database)
-        getBikesList(userId, database)
-        getBikeNamesList(userId, database)
+        getBikesList(userId)
+        getBikeNamesList(userId)
         getUserEmail(userId, database)
         getUserProfileImage(userId, database)
     }
 
     private fun getUserName(userId: String, database: DatabaseReference) {
-        database.child("users").child(userId).child("userName").get().addOnSuccessListener {
+        database
+            .child("users")
+            .child(userId)
+            .child("userName")
+            .get()
+            .addOnSuccessListener {
             _userName.value = it.value.toString()
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
         }
     }
 
-    private fun getBikesList(userId: String, database: DatabaseReference) {
-        BikeFireBaseRepository().readBikes(userId, database, _bikesList)
-        Log.d("BIKES", _bikesList.value.toString())
+    private fun getBikesList(userId: String) {
+        BikeFireBaseRepository().readBikes(userId, _bikesList)
     }
 
-    private fun getBikeNamesList(userId: String, database: DatabaseReference) {
-        BikeFireBaseRepository().readBikeNames(userId, database, _bikeNamesList)
+    private fun getBikeNamesList(userId: String) {
+        BikeFireBaseRepository().readBikeNames(userId, _bikeNamesList)
     }
 
     private fun getUserEmail(userId: String, database: DatabaseReference) {

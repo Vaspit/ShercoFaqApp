@@ -1,40 +1,45 @@
 package com.example.shercofaqapp.model.repositories
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 import com.example.shercofaqapp.model.Bike
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class BikeFireBaseRepository {
 
-    private var bikesList: List<Bike> = listOf()
-    private var bikeNamesList = mutableListOf<String>()
-    private val databaseReference = Firebase.database.reference
-
-    fun setBikes() {
-
-    }
-
     fun createBike(bike: Bike, userId: String) {
-        val key = databaseReference.child("users").child(userId).child("bikes").push().key
-        databaseReference.child("users").child(userId).child("bikes").child(key!!).setValue(bike)
+        lateinit var currentBike: Bike
+        val key = Firebase.database.reference
+            .child("users")
+            .child(userId)
+            .child("bikes").push().key
+
+//        currentBike.bikeId = bikeId
+//        currentBike.bikeName = bike.bikeName
+//        currentBike.bikeType = bike.bikeType
+//        currentBike.bikeEngineType = bike.bikeEngineType
+//        currentBike.bikeEngineVolume = bike.bikeEngineVolume
+//        currentBike.bikeModelYear = bike.bikeModelYear
+//        currentBike.bikeImage = bike.bikeImage
+//        currentBike.bikeEdition = bike.bikeEdition
+
+        Firebase.database.reference
+            .child("users")
+            .child(userId)
+            .child("bikes")
+            .child(key!!).setValue(bike)
     }
 
-    fun readBikes(userId: String, database: DatabaseReference, liveData: MutableLiveData<List<Bike>>) {
-
-        database
+    fun readBikes(userId: String, liveData: MutableLiveData<List<Bike>>) {
+        Firebase.database.reference
             .child("users")
             .child(userId)
             .child("bikes")
             .addValueEventListener(object : ValueEventListener {
+
             override fun onDataChange(snapshot: DataSnapshot) {
                 val bikes: List<Bike> = snapshot.children.map { dataSnapshot ->
                     dataSnapshot.getValue(Bike::class.java)!!
@@ -48,14 +53,14 @@ class BikeFireBaseRepository {
         })
     }
 
-    fun readBikeNames(userId: String, database: DatabaseReference, liveData: MutableLiveData<List<String>>) {
-
-        database
+    fun readBikeNames(userId: String, liveData: MutableLiveData<List<String>>) {
+        Firebase.database.reference
             .child("users")
             .child(userId)
             .child("bikes")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    val bikeNamesList = mutableListOf<String>()
                     val bikes: List<Bike> = snapshot.children.map { dataSnapshot ->
                         dataSnapshot.getValue(Bike::class.java)!!
                     }
@@ -73,15 +78,15 @@ class BikeFireBaseRepository {
             })
     }
 
-
-    fun updateBike(bike: Bike, userId: String) {
+    fun updateBike(bike: Bike, bikeKey: String, userId: String) {
         val bikeValues = bike.toMap()
 
-        databaseReference
+        Firebase.database.reference
             .child("users")
             .child(userId)
+            .child("bikes")
             .updateChildren(hashMapOf<String, Any?>(
-                "bikes" to bikeValues
+                bikeKey to bikeValues
             ))
     }
 

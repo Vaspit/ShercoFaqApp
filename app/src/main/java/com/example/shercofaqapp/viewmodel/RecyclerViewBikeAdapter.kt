@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.GarageItemBinding
 import com.example.shercofaqapp.model.Bike
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.ViewHolder>() {
 
@@ -25,7 +29,6 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
         private val editor: SharedPreferences.Editor = sharedPref.edit()
 
         fun bind(bike: Bike) = with(binding) {
-
             bikeNameTextView.text = bike.bikeName
             bikeModelYearTextView.text = bike.bikeModelYear
             bikeTypeTextView.text = bike.bikeType
@@ -36,95 +39,68 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
 
             //Garage item click
             itemView.setOnClickListener {
+                val bundle = bundleOf(
+                    "bikeId" to bike.bikeId
+                )
 
-                editor.putLong("bikeId", bike.bikeId)
-                editor.apply()
                 //Go to AddBikeFragment
                 findNavController(itemView)
-                    .navigate(R.id.action_garageFragment_to_workshopFragment)
-
+                    .navigate(R.id.action_garageFragment_to_workshopFragment, bundle)
             }
 
             editImageButton.setOnClickListener {
-
                 showPopupMenu(itemView, bike)
-
             }
-
         }
 
         fun showPopupMenu(view: View, bike: Bike) {
-
             val popupMenu = PopupMenu(view.context, view)
             popupMenu.inflate(R.menu.popup_menu)
             popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
                 when(item.itemId) {
-
                     // Go to BikeFragment
                     R.id.actionPopupEdit -> {
+                        val bundle = bundleOf(
+                            "bikeId" to bike.bikeId,
+                            "isUpdate" to true
+                        )
 
-                        //Put adapter position for the transmitting to corresponding BikeFragment
-                        editor.putBoolean("isUpdate", true)
-                        editor.putLong("bikeId", bike.bikeId)
-                        editor.commit()
-
-                        Navigation.findNavController(view)
-                            .navigate(R.id.action_garageFragment_to_bikeFragment)
-
+                        findNavController(view)
+                            .navigate(R.id.action_garageFragment_to_bikeFragment, bundle)
                     }
-
                 }
                 true
             })
             popupMenu.show()
-
         }
-
     }
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-
         // Create a new view, which defines the UI of the list item
         return ViewHolder(item = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.garage_item, viewGroup, false))
-
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
         viewHolder.bind(bikeList[position])
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
-
         return bikeList.size
-
-    }
-
-    fun addBike(bike: Bike) {
-
-        bikeList.add(bike)
-        notifyDataSetChanged()
-
     }
 
     fun addBikeList(bikeList: ArrayList<Bike>) {
-
         this.bikeList = bikeList
         notifyDataSetChanged()
-
     }
 
-    fun deleteBike(bikeList: ArrayList<Bike>, position: Int) {
+    private fun getBikeKey() {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-        this.bikeList = bikeList
-        bikeList.remove(bikeList[position])
-        notifyDataSetChanged()
-
+        Firebase.database.reference.child("users").child(userId).push()
     }
 
 }

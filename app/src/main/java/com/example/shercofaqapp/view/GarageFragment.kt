@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -139,12 +140,13 @@ class GarageFragment : Fragment() {
     }
 
     private fun onAddBike() {
-        editor.putBoolean("isUpdate", false)
-        editor.apply()
+//        editor.putBoolean("isUpdate", false)
+//        editor.apply()
+        val bundle = bundleOf("isUpdate" to false)
 
         //Go to AddBikeFragment
         findNavController()
-            .navigate(R.id.action_garageFragment_to_bikeFragment)
+            .navigate(R.id.action_garageFragment_to_bikeFragment, bundle)
     }
 
 }

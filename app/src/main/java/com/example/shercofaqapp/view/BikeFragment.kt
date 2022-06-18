@@ -2,7 +2,6 @@ package com.example.shercofaqapp.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,20 +10,20 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class BikeFragment : Fragment() {
 
     lateinit var binding: FragmentAddBikeBinding
     private val model: GarageFragmentViewModel by viewModels()
     lateinit var bike: Bike
+    lateinit var bikeKey: String
+    var bikeId: Long = 0
     private var isUpdate = false
 
     override fun onCreateView(
@@ -32,19 +31,15 @@ class BikeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val sharedPref = requireActivity()
-            .getSharedPreferences("MyPreferences",Context.MODE_PRIVATE)
+        getOuterArguments()
 
-        isUpdate = sharedPref.getBoolean("isUpdate", false)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_add_bike, container, false)
 
         binding.apply {
-
             createUI(isUpdate)
 
             if (isUpdate) {
-                val bikeId = sharedPref.getLong("bikeId", 0)
                 var updatingBikeIndex = 0
                 //Get the bike data from selected bike item
                 model.bikes.observe(viewLifecycleOwner, Observer { bike ->
@@ -57,10 +52,10 @@ class BikeFragment : Fragment() {
                     }
                     setBike(binding.root, bike, updatingBikeIndex)
                 })
-                addBikeButton.setOnClickListener { onUpdate(bikeId) }
+                addUpdateBikeButton.setOnClickListener { onUpdate(bikeId) }
             } else {
                 createFragmentFields()
-                addBikeButton.setOnClickListener { onAdd() }
+                addUpdateBikeButton.setOnClickListener { onAdd() }
             }
             bikeImageView.setOnClickListener { onImageClick() }
         }
@@ -73,11 +68,11 @@ class BikeFragment : Fragment() {
 
     private fun createUI(isUpdate: Boolean) {
         createFragmentFields()
-        if (isUpdate) { binding.addBikeButton.text = getString(R.string.update_bike_button_text) } else { binding.addBikeButton.text = getString(R.string.add_bike_button_text) }
+        if (isUpdate) { binding.addUpdateBikeButton.text = getString(R.string.update_bike_button_text) }
+        else { binding.addUpdateBikeButton.text = getString(R.string.add_bike_button_text) }
     }
 
     private fun createFragmentFields() {
-
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.bike_type_spinner_text,
@@ -132,7 +127,6 @@ class BikeFragment : Fragment() {
             // Apply the adapter to the spinner
             binding.editionSpinner.adapter = editionSpinnerAdapter
         }
-
     }
 
     private fun onAdd() {
@@ -150,8 +144,6 @@ class BikeFragment : Fragment() {
 
         model.addNewBike(bike, userId)
 
-
-
         //Go to GarageFragment
         findNavController()
             .navigate(R.id.action_bikeFragment_to_garageFragment)
@@ -160,6 +152,7 @@ class BikeFragment : Fragment() {
     private fun onUpdate(bikeId: Long) {
         //Update bike within Database
         val bike = Bike()
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         bike.bikeId = bikeId
         bike.bikeName = binding.bikeNameEditText.text.trim().toString()
@@ -170,7 +163,7 @@ class BikeFragment : Fragment() {
         bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
         bike.bikeImage = R.drawable.garage_item_icon
 
-        model.updateBike(bike)
+        model.updateBike(bike, "0", userId)
 
         //Go to GarageFragment
         findNavController()
@@ -197,6 +190,15 @@ class BikeFragment : Fragment() {
         binding.editionSpinner.setSelection(editionArrayList
             .indexOf(bike[updatingBikeIndex].bikeEdition))
         binding.bikeImageView.setImageResource(bike[updatingBikeIndex].bikeImage)
+    }
+
+    private fun getOuterArguments() {
+        val sharedPref = requireActivity()
+            .getSharedPreferences("MyPreferences",Context.MODE_PRIVATE)
+
+//        isUpdate = sharedPref.getBoolean("isUpdate", false)
+        bikeId = arguments?.getLong("bikeId")!!
+        isUpdate = arguments?.getBoolean("isUpdate")!!
     }
 
 }
