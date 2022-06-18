@@ -3,7 +3,6 @@ package com.example.shercofaqapp.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -65,7 +64,7 @@ class AccountFragment : Fragment() {
         accountViewModel.userProfileImage.observe(viewLifecycleOwner, Observer {
             user.userProfileImageUrl = it
         })
-        accountViewModel.bikeList.observe(viewLifecycleOwner, Observer {
+        accountViewModel.bikeNamesList.observe(viewLifecycleOwner, Observer {
             user.bikes = it
 
             view.apply {

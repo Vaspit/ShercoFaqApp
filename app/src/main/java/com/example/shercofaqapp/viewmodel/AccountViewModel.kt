@@ -4,11 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.shercofaqapp.R
+import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.model.repositories.BikeFireBaseRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+
+/** Don't forget to rewrite this class to grabbing just a user instead of user fields*/
 
 class AccountViewModel: ViewModel() {
 
@@ -16,10 +19,14 @@ class AccountViewModel: ViewModel() {
     val userName : LiveData<String>
         get() = _userName
 
-    /** Get bike names */
-    private val _bikesList = MutableLiveData<List<String>>()
-    val bikeList : LiveData<List<String>>
+    private val _bikesList = MutableLiveData<List<Bike>>()
+    val bikesList : LiveData<List<Bike>>
         get() = _bikesList
+
+    /** Get bike names */
+    private val _bikeNamesList = MutableLiveData<List<String>>()
+    val bikeNamesList : LiveData<List<String>>
+        get() = _bikeNamesList
 
     private val _userEmail = MutableLiveData<String>()
     val userEmail : LiveData<String>
@@ -34,7 +41,8 @@ class AccountViewModel: ViewModel() {
         val database = Firebase.database.reference
 
         getUserName(userId, database)
-        getBikeList(userId, database)
+        getBikesList(userId, database)
+        getBikeNamesList(userId, database)
         getUserEmail(userId, database)
         getUserProfileImage(userId, database)
     }
@@ -47,17 +55,13 @@ class AccountViewModel: ViewModel() {
         }
     }
 
-    private fun getBikeList(userId: String, database: DatabaseReference) {
-        database.child("users").child(userId).child("bikes").get().addOnSuccessListener {
-            val bikesHashMap = it.value as HashMap<String, Any>?
-            val bikesKeys = bikesHashMap?.keys
-            var bikeNamesList = listOf<String>()
+    private fun getBikesList(userId: String, database: DatabaseReference) {
+        BikeFireBaseRepository().readBikes(userId, database, _bikesList)
+        Log.d("BIKES", _bikesList.value.toString())
+    }
 
-            Log.d("ACCOUNT_VIEW_MODEL", bikesKeys.toString())
-//            _bikesList.value =
-        }.addOnFailureListener{
-            Log.e("firebase", "Error getting data", it)
-        }
+    private fun getBikeNamesList(userId: String, database: DatabaseReference) {
+        BikeFireBaseRepository().readBikeNames(userId, database, _bikeNamesList)
     }
 
     private fun getUserEmail(userId: String, database: DatabaseReference) {
