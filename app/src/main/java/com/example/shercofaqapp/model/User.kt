@@ -4,7 +4,7 @@ data class User (
     var userName: String,
     var userEmail: String,
     var userProfileImageUrl: String,
-    var bikes: HashMap<String, Any>
+    var bikes: List<String>
         ) {
 
     fun toMap(): Map<String, Any?> {

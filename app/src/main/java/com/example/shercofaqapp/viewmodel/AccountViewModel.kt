@@ -16,8 +16,9 @@ class AccountViewModel: ViewModel() {
     val userName : LiveData<String>
         get() = _userName
 
-    private val _bikesList = MutableLiveData<HashMap<String, Any>>()
-    val bikeList : LiveData<HashMap<String, Any>>
+    /** Get bike names */
+    private val _bikesList = MutableLiveData<List<String>>()
+    val bikeList : LiveData<List<String>>
         get() = _bikesList
 
     private val _userEmail = MutableLiveData<String>()
@@ -48,7 +49,12 @@ class AccountViewModel: ViewModel() {
 
     private fun getBikeList(userId: String, database: DatabaseReference) {
         database.child("users").child(userId).child("bikes").get().addOnSuccessListener {
-            _bikesList.value = it.value as HashMap<String, Any>?
+            val bikesHashMap = it.value as HashMap<String, Any>?
+            val bikesKeys = bikesHashMap?.keys
+            var bikeNamesList = listOf<String>()
+
+            Log.d("ACCOUNT_VIEW_MODEL", bikesKeys.toString())
+//            _bikesList.value =
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
         }
