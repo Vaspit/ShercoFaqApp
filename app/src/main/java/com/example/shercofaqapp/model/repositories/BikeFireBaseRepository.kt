@@ -17,15 +17,6 @@ class BikeFireBaseRepository {
             .child(userId)
             .child("bikes").push().key
 
-//        currentBike.bikeId = bikeId
-//        currentBike.bikeName = bike.bikeName
-//        currentBike.bikeType = bike.bikeType
-//        currentBike.bikeEngineType = bike.bikeEngineType
-//        currentBike.bikeEngineVolume = bike.bikeEngineVolume
-//        currentBike.bikeModelYear = bike.bikeModelYear
-//        currentBike.bikeImage = bike.bikeImage
-//        currentBike.bikeEdition = bike.bikeEdition
-
         Firebase.database.reference
             .child("users")
             .child(userId)

@@ -24,9 +24,6 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
         val binding = GarageItemBinding.bind(item)
-        private val sharedPref: SharedPreferences = item.context
-            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        private val editor: SharedPreferences.Editor = sharedPref.edit()
 
         fun bind(bike: Bike) = with(binding) {
             bikeNameTextView.text = bike.bikeName
@@ -39,6 +36,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
 
             //Garage item click
             itemView.setOnClickListener {
+
                 val bundle = bundleOf(
                     "bikeId" to bike.bikeId
                 )
@@ -75,19 +73,15 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
         }
     }
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
         return ViewHolder(item = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.garage_item, viewGroup, false))
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bind(bikeList[position])
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
         return bikeList.size
     }
@@ -95,12 +89,6 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
     fun addBikeList(bikeList: ArrayList<Bike>) {
         this.bikeList = bikeList
         notifyDataSetChanged()
-    }
-
-    private fun getBikeKey() {
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-
-        Firebase.database.reference.child("users").child(userId).push()
     }
 
 }

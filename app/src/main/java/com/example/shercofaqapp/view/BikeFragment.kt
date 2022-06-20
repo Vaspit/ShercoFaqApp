@@ -193,10 +193,6 @@ class BikeFragment : Fragment() {
     }
 
     private fun getOuterArguments() {
-        val sharedPref = requireActivity()
-            .getSharedPreferences("MyPreferences",Context.MODE_PRIVATE)
-
-//        isUpdate = sharedPref.getBoolean("isUpdate", false)
         bikeId = arguments?.getLong("bikeId")!!
         isUpdate = arguments?.getBoolean("isUpdate")!!
     }
