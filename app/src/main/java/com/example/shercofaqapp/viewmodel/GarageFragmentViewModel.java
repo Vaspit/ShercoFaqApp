@@ -42,18 +42,18 @@ public class GarageFragmentViewModel extends AndroidViewModel {
         return bikesWithinFirebase;
     }
 
-    public void addNewBike(Bike bike, String userId) {
+    public void addNewBike(Bike bike, String userId, String key) {
         bikeRepository.insertBike(bike);
-        bikeFireBaseRepository.createBike(bike, userId);
+        bikeFireBaseRepository.createBike(bike, userId, key);
     }
 
     public void deleteBike(Bike bike) {
         bikeRepository.deleteBike(bike);
     }
 
-    public void updateBike(Bike bike, String bikeKey, String userId) {
+    public void updateBike(Bike bike, String userId, String bikeKey) {
         bikeRepository.updateBike(bike);
-        bikeFireBaseRepository.updateBike(bike, bikeKey, userId);
+        bikeFireBaseRepository.updateBike(bike, userId, bikeKey);
     }
 
     public Bike getBike(long id) {

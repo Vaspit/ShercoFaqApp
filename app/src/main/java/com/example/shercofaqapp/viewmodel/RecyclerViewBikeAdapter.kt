@@ -60,6 +60,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
                     R.id.actionPopupEdit -> {
                         val bundle = bundleOf(
                             "bikeId" to bike.bikeId,
+                            "bikeFirebaseKey" to bike.bikeFirebaseKey,
                             "isUpdate" to true
                         )
 

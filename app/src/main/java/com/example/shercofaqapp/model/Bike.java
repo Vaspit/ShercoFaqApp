@@ -30,13 +30,23 @@ public class Bike extends BaseObservable {
     private String bikeEdition;
     @ColumnInfo(name = "bike_image")
     private Integer bikeImage;
+    @ColumnInfo(name = "bike_firebase_key")
+    private String bikeFirebaseKey;
 
     @Ignore
     public Bike() {
     }
 
-    public Bike(long bikeId, String bikeName, String bikeModelYear, String bikeType,
-                String bikeEngineType, String bikeEngineVolume, String bikeEdition, Integer bikeImage) {
+    public Bike(
+            long bikeId,
+            String bikeName,
+            String bikeModelYear,
+            String bikeType,
+            String bikeEngineType,
+            String bikeEngineVolume,
+            String bikeEdition,
+            Integer bikeImage,
+            String bikeFirebaseKey) {
         this.bikeId = bikeId;
         this.bikeName = bikeName;
         this.bikeModelYear = bikeModelYear;
@@ -45,6 +55,7 @@ public class Bike extends BaseObservable {
         this.bikeEngineVolume = bikeEngineVolume;
         this.bikeEdition = bikeEdition;
         this.bikeImage = bikeImage;
+        this.bikeFirebaseKey = bikeFirebaseKey;
     }
 
     @Bindable
@@ -127,6 +138,15 @@ public class Bike extends BaseObservable {
         notifyPropertyChanged(BR.bikeImage);
     }
 
+    @Bindable
+    public String getBikeFirebaseKey() {
+        return bikeFirebaseKey;
+    }
+
+    public void setBikeFirebaseKey(String bikeFirebaseKey) {
+        this.bikeFirebaseKey = bikeFirebaseKey;
+    }
+
     public Map<String, Object> toMap() {
 
         HashMap<String, Object> result = new HashMap<>();
@@ -138,6 +158,7 @@ public class Bike extends BaseObservable {
         result.put("bikeEngineVolume", bikeEngineVolume);
         result.put("bikeEdition", bikeEdition);
         result.put("bikeImage", bikeImage);
+        result.put("bikeFirebaseKey", bikeFirebaseKey);
 
         return result;
     }

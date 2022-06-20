@@ -1,6 +1,5 @@
 package com.example.shercofaqapp.view
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,13 +15,15 @@ import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class BikeFragment : Fragment() {
 
     lateinit var binding: FragmentAddBikeBinding
     private val model: GarageFragmentViewModel by viewModels()
     lateinit var bike: Bike
-    lateinit var bikeKey: String
+    lateinit var bikeFirebaseKey: String
     var bikeId: Long = 0
     private var isUpdate = false
 
@@ -52,7 +53,7 @@ class BikeFragment : Fragment() {
                     }
                     setBike(binding.root, bike, updatingBikeIndex)
                 })
-                addUpdateBikeButton.setOnClickListener { onUpdate(bikeId) }
+                addUpdateBikeButton.setOnClickListener { onUpdate(bikeId, bikeFirebaseKey) }
             } else {
                 createFragmentFields()
                 addUpdateBikeButton.setOnClickListener { onAdd() }
@@ -134,6 +135,11 @@ class BikeFragment : Fragment() {
         val bike = Bike()
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
+        val key = Firebase.database.reference
+            .child("users")
+            .child(userId)
+            .child("bikes").push().key
+
         bike.bikeName = binding.bikeNameEditText.text.trim().toString()
         bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
         bike.bikeType = binding.typeSpinner.selectedItem.toString()
@@ -141,15 +147,16 @@ class BikeFragment : Fragment() {
         bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
         bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
         bike.bikeImage = R.drawable.garage_item_icon
+        bike.bikeFirebaseKey = key
 
-        model.addNewBike(bike, userId)
+        model.addNewBike(bike, userId, key)
 
         //Go to GarageFragment
         findNavController()
             .navigate(R.id.action_bikeFragment_to_garageFragment)
     }
 
-    private fun onUpdate(bikeId: Long) {
+    private fun onUpdate(bikeId: Long, bikeFirebaseKey: String) {
         //Update bike within Database
         val bike = Bike()
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
@@ -162,8 +169,9 @@ class BikeFragment : Fragment() {
         bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
         bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
         bike.bikeImage = R.drawable.garage_item_icon
+        bike.bikeFirebaseKey = bikeFirebaseKey
 
-        model.updateBike(bike, "0", userId)
+        model.updateBike(bike, userId, bikeFirebaseKey)
 
         //Go to GarageFragment
         findNavController()
@@ -195,6 +203,8 @@ class BikeFragment : Fragment() {
     private fun getOuterArguments() {
         bikeId = arguments?.getLong("bikeId")!!
         isUpdate = arguments?.getBoolean("isUpdate")!!
+
+        if (isUpdate) bikeFirebaseKey = arguments?.getString("bikeFirebaseKey")!!
     }
 
 }

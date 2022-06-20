@@ -48,7 +48,6 @@ class TorquesFragment : Fragment() {
         sharedPref = binding.root.context
             .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
         bikeId = sharedPref.getLong("bikeId", 0)
-        Log.d("BIKE", "Torques fragment: ${bikeId.toString()}")
 
         bikeModel.bikes.observe(viewLifecycleOwner, Observer { bike ->
             //find updatable index of bike by bike id

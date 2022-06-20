@@ -1,5 +1,6 @@
 package com.example.shercofaqapp.model.repositories
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.shercofaqapp.model.Bike
 import com.google.firebase.database.DataSnapshot
@@ -10,18 +11,13 @@ import com.google.firebase.ktx.Firebase
 
 class BikeFireBaseRepository {
 
-    fun createBike(bike: Bike, userId: String) {
-        lateinit var currentBike: Bike
-        val key = Firebase.database.reference
-            .child("users")
-            .child(userId)
-            .child("bikes").push().key
+    fun createBike(bike: Bike, userId: String, key: String) {
 
         Firebase.database.reference
             .child("users")
             .child(userId)
             .child("bikes")
-            .child(key!!).setValue(bike)
+            .child(key).setValue(bike)
     }
 
     fun readBikes(userId: String, liveData: MutableLiveData<List<Bike>>) {
@@ -69,7 +65,7 @@ class BikeFireBaseRepository {
             })
     }
 
-    fun updateBike(bike: Bike, bikeKey: String, userId: String) {
+    fun updateBike(bike: Bike, userId: String, bikeKey: String) {
         val bikeValues = bike.toMap()
 
         Firebase.database.reference

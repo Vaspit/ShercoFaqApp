@@ -9,7 +9,6 @@ import com.example.shercofaqapp.model.Issue
 class FaqViewModel: ViewModel() {
 
     fun getIssues(context: Context, bikeAddress: String): ArrayList<Issue> {
-        Log.d("FAQ_VIEW_MODEL", FaqRepository(context).getIssues(bikeAddress).toString())
         return FaqRepository(context).getIssues(bikeAddress)
     }
 
