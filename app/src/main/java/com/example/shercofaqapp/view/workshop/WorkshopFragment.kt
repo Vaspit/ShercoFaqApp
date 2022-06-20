@@ -42,10 +42,8 @@ class WorkshopFragment : Fragment() {
                 .findFragmentById(R.id.mainContainerView) as? NavHostFragment
             val navController = nestedNavHostFragment?.navController
 
-            //Get bike id
-            sharedPref = root.context
-                .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-            bikeId = sharedPref.getLong("bikeId", 0)
+            getOuterArguments()
+            setOuterArguments()
 
             bikeModel.bikes.observe(viewLifecycleOwner, Observer<List<Bike>> { bike ->
                 //find updatable index of bike by bike id
@@ -66,6 +64,21 @@ class WorkshopFragment : Fragment() {
         }
 
         return binding.root
+
+    }
+
+    private fun getOuterArguments() {
+        //Get bike id
+        sharedPref = binding.root.context
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+
+        bikeId = arguments?.getLong("bikeId")!!
+    }
+
+    private fun setOuterArguments() {
+        sharedPref = binding.root.context
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        sharedPref.edit().putLong("bikeId", bikeId).apply()
 
     }
 
