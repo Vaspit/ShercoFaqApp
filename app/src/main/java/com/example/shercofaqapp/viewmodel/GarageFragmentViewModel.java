@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.shercofaqapp.model.repositories.BikeFireBaseRepository;
 import com.example.shercofaqapp.model.repositories.BikeRepository;
@@ -23,11 +24,11 @@ public class GarageFragmentViewModel extends AndroidViewModel {
     private LiveData<List<Bike>> bikes;
     private LiveData<List<Bike>> bikesWithinFirebase;
 
+
     public GarageFragmentViewModel(@NonNull Application application) {
         super(application);
 
         bikeRepository = new BikeRepository(application);
-        bikeFireBaseRepository = new BikeFireBaseRepository();
     }
 
     public LiveData<List<Bike>> getBikes() {
@@ -35,16 +36,9 @@ public class GarageFragmentViewModel extends AndroidViewModel {
         return bikes;
     }
 
-    public LiveData<List<Bike>> getBikesFromFirebase() {
-        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-
-        bikeFireBaseRepository.readBikes(userId, (MutableLiveData<List<Bike>>) bikesWithinFirebase);
-        return bikesWithinFirebase;
-    }
-
     public void addNewBike(Bike bike, String userId, String key) {
         bikeRepository.insertBike(bike);
-        bikeFireBaseRepository.createBike(bike, userId, key);
+//        bikeFireBaseRepository.createBike(bike, userId, key);
     }
 
     public void deleteBike(Bike bike) {
@@ -53,7 +47,7 @@ public class GarageFragmentViewModel extends AndroidViewModel {
 
     public void updateBike(Bike bike, String userId, String bikeKey) {
         bikeRepository.updateBike(bike);
-        bikeFireBaseRepository.updateBike(bike, userId, bikeKey);
+//        bikeFireBaseRepository.updateBike(bike, userId, bikeKey);
     }
 
     public Bike getBike(long id) {

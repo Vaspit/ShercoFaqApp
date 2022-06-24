@@ -10,15 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentTorquesBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.utils.CurrentBikeAddress
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
+import com.example.shercofaqapp.viewmodel.WorkshopFragmentViewModel
 import com.example.shercofaqapp.viewmodel.torques.RecyclerViewTorquesAdapter
 import com.example.shercofaqapp.viewmodel.torques.TorquesViewModel
 import kotlinx.coroutines.*
@@ -26,11 +29,7 @@ import kotlinx.coroutines.*
 
 class TorquesFragment : Fragment() {
 
-    private var currentBikeIndex = 0
-    private var bikeId: Long = 0
-    private lateinit var sharedPref: SharedPreferences
     private var currentBikeAddress = ""
-    private lateinit var bikeModel: GarageFragmentViewModel
     private lateinit var torquesViewModel: TorquesViewModel
     lateinit var binding: FragmentTorquesBinding
 
@@ -42,28 +41,13 @@ class TorquesFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_torques, container, false)
 
-        bikeModel = ViewModelProvider(this)[GarageFragmentViewModel::class.java]
         torquesViewModel = ViewModelProvider(this)[TorquesViewModel::class.java]
 
-        sharedPref = binding.root.context
-            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        bikeId = sharedPref.getLong("bikeId", 0)
+        getOuterArguments(binding.root)
 
-        bikeModel.bikes.observe(viewLifecycleOwner, Observer { bike ->
-            //find updatable index of bike by bike id
-            for (bikeItem: Int in bike.indices) {
-                if (bike[bikeItem].bikeId == bikeId) {
-                    currentBikeIndex = bikeItem
-                    break
-                }
-            }
-
-            currentBikeAddress = CurrentBikeAddress(bike, currentBikeIndex).getCurrentBikeAddress()
-
-            CoroutineScope(Dispatchers.IO).launch {
-                setRecyclerViews()
-            }
-        })
+        CoroutineScope(Dispatchers.IO).launch {
+            setRecyclerViews()
+        }
 
         return binding.root
     }
@@ -81,5 +65,12 @@ class TorquesFragment : Fragment() {
             binding.chassisRecyclerView.adapter = RecyclerViewTorquesAdapter(chassisTorques)
             binding.chassisRecyclerView.setHasFixedSize(true)
         }
+    }
+
+    private fun getOuterArguments(view: View) {
+        val sharedPref = view.context
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+
+        currentBikeAddress = sharedPref.getString("currentBikeAddress", "").toString()
     }
 }

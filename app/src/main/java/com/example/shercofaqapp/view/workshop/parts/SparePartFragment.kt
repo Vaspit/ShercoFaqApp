@@ -7,18 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentSparePartBinding
-import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.model.SparePart
 
 class SparePartFragment : Fragment() {
 
     lateinit var binding: FragmentSparePartBinding
-    lateinit var bike: Bike
     private lateinit var currentSparePartDescription: String
     private lateinit var currentSparePartName: String
     private lateinit var currentSparePartLink: String

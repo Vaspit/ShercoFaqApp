@@ -1,19 +1,17 @@
 package com.example.shercofaqapp.utils
 
 import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.model.BikeFirebase
 
-class CurrentBikeAddress(
-    private val bikeList: List<Bike>,
-    private val currentBikeIndex: Int) {
+class CurrentBikeAddress() {
 
-    fun getCurrentBikeAddress(
-    ): String {
+    fun getCurrentBikeAddress(bike: BikeFirebase): String {
         val currentBikeAddress =
-            bikeList[currentBikeIndex].bikeModelYear +
-                    bikeList[currentBikeIndex].bikeType +
-                    bikeList[currentBikeIndex].bikeEngineType +
-                    bikeList[currentBikeIndex].bikeEngineVolume +
-                    bikeList[currentBikeIndex].bikeEdition
+            bike.bikeModelYear +
+                    bike.bikeType +
+                    bike.bikeEngineType +
+                    bike.bikeEngineVolume +
+                    bike.bikeEdition
 
         return currentBikeAddress.trim()
     }

@@ -32,11 +32,7 @@ import kotlinx.coroutines.withContext
 class FaqFragment : Fragment() {
 
     lateinit var binding: FragmentFaqBinding
-    private var currentBikeIndex = 0
-    private var bikeId: Long = 0
-    private lateinit var sharedPref: SharedPreferences
     private var currentBikeAddress = ""
-    private lateinit var bikeModel: GarageFragmentViewModel
     private lateinit var faqViewModel: FaqViewModel
 
     override fun onCreateView(
@@ -47,27 +43,13 @@ class FaqFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_faq, container, false)
 
-        bikeModel = ViewModelProvider(this)[GarageFragmentViewModel::class.java]
+        getOuterArguments(binding.root)
+
         faqViewModel = ViewModelProvider(this)[FaqViewModel::class.java]
 
-        sharedPref = binding.root.context
-            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        bikeId = sharedPref.getLong("bikeId", 0)
-
-        bikeModel.bikes.observe(viewLifecycleOwner, Observer { bike ->
-            //find updatable index of bike by bike id
-            for (bikeItem: Int in bike.indices) {
-                if (bike[bikeItem].bikeId == bikeId) {
-                    currentBikeIndex = bikeItem
-                    break
-                }
-            }
-            currentBikeAddress = CurrentBikeAddress(bike, currentBikeIndex).getCurrentBikeAddress()
-
-            CoroutineScope(Dispatchers.IO).launch {
-                setRecyclerView()
-            }
-        })
+        CoroutineScope(Dispatchers.IO).launch {
+            setRecyclerView()
+        }
 
         return binding.root
 
@@ -82,6 +64,13 @@ class FaqFragment : Fragment() {
             binding.faqRecyclerView.adapter = RecyclerViewFaqAdapter(issuesArrayList)
             binding.faqRecyclerView.setHasFixedSize(true)
         }
+    }
+
+    private fun getOuterArguments(view: View) {
+        val sharedPref = view.context
+            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+
+        currentBikeAddress = sharedPref.getString("currentBikeAddress", "").toString()
     }
 
 }

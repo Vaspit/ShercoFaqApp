@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentSparePartsBinding
 import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.utils.CurrentBikeAddress
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.example.shercofaqapp.viewmodel.parts.RecyclerViewSparePartsAdapter
 import com.example.shercofaqapp.viewmodel.parts.SparePartsViewModel
@@ -24,18 +25,13 @@ import com.example.shercofaqapp.viewmodel.parts.SparePartsViewModelFactory
 class SparePartsFragment : Fragment() {
 
     lateinit var binding: FragmentSparePartsBinding
-    private var bikeId: Long = 0
-    private val bikeModel: GarageFragmentViewModel by viewModels()
-    private lateinit var sharedPref: SharedPreferences
-    lateinit var bike: Bike
+    private lateinit var currentBikeAddress: String
     private lateinit var currentSparePartType: String
     private lateinit var currentSparePartName: String
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: RecyclerViewSparePartsAdapter
     private lateinit var sparePartsViewModel: SparePartsViewModel
     private lateinit var sparePartsViewModelFactory: SparePartsViewModelFactory
-    private var currentBikeIndex = 0
-    private var bikes: List<Bike> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,38 +44,30 @@ class SparePartsFragment : Fragment() {
         sparePartsViewModelFactory = SparePartsViewModelFactory(requireContext())
         sparePartsViewModel = ViewModelProvider(this, sparePartsViewModelFactory)[SparePartsViewModel::class.java]
 
-        /** Get bike id and current spare part */
+        /** Get bike address and current spare part */
         getOuterArguments(binding.root)
-
-        bikeModel.bikes.observe(viewLifecycleOwner, Observer<List<Bike>> { bike ->
-            //find updatable index of bike by bike id
-            for (bikeItem: Int in bike.indices) {
-                if (bike[bikeItem].bikeId == bikeId) {
-                    currentBikeIndex = bikeItem
-                    break
-                }
-            }
-            bikes = bike
-            setRecyclerView(bikes, currentBikeIndex, sparePartsViewModel, currentSparePartType,
-                currentSparePartName)
-        })
+        setRecyclerView(
+            sparePartsViewModel,
+            currentBikeAddress,
+            currentSparePartType,
+            currentSparePartName
+        )
 
         binding.swipeRefreshLayout.setOnRefreshListener { onRefresh() }
 
         return binding.root
     }
 
-    private fun setRecyclerView(bike: List<Bike>,
-                                currentBikeIndex: Int,
-                                viewModel: SparePartsViewModel,
-                                currentSparePartType: String,
-                                currentSparePartName: String
+    private fun setRecyclerView(
+        viewModel: SparePartsViewModel,
+        currentBikeAddress: String,
+        currentSparePartType: String,
+        currentSparePartName: String
     ){
         mRecyclerView = binding.sparePartsRecyclerView
         mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         mAdapter = viewModel.getRecyclerViewAdapter(
-            bike,
-            currentBikeIndex,
+            currentBikeAddress,
             currentSparePartType,
             currentSparePartName
         )
@@ -88,10 +76,10 @@ class SparePartsFragment : Fragment() {
     }
 
     private fun getOuterArguments(view: View) {
-        sharedPref = view.context
+        val sharedPref = view.context
             .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        bikeId = sharedPref.getLong("bikeId", 0)
 
+        currentBikeAddress = sharedPref.getString("currentBikeAddress", "").toString()
         currentSparePartType = arguments?.getString("currentSparePartsType").toString()
         currentSparePartName = arguments?.getString("currentSparePartsName").toString()
     }
@@ -102,7 +90,10 @@ class SparePartsFragment : Fragment() {
     }
 
     private fun onRefresh() {
-        setRecyclerView(bikes, currentBikeIndex, sparePartsViewModel, currentSparePartType,
+        setRecyclerView(
+            sparePartsViewModel,
+            currentBikeAddress,
+            currentSparePartType,
             currentSparePartName)
         binding.swipeRefreshLayout.isRefreshing = false
     }

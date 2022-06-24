@@ -3,6 +3,7 @@ package com.example.shercofaqapp.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,8 +28,13 @@ import com.google.firebase.auth.FirebaseAuth
 class AccountFragment : Fragment() {
 
     lateinit var editor: SharedPreferences.Editor
-    lateinit var accountViewModel: AccountViewModel
-    private lateinit var user: User
+    private lateinit var accountViewModel: AccountViewModel
+    private var user = User(
+        "%UserName%",
+        "%UserEmail%",
+        "",
+        listOf("Empty")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -46,33 +52,35 @@ class AccountFragment : Fragment() {
             .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
 
         editor = sharedPref.edit()
-        user = User(
-            "UserName",
-            "UserEmail",
-            "",
-            listOf("There is no bikes")
-        )
 
         accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
-        accountViewModel.setUser()
         accountViewModel.userName.observe(viewLifecycleOwner, Observer {
             user.userName = it
+            view.setContent {
+                SetUI(user)
+            }
         })
         accountViewModel.userEmail.observe(viewLifecycleOwner, Observer {
             user.userEmail = it
+            view.setContent {
+                SetUI(user)
+            }
         })
         accountViewModel.userProfileImage.observe(viewLifecycleOwner, Observer {
             user.userProfileImageUrl = it
+            view.setContent {
+                SetUI(user)
+            }
         })
         accountViewModel.bikeNamesList.observe(viewLifecycleOwner, Observer {
             user.bikes = it
-
-            view.apply {
-                setContent {
-                    SetUI(user)
-                }
+            view.setContent {
+                SetUI(user)
             }
         })
+
+        accountViewModel.getUser()
+
 
         return view
     }
@@ -126,11 +134,11 @@ private fun SetUI(user: User) {
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
                     Text(
-                        text = user.userName,
+                        text = user.userName!!,
                         fontSize = 20.sp
                     )
                     Text(
-                        text = user.userEmail,
+                        text = user.userEmail!!,
                         fontSize = 20.sp
                     )
                     Text(

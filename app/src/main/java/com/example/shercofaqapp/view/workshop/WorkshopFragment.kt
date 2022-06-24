@@ -11,21 +11,24 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentWorkshopBinding
 import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.model.BikeFirebase
+import com.example.shercofaqapp.utils.CurrentBikeAddress
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
+import com.example.shercofaqapp.viewmodel.WorkshopFragmentViewModel
 import java.lang.RuntimeException
 
 class WorkshopFragment : Fragment() {
 
     lateinit var binding: FragmentWorkshopBinding
-    private lateinit var sharedPref: SharedPreferences
-    private var bikeId: Long = 0
-    private val bikeModel: GarageFragmentViewModel by viewModels()
-    lateinit var bike: Bike
+    private val model: WorkshopFragmentViewModel by viewModels()
+    private lateinit var bike: BikeFirebase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,51 +38,45 @@ class WorkshopFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_workshop, container, false)
 
-        binding.apply {
+//        model = ViewModelProvider(this)[WorkshopFragmentViewModel::class.java]
 
-            var currentBikeIndex = 0
-            val nestedNavHostFragment = childFragmentManager
-                .findFragmentById(R.id.mainContainerView) as? NavHostFragment
-            val navController = nestedNavHostFragment?.navController
+        getOuterArguments(binding.root)
 
-            getOuterArguments()
-            setOuterArguments()
+        model.setBike(bike)
+        model.bike.observe(viewLifecycleOwner, Observer { bike ->
+            binding.currentBikeNameTextView.text = bike.bikeName
+        })
 
-            bikeModel.bikes.observe(viewLifecycleOwner, Observer<List<Bike>> { bike ->
-                //find updatable index of bike by bike id
-                for (bikeItem: Int in bike.indices) {
-                    if (bike[bikeItem].bikeId == bikeId) {
-                        currentBikeIndex = bikeItem
-                        break
-                    }
-                }
-                currentBikeNameTextView.text = bike[currentBikeIndex].bikeName
-            })
+        val nestedNavHostFragment = childFragmentManager
+            .findFragmentById(R.id.mainContainerView) as? NavHostFragment
+        val navController = nestedNavHostFragment?.navController
 
-            if (navController != null) {
-                bottomNavigationView.setupWithNavController(navController)
-            } else {
-                throw RuntimeException("Controller not found")
-            }
+        if (navController != null) {
+            binding.bottomNavigationView.setupWithNavController(navController)
+        } else {
+            throw RuntimeException("Controller not found")
         }
 
         return binding.root
-
     }
 
-    private fun getOuterArguments() {
-        //Get bike id
-        sharedPref = binding.root.context
+    private fun getOuterArguments(view: View) {
+        bike = BikeFirebase(
+            arguments?.getString("bikeName"),
+            arguments?.getString("bikeModelYear"),
+            arguments?.getString("bikeType"),
+            arguments?.getString("bikeEngineType"),
+            arguments?.getString("bikeEngineVolume"),
+            arguments?.getString("bikeEdition"),
+            arguments?.getInt("bikeImage"),
+            arguments?.getString("bikeFirebaseKey")
+        )
+
+        val currentBikeAddress = CurrentBikeAddress().getCurrentBikeAddress(bike)
+        val sharedPref = view.context
             .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
 
-        bikeId = arguments?.getLong("bikeId")!!
-    }
-
-    private fun setOuterArguments() {
-        sharedPref = binding.root.context
-            .getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        sharedPref.edit().putLong("bikeId", bikeId).apply()
-
+        sharedPref.edit().putString("currentBikeAddress", currentBikeAddress).apply()
     }
 
 }

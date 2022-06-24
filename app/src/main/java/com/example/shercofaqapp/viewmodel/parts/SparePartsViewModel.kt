@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.model.BikeFirebase
 import com.example.shercofaqapp.model.SparePart
 import com.example.shercofaqapp.utils.CurrentBikeAddress
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -13,13 +14,11 @@ import com.google.firebase.ktx.Firebase
 class SparePartsViewModel(val context: Context) : ViewModel() {
 
     fun getRecyclerViewAdapter(
-        bike: List<Bike>,
-        currentBikeIndex: Int,
+        currentBikeAddress: String,
         currentSparePartType: String,
         currentSparePartName: String
     ): RecyclerViewSparePartsAdapter {
 
-        val currentBikeAddress = CurrentBikeAddress(bike, currentBikeIndex).getCurrentBikeAddress()
         val mRefSpareParts = Firebase.database.getReference("parts")
             .child(currentBikeAddress)
             .child(currentSparePartType)
