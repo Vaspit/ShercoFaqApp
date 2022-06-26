@@ -38,7 +38,6 @@ public class GarageFragmentViewModel extends AndroidViewModel {
 
     public void addNewBike(Bike bike, String userId, String key) {
         bikeRepository.insertBike(bike);
-//        bikeFireBaseRepository.createBike(bike, userId, key);
     }
 
     public void deleteBike(Bike bike) {
@@ -47,7 +46,6 @@ public class GarageFragmentViewModel extends AndroidViewModel {
 
     public void updateBike(Bike bike, String userId, String bikeKey) {
         bikeRepository.updateBike(bike);
-//        bikeFireBaseRepository.updateBike(bike, userId, bikeKey);
     }
 
     public Bike getBike(long id) {

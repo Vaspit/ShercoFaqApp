@@ -7,7 +7,7 @@ data class BikeFirebase (
     var bikeEngineType: String? = null,
     var bikeEngineVolume: String? = null,
     var bikeEdition: String? = null,
-    var bikeImage: Int? = null,
+    var bikeImage: String? = null,
     var bikeFirebaseKey: String? = null,
         ) {
     fun toMap(): Map<String, Any>? {

@@ -90,7 +90,7 @@ class GarageFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.account -> {
+            R.id.profile -> {
                 findNavController()
                     .navigate(R.id.action_garageFragment_to_accountFragment)
             }

@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.GarageItemBinding
 import com.example.shercofaqapp.model.Bike
@@ -33,7 +35,12 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
             bikeEngineTypeTextView.text = bike.bikeEngineType
             bikeEngineVolumeTextView.text = bike.bikeEngineVolume
             bikeEditionTextView.text = bike.bikeEdition
-            bikeImage.setImageResource(bike.bikeImage!!)
+            Glide.with(itemView)
+                .load("https://static.tildacdn.com/tild3266-3637-4664-b139-306231623934/1.png")
+                .placeholder(R.drawable.ic_baseline_parts)
+                .error(R.drawable.ic_baseline_parts)
+                .centerInside()
+                .into(bikeImage)
 
             //Garage item click
             itemView.setOnClickListener {

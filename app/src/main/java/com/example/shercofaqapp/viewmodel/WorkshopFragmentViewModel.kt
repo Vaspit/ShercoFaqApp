@@ -22,8 +22,4 @@ class WorkshopFragmentViewModel : ViewModel() {
         _bike.value = bikeFromGarage
     }
 
-    fun getBikeAddress(bike: BikeFirebase) {
-        _bikeAddress.value = CurrentBikeAddress().getCurrentBikeAddress(bike)
-    }
-
 }

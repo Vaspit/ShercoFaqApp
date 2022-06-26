@@ -33,7 +33,9 @@
         tools:layout="@layout/fragment_add_bike" >
         <action
             android:id="@+id/action_bikeFragment_to_garageFragment"
-            app:destination="@id/garageFragment" />
+            app:destination="@id/garageFragment"
+            app:popUpTo="@id/addBikeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/workshopFragment"
@@ -42,7 +44,9 @@
         tools:layout="@layout/fragment_workshop" >
         <action
             android:id="@+id/action_workshopFragment_to_garageFragment"
-            app:destination="@id/garageFragment" />
+            app:destination="@id/garageFragment"
+            app:popUpTo="@id/workshopFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -63,7 +67,7 @@
         <action
             android:id="@+id/action_accountFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
+            app:popUpTo="@id/accountFragment"
             app:popUpToInclusive="true" />
     </fragment>
 

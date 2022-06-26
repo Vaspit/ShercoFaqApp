@@ -3,7 +3,6 @@ package com.example.shercofaqapp.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,20 +20,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.shercofaqapp.R
-import com.example.shercofaqapp.model.User
-import com.example.shercofaqapp.viewmodel.AccountViewModel
+import com.example.shercofaqapp.model.UserFull
+import com.example.shercofaqapp.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class AccountFragment : Fragment() {
 
     lateinit var editor: SharedPreferences.Editor
-    private lateinit var accountViewModel: AccountViewModel
-    private var user = User(
-        "%UserName%",
-        "%UserEmail%",
-        "",
-        listOf("Empty")
-    )
+    private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -53,34 +46,17 @@ class AccountFragment : Fragment() {
 
         editor = sharedPref.edit()
 
-        accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
-        accountViewModel.userName.observe(viewLifecycleOwner, Observer {
-            user.userName = it
-            view.setContent {
-                SetUI(user)
+        profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        profileViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+            val bikeNamesList = arrayListOf<String>()
+            user.bikes!!.map {
+                bikeNamesList.add(it.value["bikeName"]!!)
             }
-        })
-        accountViewModel.userEmail.observe(viewLifecycleOwner, Observer {
-            user.userEmail = it
-            view.setContent {
-                SetUI(user)
-            }
-        })
-        accountViewModel.userProfileImage.observe(viewLifecycleOwner, Observer {
-            user.userProfileImageUrl = it
-            view.setContent {
-                SetUI(user)
-            }
-        })
-        accountViewModel.bikeNamesList.observe(viewLifecycleOwner, Observer {
-            user.bikes = it
-            view.setContent {
-                SetUI(user)
-            }
-        })
 
-        accountViewModel.getUser()
-
+            view.setContent {
+                SetUI(user, bikeNamesList)
+            }
+        })
 
         return view
     }
@@ -105,13 +81,12 @@ class AccountFragment : Fragment() {
 }
 
 @Composable
-private fun SetUI(user: User) {
+private fun SetUI(user: UserFull, bikeNamesList: ArrayList<String>) {
 
     Box(
         modifier = Modifier
             .background(colorResource(id = R.color.background_white_grey))
     ) {
-
         Card(
             modifier = Modifier
                 .padding(8.dp)
@@ -142,7 +117,10 @@ private fun SetUI(user: User) {
                         fontSize = 20.sp
                     )
                     Text(
-                        text = user.bikes.toString(),
+                        text = bikeNamesList
+                            .toString()
+                            .replace('[', ' ')
+                            .replace(']', ' '),
                         fontSize = 20.sp
                     )
                 }

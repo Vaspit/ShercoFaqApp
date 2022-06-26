@@ -16,12 +16,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentLoginBinding
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
@@ -33,7 +27,6 @@ class LoginFragment : Fragment() {
 
     lateinit var binding: FragmentLoginBinding
     private var isLoggedIn by Delegates.notNull<Boolean>()
-    private lateinit var googleSignInClient: GoogleSignInClient
     private val TAG = "LOGIN_FRAGMENT"
 
     override fun onCreateView(

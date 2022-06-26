@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.BikeFirebase
@@ -133,8 +134,8 @@ class BikeFragment : Fragment() {
         bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
         bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
         bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
-        bike.bikeImage = R.drawable.garage_item_icon
         bike.bikeFirebaseKey = key
+        bike.bikeImage = ""
 
         model.createBike(bike, userId, key!!)
 
@@ -146,7 +147,6 @@ class BikeFragment : Fragment() {
     private fun onUpdate(bikeFirebaseKey: String) {
         //Update bike within Database
         val bike = BikeFirebase()
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         bike.bikeName = binding.bikeNameEditText.text.trim().toString()
         bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
@@ -154,7 +154,7 @@ class BikeFragment : Fragment() {
         bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
         bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
         bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
-        bike.bikeImage = R.drawable.garage_item_icon
+        bike.bikeImage = ""
         bike.bikeFirebaseKey = bikeFirebaseKey
 
         model.updateBike(bike, bikeFirebaseKey)
@@ -178,7 +178,12 @@ class BikeFragment : Fragment() {
         binding.engineTypeSpinner.setSelection(engineTypeArrayList.indexOf(bike.bikeEngineType))
         binding.engineVolumeSpinner.setSelection(engineVolumeArrayList.indexOf(bike.bikeEngineVolume))
         binding.editionSpinner.setSelection(editionArrayList.indexOf(bike.bikeEdition))
-        binding.bikeImageView.setImageResource(bike.bikeImage!!)
+        Glide.with(requireContext())
+            .load("https://static.tildacdn.com/tild3266-3637-4664-b139-306231623934/1.png")
+            .placeholder(R.drawable.ic_baseline_parts)
+            .error(R.drawable.ic_baseline_parts)
+            .centerInside()
+            .into(binding.bikeImageView)
     }
 
     private fun getOuterArguments() {
@@ -190,7 +195,7 @@ class BikeFragment : Fragment() {
         bike.bikeEngineType = arguments?.getString("bikeEngineType")
         bike.bikeEngineVolume = arguments?.getString("bikeEngineVolume")
         bike.bikeEdition = arguments?.getString("bikeEdition")
-        bike.bikeImage = arguments?.getInt("bikeImage")
+        bike.bikeImage = arguments?.getString("bikeImage")
         bike.bikeFirebaseKey = arguments?.getString("bikeFirebaseKey")
     }
 
