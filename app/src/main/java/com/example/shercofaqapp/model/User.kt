@@ -1,9 +1,8 @@
 package com.example.shercofaqapp.model
 
 data class User (
-
-    var userName: String? = "",
-    var userEmail: String? = "",
+    var bikes: HashMap<String, HashMap<String, String>>? = null,
     var userProfileImageUrl: String? = "",
-    var bikes: List<String>? = listOf("Empty")
-        )
+    var userEmail: String? = "",
+    var userName: String? = ""
+)

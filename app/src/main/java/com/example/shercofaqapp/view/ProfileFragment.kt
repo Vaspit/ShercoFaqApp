@@ -20,7 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.shercofaqapp.R
-import com.example.shercofaqapp.model.UserFull
+import com.example.shercofaqapp.model.User
 import com.example.shercofaqapp.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -81,7 +81,7 @@ class AccountFragment : Fragment() {
 }
 
 @Composable
-private fun SetUI(user: UserFull, bikeNamesList: ArrayList<String>) {
+private fun SetUI(user: User, bikeNamesList: ArrayList<String>) {
 
     Box(
         modifier = Modifier

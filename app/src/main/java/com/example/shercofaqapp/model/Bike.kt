@@ -1,6 +1,6 @@
 package com.example.shercofaqapp.model
 
-data class BikeFirebase (
+data class Bike (
     var bikeName: String? = null,
     var bikeModelYear: String? = null,
     var bikeType: String? = null,

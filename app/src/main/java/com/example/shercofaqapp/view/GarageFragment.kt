@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentGarageBinding
-import com.example.shercofaqapp.model.BikeFirebase
+import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.utils.USERS_NODE
+import com.example.shercofaqapp.utils.USER_NAME_FIELD
 import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
 import com.example.shercofaqapp.viewmodel.RecyclerViewBikeAdapter
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +32,7 @@ class GarageFragment : Fragment() {
     lateinit var binding: FragmentGarageBinding
     private val recyclerViewAdapter = RecyclerViewBikeAdapter()
     lateinit var garageFragmentFirebaseViewModel: GarageFragmentFirebaseViewModel
-    private var bikeList: List<BikeFirebase> = listOf()
+    private var bikeList: List<Bike> = listOf()
     private var userName = "UserName"
     private lateinit var itemTouchHelper: ItemTouchHelper
     private val garageItemCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -75,9 +77,9 @@ class GarageFragment : Fragment() {
         itemTouchHelper = ItemTouchHelper(garageItemCallback)
         itemTouchHelper.attachToRecyclerView(binding.garageRecyclerView)
 
-        garageFragmentFirebaseViewModel.bikeList.observe(viewLifecycleOwner, Observer<List<BikeFirebase>> { bikes ->
+        garageFragmentFirebaseViewModel.bikeList.observe(viewLifecycleOwner, Observer<List<Bike>> { bikes ->
             bikeList = bikes
-            recyclerViewAdapter.addBikeList(bikeList as ArrayList<BikeFirebase>)
+            recyclerViewAdapter.addBikeList(bikeList as ArrayList<Bike>)
         })
 
         return binding.root
@@ -102,7 +104,7 @@ class GarageFragment : Fragment() {
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         val database = Firebase.database.reference
 
-        database.child("users").child(userId).child("userName").get().addOnSuccessListener {
+        database.child(USERS_NODE).child(userId).child(USER_NAME_FIELD).get().addOnSuccessListener {
             userName = it.value.toString()
             (activity as AppCompatActivity?)?.supportActionBar?.title = userName
         }.addOnFailureListener{
@@ -126,7 +128,7 @@ class GarageFragment : Fragment() {
                 DialogInterface.BUTTON_POSITIVE ->
                     garageFragmentFirebaseViewModel.deleteBike(bikeList[viewHolder.absoluteAdapterPosition])
                 DialogInterface.BUTTON_NEGATIVE -> {
-                    TODO()
+                    garageFragmentFirebaseViewModel.getBikes()
                 }
             }
         }

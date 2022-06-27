@@ -1,34 +1,26 @@
 package com.example.shercofaqapp.viewmodel
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.os.bundleOf
-import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.GarageItemBinding
 import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.model.BikeFirebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.ViewHolder>() {
 
-    private var bikeList = ArrayList<BikeFirebase>()
+    private var bikeList = ArrayList<Bike>()
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
         val binding = GarageItemBinding.bind(item)
 
-        fun bind(bike: BikeFirebase) = with(binding) {
+        fun bind(bike: Bike) = with(binding) {
             bikeNameTextView.text = bike.bikeName
             bikeModelYearTextView.text = bike.bikeModelYear
             bikeTypeTextView.text = bike.bikeType
@@ -66,7 +58,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
             }
         }
 
-        private fun showPopupMenu(view: View, bike: BikeFirebase) {
+        private fun showPopupMenu(view: View, bike: Bike) {
             val popupMenu = PopupMenu(view.context, view)
             popupMenu.inflate(R.menu.popup_menu)
             popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
@@ -108,7 +100,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
         return bikeList.size
     }
 
-    fun addBikeList(bikeList: ArrayList<BikeFirebase>) {
+    fun addBikeList(bikeList: ArrayList<Bike>) {
         this.bikeList = bikeList
         notifyDataSetChanged()
     }

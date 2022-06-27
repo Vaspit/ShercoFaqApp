@@ -1,11 +1,10 @@
 package com.example.shercofaqapp.utils
 
 import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.model.BikeFirebase
 
 class CurrentBikeAddress() {
 
-    fun getCurrentBikeAddress(bike: BikeFirebase): String {
+    fun getCurrentBikeAddress(bike: Bike): String {
         val currentBikeAddress =
             bike.bikeModelYear +
                     bike.bikeType +

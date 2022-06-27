@@ -2,29 +2,29 @@ package com.example.shercofaqapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.shercofaqapp.model.BikeFirebase
-import com.example.shercofaqapp.model.repositories.BikeFireBaseRepository
+import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.model.repositories.BikeRepository
 
 class GarageFragmentFirebaseViewModel : ViewModel() {
 
-    private val _bikeList = MutableLiveData<List<BikeFirebase>>()
-    val bikeList : MutableLiveData<List<BikeFirebase>>
+    private val _bikeList = MutableLiveData<List<Bike>>()
+    val bikeList : MutableLiveData<List<Bike>>
         get() = _bikeList
 
-    fun createBike(bike: BikeFirebase, userId: String, key: String) {
-        BikeFireBaseRepository().createBike(bike, userId, key)
+    fun createBike(bike: Bike, userId: String, key: String) {
+        BikeRepository().createBike(bike, userId, key)
     }
 
     fun getBikes() {
-        BikeFireBaseRepository().readBikes(_bikeList)
+        BikeRepository().readBikes(_bikeList)
     }
 
-    fun updateBike(bike: BikeFirebase, bikeKey: String) {
-        BikeFireBaseRepository().updateBike(bike, bikeKey)
+    fun updateBike(bike: Bike, bikeKey: String) {
+        BikeRepository().updateBike(bike, bikeKey)
     }
 
-    fun deleteBike(bike: BikeFirebase) {
-        BikeFireBaseRepository().deleteBike(bike.bikeFirebaseKey!!)
+    fun deleteBike(bike: Bike) {
+        BikeRepository().deleteBike(bike.bikeFirebaseKey!!)
     }
 
 }

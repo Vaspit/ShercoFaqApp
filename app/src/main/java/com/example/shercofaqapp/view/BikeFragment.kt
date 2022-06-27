@@ -1,19 +1,25 @@
 package com.example.shercofaqapp.view
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
-import com.example.shercofaqapp.model.BikeFirebase
+import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
@@ -23,7 +29,7 @@ class BikeFragment : Fragment() {
 
     lateinit var binding: FragmentAddBikeBinding
     private lateinit var model: GarageFragmentFirebaseViewModel
-    private var bike = BikeFirebase()
+    private var bike = Bike()
     private var isUpdate = false
 
     override fun onCreateView(
@@ -120,7 +126,7 @@ class BikeFragment : Fragment() {
 
     private fun onAdd() {
         //Add new bike to Database
-        val bike = BikeFirebase()
+        val bike = Bike()
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         val key = Firebase.database.reference
@@ -146,7 +152,7 @@ class BikeFragment : Fragment() {
 
     private fun onUpdate(bikeFirebaseKey: String) {
         //Update bike within Database
-        val bike = BikeFirebase()
+        val bike = Bike()
 
         bike.bikeName = binding.bikeNameEditText.text.trim().toString()
         bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
@@ -164,7 +170,7 @@ class BikeFragment : Fragment() {
             .navigate(R.id.action_bikeFragment_to_garageFragment)
     }
 
-    private fun setBike(root: View, bike: BikeFirebase) {
+    private fun setBike(root: View, bike: Bike) {
 
         val modelYearArrayList = root.resources.getStringArray(R.array.model_year_spinner_text)
         val bikeTypeArrayList = root.resources.getStringArray(R.array.bike_type_spinner_text)
@@ -184,6 +190,9 @@ class BikeFragment : Fragment() {
             .error(R.drawable.ic_baseline_parts)
             .centerInside()
             .into(binding.bikeImageView)
+        binding.bikeImageView.setOnClickListener {
+
+        }
     }
 
     private fun getOuterArguments() {
@@ -198,5 +207,4 @@ class BikeFragment : Fragment() {
         bike.bikeImage = arguments?.getString("bikeImage")
         bike.bikeFirebaseKey = arguments?.getString("bikeFirebaseKey")
     }
-
 }

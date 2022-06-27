@@ -13,7 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentWorkshopBinding
-import com.example.shercofaqapp.model.BikeFirebase
+import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.utils.CurrentBikeAddress
 import com.example.shercofaqapp.viewmodel.WorkshopFragmentViewModel
 import java.lang.RuntimeException
@@ -22,7 +22,7 @@ class WorkshopFragment : Fragment() {
 
     lateinit var binding: FragmentWorkshopBinding
     private val model: WorkshopFragmentViewModel by viewModels()
-    private lateinit var bike: BikeFirebase
+    private lateinit var bike: Bike
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +53,7 @@ class WorkshopFragment : Fragment() {
     }
 
     private fun getOuterArguments(view: View) {
-        bike = BikeFirebase(
+        bike = Bike(
             arguments?.getString("bikeName"),
             arguments?.getString("bikeModelYear"),
             arguments?.getString("bikeType"),

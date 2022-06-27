@@ -3,22 +3,16 @@ package com.example.shercofaqapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.shercofaqapp.model.BikeFirebase
-import com.example.shercofaqapp.utils.CurrentBikeAddress
+import com.example.shercofaqapp.model.Bike
 
 class WorkshopFragmentViewModel : ViewModel() {
 
-    /** Bike names */
-    private val _bike = MutableLiveData<BikeFirebase>()
-    val bike : LiveData<BikeFirebase>
+    /** Bikes*/
+    private val _bike = MutableLiveData<Bike>()
+    val bike : LiveData<Bike>
         get() = _bike
 
-    /** Bike address */
-    private val _bikeAddress = MutableLiveData<String>()
-    val bikeAddress : LiveData<String>
-        get() = _bikeAddress
-
-    fun setBike(bikeFromGarage: BikeFirebase) {
+    fun setBike(bikeFromGarage: Bike) {
         _bike.value = bikeFromGarage
     }
 

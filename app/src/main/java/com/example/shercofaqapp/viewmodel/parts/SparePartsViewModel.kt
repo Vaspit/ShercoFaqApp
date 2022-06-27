@@ -1,12 +1,9 @@
 package com.example.shercofaqapp.viewmodel.parts
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.model.BikeFirebase
 import com.example.shercofaqapp.model.SparePart
-import com.example.shercofaqapp.utils.CurrentBikeAddress
+import com.example.shercofaqapp.utils.PARTS_NODE
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -19,7 +16,7 @@ class SparePartsViewModel(val context: Context) : ViewModel() {
         currentSparePartName: String
     ): RecyclerViewSparePartsAdapter {
 
-        val mRefSpareParts = Firebase.database.getReference("parts")
+        val mRefSpareParts = Firebase.database.getReference(PARTS_NODE)
             .child(currentBikeAddress)
             .child(currentSparePartType)
             .child(currentSparePartName)
