@@ -80,8 +80,7 @@
                     android:id="@+id/bikeImageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/garage_item_icon"
+                    android:scaleType="centerInside"
                     android:clickable="true"
                     android:focusable="true" />
             </androidx.cardview.widget.CardView>

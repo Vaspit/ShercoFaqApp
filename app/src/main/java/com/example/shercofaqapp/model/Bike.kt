@@ -1,5 +1,8 @@
 package com.example.shercofaqapp.model
 
+import android.net.Uri
+import com.example.shercofaqapp.R
+
 data class Bike (
     var bikeName: String? = null,
     var bikeModelYear: String? = null,
@@ -10,6 +13,7 @@ data class Bike (
     var bikeImage: String? = null,
     var bikeFirebaseKey: String? = null,
         ) {
+
     fun toMap(): Map<String, Any>? {
         val result = HashMap<String, Any>()
         result["bikeName"] = bikeName!!
@@ -22,4 +26,5 @@ data class Bike (
         result["bikeFirebaseKey"] = bikeFirebaseKey!!
         return result
     }
+
 }

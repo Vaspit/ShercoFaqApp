@@ -1,29 +1,25 @@
 package com.example.shercofaqapp.view
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
+import com.example.shercofaqapp.utils.*
 import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class BikeFragment : Fragment() {
 
@@ -31,6 +27,12 @@ class BikeFragment : Fragment() {
     private lateinit var model: GarageFragmentFirebaseViewModel
     private var bike = Bike()
     private var isUpdate = false
+    private var bikeImageUri = Uri.EMPTY
+    private val getContent: ActivityResultLauncher<String> =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri: Uri? ->
+            bikeImageUri = imageUri
+            binding.bikeImageView.setImageURI(bikeImageUri)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,28 +44,30 @@ class BikeFragment : Fragment() {
             inflater, R.layout.fragment_add_bike, container, false)
         model = ViewModelProvider(this)[GarageFragmentFirebaseViewModel::class.java]
 
-        binding.apply {
-            createUI(isUpdate)
+        createUI(isUpdate)
 
-            if (isUpdate) {
-                setBike(binding.root, bike)
-                addUpdateBikeButton.setOnClickListener { onUpdate(bike.bikeFirebaseKey!!) }
-            } else {
-                createFragmentFields()
-                addUpdateBikeButton.setOnClickListener { onAdd() }
-            }
-            bikeImageView.setOnClickListener { onImageClick() }
+        if (isUpdate) {
+            setBike(binding.root, bike)
+            binding.addUpdateBikeButton.setOnClickListener { onUpdate(bike.bikeFirebaseKey!!) }
+        } else {
+            createFragmentFields()
+            binding.addUpdateBikeButton.setOnClickListener { onAdd() }
         }
+
+        binding.bikeImageView.setOnClickListener { onImageClick() }
+
         return binding.root
     }
 
     private fun onImageClick() {
-
+        getContent.launch("image/*")
     }
 
     private fun createUI(isUpdate: Boolean) {
         createFragmentFields()
-        if (isUpdate) { binding.addUpdateBikeButton.text = getString(R.string.update_bike_button_text) }
+        if (isUpdate) {
+            binding.addUpdateBikeButton.text = getString(R.string.update_bike_button_text)
+        }
         else { binding.addUpdateBikeButton.text = getString(R.string.add_bike_button_text) }
     }
 
@@ -127,47 +131,48 @@ class BikeFragment : Fragment() {
     private fun onAdd() {
         //Add new bike to Database
         val bike = Bike()
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-
-        val key = Firebase.database.reference
+        val bikeFirebaseKey = REF_DATABASE_ROOT
             .child("users")
-            .child(userId)
+            .child(CURRENT_UID)
             .child("bikes").push().key
 
-        bike.bikeName = binding.bikeNameEditText.text.trim().toString()
-        bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
-        bike.bikeType = binding.typeSpinner.selectedItem.toString()
-        bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
-        bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
-        bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
-        bike.bikeFirebaseKey = key
-        bike.bikeImage = ""
+        if (bikeImageUri != Uri.EMPTY) {
+            model.getBikeImageUrl(bikeFirebaseKey!!, bikeImageUri)
+            model.bikeImageUrl.observe(viewLifecycleOwner, Observer { bikeImageUrl ->
+                createBike(bike, bikeFirebaseKey, bikeImageUrl)
+                //Go to GarageFragment
+                findNavController()
+                    .navigate(R.id.action_bikeFragment_to_garageFragment)
+            })
+        } else {
+            createBike(bike, bikeFirebaseKey!!, "")
 
-        model.createBike(bike, userId, key!!)
+            findNavController()
+                .navigate(R.id.action_bikeFragment_to_garageFragment)
+        }
 
-        //Go to GarageFragment
-        findNavController()
-            .navigate(R.id.action_bikeFragment_to_garageFragment)
     }
 
     private fun onUpdate(bikeFirebaseKey: String) {
         //Update bike within Database
         val bike = Bike()
 
-        bike.bikeName = binding.bikeNameEditText.text.trim().toString()
-        bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
-        bike.bikeType = binding.typeSpinner.selectedItem.toString()
-        bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
-        bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
-        bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
-        bike.bikeImage = ""
-        bike.bikeFirebaseKey = bikeFirebaseKey
+        if (bikeImageUri != Uri.EMPTY) {
+            model.getBikeImageUrl(bikeFirebaseKey, bikeImageUri)
+            model.bikeImageUrl.observe(viewLifecycleOwner, Observer { bikeImageUrl ->
+                updateBike(bike, bikeFirebaseKey, bikeImageUrl)
 
-        model.updateBike(bike, bikeFirebaseKey)
+                //Go to GarageFragment
+                findNavController()
+                    .navigate(R.id.action_bikeFragment_to_garageFragment)
+            })
+        } else {
+            updateBike(bike, bikeFirebaseKey, "")
 
-        //Go to GarageFragment
-        findNavController()
-            .navigate(R.id.action_bikeFragment_to_garageFragment)
+            //Go to GarageFragment
+            findNavController()
+                .navigate(R.id.action_bikeFragment_to_garageFragment)
+        }
     }
 
     private fun setBike(root: View, bike: Bike) {
@@ -184,15 +189,15 @@ class BikeFragment : Fragment() {
         binding.engineTypeSpinner.setSelection(engineTypeArrayList.indexOf(bike.bikeEngineType))
         binding.engineVolumeSpinner.setSelection(engineVolumeArrayList.indexOf(bike.bikeEngineVolume))
         binding.editionSpinner.setSelection(editionArrayList.indexOf(bike.bikeEdition))
+
+        Log.d("BIKE", "bikeImage in setBike() is: ${bike.bikeImage}")
+
         Glide.with(requireContext())
-            .load("https://static.tildacdn.com/tild3266-3637-4664-b139-306231623934/1.png")
-            .placeholder(R.drawable.ic_baseline_parts)
-            .error(R.drawable.ic_baseline_parts)
+            .load(bike.bikeImage)
+            .placeholder(R.drawable.ic_baseline_pedal_bike_24)
+            .error(R.drawable.ic_baseline_pedal_bike_24)
             .centerInside()
             .into(binding.bikeImageView)
-        binding.bikeImageView.setOnClickListener {
-
-        }
     }
 
     private fun getOuterArguments() {
@@ -206,5 +211,31 @@ class BikeFragment : Fragment() {
         bike.bikeEdition = arguments?.getString("bikeEdition")
         bike.bikeImage = arguments?.getString("bikeImage")
         bike.bikeFirebaseKey = arguments?.getString("bikeFirebaseKey")
+    }
+
+    private fun createBike(bike: Bike, bikeFirebaseKey: String, bikeImageUrl: String) {
+        bike.bikeName = binding.bikeNameEditText.text.trim().toString()
+        bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
+        bike.bikeType = binding.typeSpinner.selectedItem.toString()
+        bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
+        bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
+        bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
+        bike.bikeFirebaseKey = bikeFirebaseKey
+        bike.bikeImage =  bikeImageUrl
+
+        model.createBike(bike, bikeFirebaseKey)
+    }
+
+    private fun updateBike(bike: Bike, bikeFirebaseKey: String, bikeImageUrl: String) {
+        bike.bikeName = binding.bikeNameEditText.text.trim().toString()
+        bike.bikeModelYear = binding.modelYearSpinner.selectedItem.toString()
+        bike.bikeType = binding.typeSpinner.selectedItem.toString()
+        bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
+        bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
+        bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
+        bike.bikeImage = bikeImageUrl
+        bike.bikeFirebaseKey = bikeFirebaseKey
+
+        model.updateBike(bike, bikeFirebaseKey)
     }
 }

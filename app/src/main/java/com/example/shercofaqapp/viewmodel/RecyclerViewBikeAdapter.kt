@@ -28,11 +28,11 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
             bikeEngineVolumeTextView.text = bike.bikeEngineVolume
             bikeEditionTextView.text = bike.bikeEdition
             Glide.with(itemView)
-                .load("https://static.tildacdn.com/tild3266-3637-4664-b139-306231623934/1.png")
-                .placeholder(R.drawable.ic_baseline_parts)
-                .error(R.drawable.ic_baseline_parts)
+                .load(bike.bikeImage)
+                .placeholder(R.drawable.ic_baseline_pedal_bike_24)
+                .error(R.drawable.ic_baseline_pedal_bike_24)
                 .centerInside()
-                .into(bikeImage)
+                .into(bikeImageView)
 
             //Garage item click
             itemView.setOnClickListener {
@@ -44,7 +44,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
                     "bikeEngineType" to bike.bikeEngineType,
                     "bikeEngineVolume" to bike.bikeEngineVolume,
                     "bikeEdition" to bike.bikeEdition,
-                    "bikeImage" to bike.bikeImage,
+                    "bikeImage" to bike.bikeImage.toString(),
                     "bikeFirebaseKey" to bike.bikeFirebaseKey
                 )
 
@@ -73,7 +73,7 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
                             "bikeEngineType" to bike.bikeEngineType,
                             "bikeEngineVolume" to bike.bikeEngineVolume,
                             "bikeEdition" to bike.bikeEdition,
-                            "bikeImage" to bike.bikeImage,
+                            "bikeImage" to bike.bikeImage.toString(),
                             "bikeFirebaseKey" to bike.bikeFirebaseKey
                         )
 

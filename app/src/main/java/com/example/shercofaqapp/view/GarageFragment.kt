@@ -18,8 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentGarageBinding
 import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.utils.USERS_NODE
-import com.example.shercofaqapp.utils.USER_NAME_FIELD
+import com.example.shercofaqapp.utils.*
 import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
 import com.example.shercofaqapp.viewmodel.RecyclerViewBikeAdapter
 import com.google.firebase.auth.FirebaseAuth
@@ -59,7 +58,7 @@ class GarageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        initDatabase()
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_garage, container, false)
 
@@ -101,10 +100,10 @@ class GarageFragment : Fragment() {
     }
 
     private fun setTitle() {
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        val database = Firebase.database.reference
+//        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+//        val database = Firebase.database.reference
 
-        database.child(USERS_NODE).child(userId).child(USER_NAME_FIELD).get().addOnSuccessListener {
+        REF_DATABASE_ROOT.child(USERS_NODE).child(CURRENT_UID).child(USER_NAME_FIELD).get().addOnSuccessListener {
             userName = it.value.toString()
             (activity as AppCompatActivity?)?.supportActionBar?.title = userName
         }.addOnFailureListener{

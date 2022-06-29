@@ -1,31 +1,34 @@
 package com.example.shercofaqapp.model.repositories
 
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.shercofaqapp.model.Bike
-import com.example.shercofaqapp.utils.BIKES_NODE
-import com.example.shercofaqapp.utils.USERS_NODE
+import com.example.shercofaqapp.utils.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import java.net.URL
 
 class BikeRepository {
 
-    fun createBike(bike: Bike, userId: String, key: String) {
+    fun createBike(bike: Bike, bikeFirebaseKey: String) {
 
-        Firebase.database.reference
+        REF_DATABASE_ROOT
             .child(USERS_NODE)
-            .child(userId)
+            .child(CURRENT_UID)
             .child(BIKES_NODE)
-            .child(key).setValue(bike)
+            .child(bikeFirebaseKey).setValue(bike)
     }
 
     fun readBikes(liveData: MutableLiveData<List<Bike>>) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        Firebase.database.reference
+        REF_DATABASE_ROOT
             .child(USERS_NODE)
             .child(userId!!)
             .child(BIKES_NODE)
@@ -44,23 +47,22 @@ class BikeRepository {
         })
     }
 
-    fun updateBike(bike: Bike, bikeKey: String) {
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+    fun updateBike(bike: Bike, bikeFirebaseKey: String) {
         val bikeValues = bike.toMap()
 
-        Firebase.database.reference
+        REF_DATABASE_ROOT
             .child(USERS_NODE)
-            .child(userId)
+            .child(CURRENT_UID)
             .child(BIKES_NODE)
             .updateChildren(hashMapOf<String, Any?>(
-                bikeKey to bikeValues
+                bikeFirebaseKey to bikeValues
             ))
     }
 
     fun deleteBike(bikeKey: String) {
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-        Firebase.database.reference
+        REF_DATABASE_ROOT
             .child(USERS_NODE)
             .child(userId)
             .child(BIKES_NODE)

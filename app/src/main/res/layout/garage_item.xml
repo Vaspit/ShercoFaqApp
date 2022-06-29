@@ -28,11 +28,11 @@
                 app:cardElevation="0dp">
 
                 <ImageView
-                    android:id="@+id/bikeImage"
+                    android:id="@+id/bikeImageView"
                     style="@style/roundedImageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="centerInside"
                     tools:ignore="ImageContrastCheck" />
 
             </androidx.cardview.widget.CardView>

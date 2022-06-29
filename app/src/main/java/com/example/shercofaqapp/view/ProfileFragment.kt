@@ -48,7 +48,7 @@ class AccountFragment : Fragment() {
 
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.user.observe(viewLifecycleOwner, Observer { user ->
-            val bikeNamesList = arrayListOf<String>()
+            val bikeNamesList = arrayListOf<Any>()
             user.bikes!!.map {
                 bikeNamesList.add(it.value["bikeName"]!!)
             }
@@ -81,7 +81,7 @@ class AccountFragment : Fragment() {
 }
 
 @Composable
-private fun SetUI(user: User, bikeNamesList: ArrayList<String>) {
+private fun SetUI(user: User, bikeNamesList: ArrayList<Any>) {
 
     Box(
         modifier = Modifier
