@@ -38,8 +38,9 @@ class SparePartsFragment : Fragment() {
         sparePartsViewModelFactory = SparePartsViewModelFactory(requireContext())
         sparePartsViewModel = ViewModelProvider(this, sparePartsViewModelFactory)[SparePartsViewModel::class.java]
 
-        /** Get bike address and current spare part */
+        /** Get bike address and current spare parts type and spare parts name */
         getOuterArguments(binding.root)
+
         setRecyclerView(
             sparePartsViewModel,
             currentBikeAddress,

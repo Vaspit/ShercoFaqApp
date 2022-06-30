@@ -57,10 +57,12 @@ class GarageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         initDatabase()
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_garage, container, false)
+
+        binding.loadingProgressIndicator.visibility = View.VISIBLE
 
         garageFragmentFirebaseViewModel =
             ViewModelProvider(this)[GarageFragmentFirebaseViewModel::class.java]
@@ -77,6 +79,7 @@ class GarageFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.garageRecyclerView)
 
         garageFragmentFirebaseViewModel.bikeList.observe(viewLifecycleOwner, Observer<List<Bike>> { bikes ->
+            binding.loadingProgressIndicator.visibility = View.GONE
             bikeList = bikes
             recyclerViewAdapter.addBikeList(bikeList as ArrayList<Bike>)
         })
@@ -100,9 +103,6 @@ class GarageFragment : Fragment() {
     }
 
     private fun setTitle() {
-//        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-//        val database = Firebase.database.reference
-
         REF_DATABASE_ROOT.child(USERS_NODE).child(CURRENT_UID).child(USER_NAME_FIELD).get().addOnSuccessListener {
             userName = it.value.toString()
             (activity as AppCompatActivity?)?.supportActionBar?.title = userName

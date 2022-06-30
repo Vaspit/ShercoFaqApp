@@ -1,8 +1,6 @@
 package com.example.shercofaqapp.viewmodel
 
-import android.media.Image
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +10,6 @@ import com.example.shercofaqapp.utils.BIKES_NODE
 import com.example.shercofaqapp.utils.CURRENT_UID
 import com.example.shercofaqapp.utils.REF_STORAGE_ROOT
 import com.example.shercofaqapp.utils.USERS_NODE
-import java.net.URL
 
 class GarageFragmentFirebaseViewModel : ViewModel() {
 

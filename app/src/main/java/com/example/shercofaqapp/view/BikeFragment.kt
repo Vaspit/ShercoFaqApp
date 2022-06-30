@@ -2,7 +2,6 @@ package com.example.shercofaqapp.view
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -132,14 +131,18 @@ class BikeFragment : Fragment() {
         //Add new bike to Database
         val bike = Bike()
         val bikeFirebaseKey = REF_DATABASE_ROOT
-            .child("users")
+            .child(USERS_NODE)
             .child(CURRENT_UID)
-            .child("bikes").push().key
+            .child(BIKES_NODE).push().key
+
+        //Play loading animation
+        playLoadingAnimation()
 
         if (bikeImageUri != Uri.EMPTY) {
             model.getBikeImageUrl(bikeFirebaseKey!!, bikeImageUri)
             model.bikeImageUrl.observe(viewLifecycleOwner, Observer { bikeImageUrl ->
                 createBike(bike, bikeFirebaseKey, bikeImageUrl)
+
                 //Go to GarageFragment
                 findNavController()
                     .navigate(R.id.action_bikeFragment_to_garageFragment)
@@ -147,6 +150,7 @@ class BikeFragment : Fragment() {
         } else {
             createBike(bike, bikeFirebaseKey!!, "")
 
+            //Go to GarageFragment
             findNavController()
                 .navigate(R.id.action_bikeFragment_to_garageFragment)
         }
@@ -156,6 +160,9 @@ class BikeFragment : Fragment() {
     private fun onUpdate(bikeFirebaseKey: String) {
         //Update bike within Database
         val bike = Bike()
+
+        //Play loading animation
+        playLoadingAnimation()
 
         if (bikeImageUri != Uri.EMPTY) {
             model.getBikeImageUrl(bikeFirebaseKey, bikeImageUri)
@@ -190,14 +197,16 @@ class BikeFragment : Fragment() {
         binding.engineVolumeSpinner.setSelection(engineVolumeArrayList.indexOf(bike.bikeEngineVolume))
         binding.editionSpinner.setSelection(editionArrayList.indexOf(bike.bikeEdition))
 
-        Log.d("BIKE", "bikeImage in setBike() is: ${bike.bikeImage}")
-
-        Glide.with(requireContext())
-            .load(bike.bikeImage)
-            .placeholder(R.drawable.ic_baseline_pedal_bike_24)
-            .error(R.drawable.ic_baseline_pedal_bike_24)
-            .centerInside()
-            .into(binding.bikeImageView)
+        if (bike.bikeImage != "") {
+            Glide.with(requireContext())
+                .load(bike.bikeImage)
+                .placeholder(R.drawable.ic_baseline_pedal_bike_24)
+                .error(R.drawable.ic_baseline_pedal_bike_24)
+                .centerInside()
+                .into(binding.bikeImageView)
+        } else {
+            binding.bikeImageView.setImageResource(R.drawable.ic_baseline_pedal_bike_24)
+        }
     }
 
     private fun getOuterArguments() {
@@ -237,5 +246,23 @@ class BikeFragment : Fragment() {
         bike.bikeFirebaseKey = bikeFirebaseKey
 
         model.updateBike(bike, bikeFirebaseKey)
+    }
+
+    private fun playLoadingAnimation() {
+        binding.addUpdateBikeButton.visibility = View.GONE
+        binding.imageCardView.visibility = View.GONE
+        binding.bikeNameEditText.visibility = View.GONE
+        binding.modelYearSpinner.visibility = View.GONE
+        binding.editionSpinner.visibility = View.GONE
+        binding.typeSpinner.visibility = View.GONE
+        binding.engineTypeSpinner.visibility = View.GONE
+        binding.engineVolumeSpinner.visibility = View.GONE
+        binding.modelYearTextView.visibility = View.GONE
+        binding.editionTextView.visibility = View.GONE
+        binding.typeTextView.visibility = View.GONE
+        binding.engineTypeTextView.visibility = View.GONE
+        binding.engineVolumeTextView.visibility = View.GONE
+
+        binding.loadingProgressIndicator.visibility = View.VISIBLE
     }
 }
