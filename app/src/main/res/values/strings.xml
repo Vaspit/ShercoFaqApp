@@ -39,7 +39,7 @@
     <string name="issues">Issues</string>
     <string name="profile">Profile</string>
     <string name="sign_up_with_google">Sign up with Google</string>
-    <string name = "web_client_id" >AIzaSyBysegU7wqhbESEtRDdoDjKxijb0y1WtRU</string>
+    <string name="web_client_id">AIzaSyBysegU7wqhbESEtRDdoDjKxijb0y1WtRU</string>
 
     <string-array name="bike_type_spinner_text">
         <item>Enduro</item>
@@ -76,6 +76,15 @@
         <item>Racing</item>
         <item>Factory</item>
     </string-array>
+    <string name="title_activity_crop_image">CropImageActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
 </resources>
