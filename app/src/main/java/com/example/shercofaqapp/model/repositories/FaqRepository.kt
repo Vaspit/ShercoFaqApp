@@ -1,7 +1,6 @@
 package com.example.shercofaqapp.model.repositories
 
 import android.content.Context
-import android.util.Log
 import com.example.shercofaqapp.model.Issue
 import com.example.shercofaqapp.model.Solution
 import com.example.shercofaqapp.utils.JSONReader
@@ -45,7 +44,6 @@ class FaqRepository(private val context: Context) {
             //exception
             e.printStackTrace()
         }
-        Log.d("FAQ_REPOSITORY", issuesArrayList.toString())
         return issuesArrayList
     }
 }
