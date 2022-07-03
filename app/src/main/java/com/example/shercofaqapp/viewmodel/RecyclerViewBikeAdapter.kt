@@ -22,11 +22,11 @@ class RecyclerViewBikeAdapter : RecyclerView.Adapter<RecyclerViewBikeAdapter.Vie
 
         fun bind(bike: Bike) = with(binding) {
             bikeNameTextView.text = bike.bikeName
-            bikeModelYearTextView.text = bike.bikeModelYear
-            bikeTypeTextView.text = bike.bikeType
-            bikeEngineTypeTextView.text = bike.bikeEngineType
-            bikeEngineVolumeTextView.text = bike.bikeEngineVolume
-            bikeEditionTextView.text = bike.bikeEdition
+            bikeModelYearTextView.text = "Model year: " + bike.bikeModelYear
+            bikeTypeTextView.text = "Type: " + bike.bikeType
+            bikeEngineTypeTextView.text = "Engine : " + bike.bikeEngineType
+            bikeEngineVolumeTextView.text = "Bore: " + bike.bikeEngineVolume
+            bikeEditionTextView.text = "Edition: " + bike.bikeEdition
             Glide.with(itemView)
                 .load(bike.bikeImage)
                 .placeholder(R.drawable.ic_baseline_pedal_bike_24)

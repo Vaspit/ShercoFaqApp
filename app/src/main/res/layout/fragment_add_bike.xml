@@ -65,25 +65,16 @@
                 app:layout_constraintTop_toTopOf="@+id/editionTextView"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/imageCardView"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/bikeImageView"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_marginTop="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="0dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/bikeImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerInside"
-                    android:clickable="true"
-                    android:focusable="true" />
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/typeTextView"
@@ -165,7 +156,7 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageCardView"
+                app:layout_constraintTop_toBottomOf="@+id/bikeImageView"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator

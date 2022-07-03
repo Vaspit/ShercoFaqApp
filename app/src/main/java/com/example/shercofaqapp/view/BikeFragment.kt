@@ -3,14 +3,14 @@ package com.example.shercofaqapp.view
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.unit.dp
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +24,7 @@ import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.utils.*
 import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
+import kotlin.math.roundToInt
 
 class BikeFragment : Fragment() {
 
@@ -32,21 +33,38 @@ class BikeFragment : Fragment() {
     private var bike = Bike()
     private var isUpdate = false
     private var bikeImageUri = Uri.EMPTY
-//    private val getContent: ActivityResultLauncher<String> =
-//        registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri: Uri? ->
-//            bikeImageUri = imageUri
-//            binding.bikeImageView.setImageURI(bikeImageUri)
-//    }
-
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
             // use the returned uri
             bikeImageUri = result.uriContent
-            binding.bikeImageView.setImageURI(bikeImageUri)
+            setBikeImageViewFromCropper()
         } else {
             // an error occurred
             val exception = result.error
         }
+    }
+
+    private fun setBikeImageViewFromCropper() {
+        val bitmapBikeImage =
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, bikeImageUri)
+        var bitmapBikeImageWidth = bitmapBikeImage.width
+        var bitmapBikeImageHeight = bitmapBikeImage.height
+
+        if (bitmapBikeImageWidth.dp > 250.dp) {
+            bitmapBikeImageWidth =
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 250f, resources.displayMetrics).roundToInt()
+            binding.bikeImageView.layoutParams.width = bitmapBikeImageWidth
+        }
+
+        if (bitmapBikeImageHeight.dp > 250.dp) {
+            bitmapBikeImageHeight =
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 250f, resources.displayMetrics).roundToInt()
+            binding.bikeImageView.layoutParams.height = bitmapBikeImageHeight
+        }
+
+        binding.bikeImageView.setImageBitmap(bitmapBikeImage)
     }
 
     override fun onCreateView(
@@ -75,7 +93,6 @@ class BikeFragment : Fragment() {
     }
 
     private fun onImageClick() {
-//        getContent.launch("image/*")
         startCrop()
     }
 
@@ -267,8 +284,8 @@ class BikeFragment : Fragment() {
 
     private fun playLoadingAnimation() {
         binding.addUpdateBikeButton.visibility = View.GONE
-        binding.imageCardView.visibility = View.GONE
         binding.bikeNameEditText.visibility = View.GONE
+        binding.bikeImageView.visibility = View.GONE
         binding.modelYearSpinner.visibility = View.GONE
         binding.editionSpinner.visibility = View.GONE
         binding.typeSpinner.visibility = View.GONE
@@ -284,17 +301,11 @@ class BikeFragment : Fragment() {
     }
 
     private fun startCrop() {
-        // start picker to get image for cropping and then use the image in cropping activity
-//        cropImage.launch(
-//            options {
-//                setGuidelines(CropImageView.Guidelines.ON)
-//            }
-//        )
-
-        // start cropping activity for pre-acquired image saved on the device and customize settings
         cropImage.launch(
             options(uri = bikeImageUri) {
+                setCropShape(CropImageView.CropShape.OVAL)
                 setGuidelines(CropImageView.Guidelines.ON)
+                setOutputCompressFormat(Bitmap.CompressFormat.PNG)
             }
         )
     }
