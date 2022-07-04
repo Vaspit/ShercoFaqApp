@@ -171,6 +171,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="gone"/>
 
+            <ImageButton
+                android:id="@+id/putPhotoImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-50dp"
+                android:layout_marginTop="-50dp"
+                android:src="@drawable/ic_baseline_camera_alt_24"
+                app:layout_constraintStart_toEndOf="@+id/bikeImageView"
+                app:layout_constraintTop_toBottomOf="@+id/bikeImageView"
+                android:background="@drawable/put_photo_image_button"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

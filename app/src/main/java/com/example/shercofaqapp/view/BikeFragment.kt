@@ -47,22 +47,6 @@ class BikeFragment : Fragment() {
     private fun setBikeImageViewFromCropper() {
         val bitmapBikeImage =
             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, bikeImageUri)
-        var bitmapBikeImageWidth = bitmapBikeImage.width
-        var bitmapBikeImageHeight = bitmapBikeImage.height
-
-        if (bitmapBikeImageWidth.dp > 250.dp) {
-            bitmapBikeImageWidth =
-                TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP, 250f, resources.displayMetrics).roundToInt()
-            binding.bikeImageView.layoutParams.width = bitmapBikeImageWidth
-        }
-
-        if (bitmapBikeImageHeight.dp > 250.dp) {
-            bitmapBikeImageHeight =
-                TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP, 250f, resources.displayMetrics).roundToInt()
-            binding.bikeImageView.layoutParams.height = bitmapBikeImageHeight
-        }
 
         binding.bikeImageView.setImageBitmap(bitmapBikeImage)
     }
@@ -87,7 +71,7 @@ class BikeFragment : Fragment() {
             binding.addUpdateBikeButton.setOnClickListener { onAdd() }
         }
 
-        binding.bikeImageView.setOnClickListener { onImageClick() }
+        binding.putPhotoImageButton.setOnClickListener { onImageClick() }
 
         return binding.root
     }

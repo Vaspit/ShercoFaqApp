@@ -60,13 +60,20 @@ class BikeRepository {
     }
 
     fun deleteBike(bikeKey: String) {
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
+        /** Delete bike from DB */
         REF_DATABASE_ROOT
             .child(USERS_NODE)
-            .child(userId)
+            .child(CURRENT_UID)
             .child(BIKES_NODE)
             .child(bikeKey).removeValue()
+
+        /** Delete bike image from store */
+        REF_STORAGE_ROOT
+            .child(USERS_NODE)
+            .child(CURRENT_UID)
+            .child(BIKES_NODE)
+            .child(bikeKey).delete()
     }
 
 }

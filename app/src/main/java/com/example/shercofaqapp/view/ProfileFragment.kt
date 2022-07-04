@@ -7,6 +7,7 @@ import android.view.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -15,11 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageView
+import com.canhub.cropper.options
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,7 +33,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.room.IMultiInstanceInvalidationCallback
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.model.User
 import com.example.shercofaqapp.viewmodel.ProfileViewModel
@@ -107,27 +109,19 @@ private fun SetUI(user: User, bikeNamesList: ArrayList<Any>) {
                 .padding(8.dp)
                 .fillMaxWidth()
         ) {
-            Column() {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
 
-                    Image(
-                        painter = painterResource(R.drawable.default_profile_icon),
-                        contentDescription = "userProfileImage",
+            Column {
+
+                Box() {
+                    Column(
                         modifier = Modifier
-                            .padding(8.dp)
-                            .size(rowHeight)
-                            .clip(CircleShape)
-                            .border(
-                                width = 2.dp,
-                                color = Color.Blue,
-                                shape = CircleShape
-                            ),
-                        contentScale = ContentScale.Crop
-                    )
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        profileImage(rowHeight)
+                    }
+
+                    putPhotoButton()
                 }
 
                 Row() {
@@ -215,6 +209,41 @@ private fun userBikesField(bikeNamesList: ArrayList<Any>) {
     }
 }
 
+@Composable
+private fun profileImage(rowHeight: Dp) {
+    Image(
+        painter = painterResource(R.drawable.default_profile_icon),
+        contentDescription = "userProfileImage",
+        modifier = Modifier
+            .padding(8.dp)
+            .size(rowHeight)
+            .clip(CircleShape)
+            .border(
+                width = 2.dp,
+                color = Color.Blue,
+                shape = CircleShape
+            ),
+        contentScale = ContentScale.Crop
+    )
+}
+
+@Composable
+private fun putPhotoButton() {
+    Image(
+        painter = painterResource(R.drawable.ic_baseline_camera_alt_24),
+        contentDescription = "putPhotoButton",
+        modifier = Modifier
+            .padding(start = 220.dp, top = 100.dp)
+            .size(40.dp)
+            .clip(CircleShape)
+            .background(Color.Blue, CircleShape)
+            .clickable {
+
+            },
+        contentScale = ContentScale.Inside
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
@@ -227,8 +256,5 @@ fun DefaultPreview() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview1() {
-    userNameField(user = User(
-        userName = "Vaspit",
-        userEmail = "vasvko@mail.ru"
-    ))
+    putPhotoButton()
 }
