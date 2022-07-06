@@ -12,10 +12,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentLoginBinding
+import com.example.shercofaqapp.utils.*
+import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
+import com.example.shercofaqapp.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
@@ -28,6 +32,7 @@ class LoginFragment : Fragment() {
     lateinit var binding: FragmentLoginBinding
     private var isLoggedIn by Delegates.notNull<Boolean>()
     private val TAG = "LOGIN_FRAGMENT"
+    private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +46,8 @@ class LoginFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false)
+
+        profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
         (activity as AppCompatActivity?)?.supportActionBar?.title = "Sherco Faq App"
         //Log in / sign up logic
@@ -106,14 +113,8 @@ class LoginFragment : Fragment() {
                                     //If the registration is successfully done
                                     if (task.isSuccessful) {
                                         val firebaseUser: FirebaseUser = task.result!!.user!!
-                                        val database = Firebase.database
 
-                                        createUserInDatabase(
-                                            database,
-                                            firebaseUser,
-                                            userName,
-                                            email
-                                        )
+                                        profileViewModel.createUser(firebaseUser, userName, email)
 
                                         isLoggedIn = true
 
@@ -164,26 +165,4 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun createUserInDatabase(
-        database: FirebaseDatabase,
-        firebaseUser: FirebaseUser,
-        userName: String,
-        userEmail: String
-    ) {
-        database.getReference("users")
-            .child(firebaseUser.uid)
-            .child("userName").setValue(userName)
-
-        database.getReference("users")
-            .child(firebaseUser.uid)
-            .child("userEmail").setValue(userEmail)
-
-        database.getReference("users")
-            .child(firebaseUser.uid)
-            .child("userProfileImage").setValue(R.drawable.default_profile_icon)
-
-        database.getReference("users")
-            .child(firebaseUser.uid)
-            .child("bikes").setValue(listOf("My first bike"))
-    }
 }

@@ -4,13 +4,12 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.TypedValue
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.compose.ui.unit.dp
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +23,6 @@ import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.utils.*
 import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
-import kotlin.math.roundToInt
 
 class BikeFragment : Fragment() {
 
@@ -35,7 +33,7 @@ class BikeFragment : Fragment() {
     private var bikeImageUri = Uri.EMPTY
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            // use the returned uri
+
             bikeImageUri = result.uriContent
             setBikeImageViewFromCropper()
         } else {
@@ -238,6 +236,8 @@ class BikeFragment : Fragment() {
         bike.bikeEdition = arguments?.getString("bikeEdition")
         bike.bikeImage = arguments?.getString("bikeImage")
         bike.bikeFirebaseKey = arguments?.getString("bikeFirebaseKey")
+
+        Log.d("BIKE_IMAGE", "${arguments?.getString("bikeImage")}")
     }
 
     private fun createBike(bike: Bike, bikeFirebaseKey: String, bikeImageUrl: String) {
@@ -260,7 +260,11 @@ class BikeFragment : Fragment() {
         bike.bikeEngineType = binding.engineTypeSpinner.selectedItem.toString()
         bike.bikeEngineVolume = binding.engineVolumeSpinner.selectedItem.toString()
         bike.bikeEdition = binding.editionSpinner.selectedItem.toString()
-        bike.bikeImage = bikeImageUrl
+
+        if (bikeImageUrl == "") {
+            bike.bikeImage = arguments?.getString("bikeImage")
+        } else bike.bikeImage = bikeImageUrl
+
         bike.bikeFirebaseKey = bikeFirebaseKey
 
         model.updateBike(bike, bikeFirebaseKey)

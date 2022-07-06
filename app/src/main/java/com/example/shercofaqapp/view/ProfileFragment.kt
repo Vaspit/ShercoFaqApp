@@ -2,12 +2,18 @@ package com.example.shercofaqapp.view
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.*
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -16,11 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.CropImageView
-import com.canhub.cropper.options
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
@@ -30,9 +34,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import coil.compose.rememberAsyncImagePainter
+import com.canhub.cropper.*
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.model.User
 import com.example.shercofaqapp.viewmodel.ProfileViewModel
@@ -61,15 +68,24 @@ class AccountFragment : Fragment() {
         editor = sharedPref.edit()
 
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        profileViewModel.readUser()
         profileViewModel.user.observe(viewLifecycleOwner, Observer { user ->
-            val bikeNamesList = arrayListOf<Any>()
-            user.bikes!!.map {
-                bikeNamesList.add(it.value["bikeName"]!!)
+            val bikeNamesList = arrayListOf<Any>("There are no bikes")
+
+            if (user.bikes != null) {
+                //Delete "There are no bikes" from bikeNamesList
+                if (bikeNamesList.elementAt(0) == "There are no bikes") {
+                    bikeNamesList.clear()
+                }
+                user.bikes!!.map {
+                    bikeNamesList.add(it.value["bikeName"]!!)
+                }
             }
 
             view.setContent {
-                SetUI(user, bikeNamesList)
+                SetUI(user, bikeNamesList, profileViewModel)
             }
+
         })
 
         return view
@@ -95,7 +111,7 @@ class AccountFragment : Fragment() {
 }
 
 @Composable
-private fun SetUI(user: User, bikeNamesList: ArrayList<Any>) {
+private fun SetUI(user: User, bikeNamesList: ArrayList<Any>, profileViewModel: ProfileViewModel) {
 
     val rowHeight = 128.dp
 
@@ -118,10 +134,10 @@ private fun SetUI(user: User, bikeNamesList: ArrayList<Any>) {
                             .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        profileImage(rowHeight)
+                        profileImage(user.userProfileImageUrl!!, rowHeight)
                     }
 
-                    putPhotoButton()
+                    changeProfileImageButton(profileViewModel)
                 }
 
                 Row() {
@@ -210,38 +226,68 @@ private fun userBikesField(bikeNamesList: ArrayList<Any>) {
 }
 
 @Composable
-private fun profileImage(rowHeight: Dp) {
-    Image(
-        painter = painterResource(R.drawable.default_profile_icon),
-        contentDescription = "userProfileImage",
-        modifier = Modifier
-            .padding(8.dp)
-            .size(rowHeight)
-            .clip(CircleShape)
-            .border(
-                width = 2.dp,
-                color = Color.Blue,
-                shape = CircleShape
-            ),
-        contentScale = ContentScale.Crop
-    )
+private fun profileImage(userProfileImageUrl: String, rowHeight: Dp) {
+
+    if (userProfileImageUrl == "") {
+        Image(
+            painter = painterResource(id = R.drawable.default_profile_icon),
+            contentDescription = "userProfileImage",
+            modifier = Modifier
+                .padding(8.dp)
+                .size(rowHeight)
+                .clip(CircleShape)
+                .border(
+                    width = 2.dp,
+                    color = Color.Blue,
+                    shape = CircleShape
+                ),
+            contentScale = ContentScale.Crop
+        )
+    } else { //Load image from Firebase storage
+        Image(
+        painter = rememberAsyncImagePainter(userProfileImageUrl),
+            contentDescription = "userProfileImage",
+            modifier = Modifier
+                .padding(8.dp)
+                .size(rowHeight)
+                .clip(CircleShape)
+                .border(
+                    width = 2.dp,
+                    color = Color.Blue,
+                    shape = CircleShape
+                ),
+            contentScale = ContentScale.Crop
+        )
+    }
 }
 
 @Composable
-private fun putPhotoButton() {
-    Image(
-        painter = painterResource(R.drawable.ic_baseline_camera_alt_24),
-        contentDescription = "putPhotoButton",
-        modifier = Modifier
-            .padding(start = 220.dp, top = 100.dp)
-            .size(40.dp)
-            .clip(CircleShape)
-            .background(Color.Blue, CircleShape)
-            .clickable {
+private fun changeProfileImageButton(profileViewModel: ProfileViewModel) {
+    var imageUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
 
-            },
-        contentScale = ContentScale.Inside
-    )
+    val imageCropLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            // use the cropped image
+            imageUri = result.uriContent
+            profileViewModel.getUserProfileImageUrl(imageUri!!)
+        } else {
+            // an error occurred cropping
+            val exception = result.error
+        }
+    }
+
+    Button(onClick = {
+        imageCropLauncher.launch(options(uri = imageUri) {
+            setCropShape(CropImageView.CropShape.OVAL)
+            setGuidelines(CropImageView.Guidelines.ON)
+            setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+        })
+    }) {
+        Text("Pick image to crop")
+    }
+
 }
 
 @Preview(showBackground = true)
@@ -250,11 +296,12 @@ fun DefaultPreview() {
     SetUI(user = User(
         userName = "Vaspit",
         userEmail = "vasvko@mail.ru"
-    ), bikeNamesList = arrayListOf("Bike 1", "Bike 2", "Bike 3"))
+    ), bikeNamesList = arrayListOf("Bike 1", "Bike 2", "Bike 3"), ProfileViewModel()
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview1() {
-    putPhotoButton()
+    changeProfileImageButton(ProfileViewModel())
 }

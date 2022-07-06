@@ -14,8 +14,13 @@ lateinit var CURRENT_UID: String
 const val USERS_NODE = "users"
 const val BIKES_NODE = "bikes"
 const val PARTS_NODE = "parts"
+const val USER_PROFILE_IMAGES_NODE = "userProfileImages"
 
 const val USER_NAME_FIELD = "userName"
+const val USER_EMAIL_FIELD = "userEmail"
+const val USER_PROFILE_IMAGE_FIELD = "userProfileImageUrl"
+const val USER_BIKES_FIELD = "bikes"
+
 
 fun initDatabase() {
     AUTH = FirebaseAuth.getInstance()

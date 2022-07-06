@@ -14,7 +14,7 @@ data class Bike (
     var bikeFirebaseKey: String? = null,
         ) {
 
-    fun toMap(): Map<String, Any>? {
+    fun toMap(): Map<String, Any> {
         val result = HashMap<String, Any>()
         result["bikeName"] = bikeName!!
         result["bikeModelYear"] = bikeModelYear!!

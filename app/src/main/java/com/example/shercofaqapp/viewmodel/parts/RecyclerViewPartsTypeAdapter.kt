@@ -16,8 +16,6 @@ import com.example.shercofaqapp.model.PartType
 class RecyclerViewPartsTypeAdapter(private val partTypeList: ArrayList<PartType>):
     RecyclerView.Adapter<RecyclerViewPartsTypeAdapter.ViewHolder>() {
 
-
-
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         val binding = PartTypeItemBinding.bind(item)
         private val sharedPref: SharedPreferences = item.context

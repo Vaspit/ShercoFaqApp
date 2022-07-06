@@ -23,7 +23,9 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/sherco"/>
 
             <TextView
                 android:id="@+id/bikeNameTextView"
