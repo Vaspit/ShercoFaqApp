@@ -36,7 +36,8 @@ class ProfileViewModel: ViewModel() {
 
     }
 
-    fun getUserProfileImageUrl(userProfileImageUri: Uri) {
+    /** CRUTCHES !!!!!???? */
+    fun setUserProfileImageUrl(userProfileImageUri: Uri) {
         val path = REF_STORAGE_ROOT
             .child(USERS_NODE)
             .child(CURRENT_UID)
@@ -46,7 +47,13 @@ class ProfileViewModel: ViewModel() {
         path.putFile(userProfileImageUri).addOnCompleteListener { putFileTask ->
             if (putFileTask.isSuccessful) {
                 path.downloadUrl.addOnCompleteListener { downloadUrlTask ->
-                    _userProfileImageUrl.value = downloadUrlTask.result.toString()
+                    val imageUrl = downloadUrlTask.result.toString()
+                    _userProfileImageUrl.value = imageUrl
+
+                    REF_DATABASE_ROOT
+                        .child(USERS_NODE)
+                        .child(CURRENT_UID)
+                        .child("userProfileImageUrl").setValue(imageUrl)
                 }
             }
         }

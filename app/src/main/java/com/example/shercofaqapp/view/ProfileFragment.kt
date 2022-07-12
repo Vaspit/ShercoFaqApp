@@ -3,14 +3,11 @@ package com.example.shercofaqapp.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.*
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -35,7 +32,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -114,7 +110,7 @@ class AccountFragment : Fragment() {
 @Composable
 private fun SetUI(user: User, bikeNamesList: ArrayList<Any>, profileViewModel: ProfileViewModel) {
 
-    val rowHeight = 128.dp
+    val rowHeight = 150.dp
 
     Box(
         modifier = Modifier
@@ -228,11 +224,11 @@ private fun userBikesField(bikeNamesList: ArrayList<Any>) {
 
 @Composable
 private fun profileImage(userProfileImageUrl: String, rowHeight: Dp) {
-
+    Log.d("USER", userProfileImageUrl)
     if (userProfileImageUrl == "") {
         Image(
             painter = painterResource(id = R.drawable.default_profile_icon),
-            contentDescription = "userProfileImage",
+            contentDescription = "userProfileImageUrl",
             modifier = Modifier
                 .padding(8.dp)
                 .size(rowHeight)
@@ -247,17 +243,17 @@ private fun profileImage(userProfileImageUrl: String, rowHeight: Dp) {
     } else { //Load image from Firebase storage
         Image(
         painter = rememberAsyncImagePainter(userProfileImageUrl),
-            contentDescription = "userProfileImage",
-            modifier = Modifier
-                .padding(8.dp)
-                .size(rowHeight)
-                .clip(CircleShape)
-                .border(
-                    width = 2.dp,
-                    color = Color.Blue,
-                    shape = CircleShape
-                ),
-            contentScale = ContentScale.Crop
+        contentDescription = "userProfileImageUrl",
+        modifier = Modifier
+            .padding(8.dp)
+            .size(rowHeight)
+            .clip(CircleShape)
+            .border(
+                width = 2.dp,
+                color = Color.Blue,
+                shape = CircleShape
+            ),
+        contentScale = ContentScale.Crop
         )
     }
 }
@@ -272,46 +268,45 @@ private fun changeProfileImageButton(profileViewModel: ProfileViewModel) {
         if (result.isSuccessful) {
             // use the cropped image
             imageUri = result.uriContent
-            profileViewModel.getUserProfileImageUrl(imageUri!!)
+            profileViewModel.setUserProfileImageUrl(imageUri!!)
         } else {
             // an error occurred cropping
             val exception = result.error
         }
     }
 
-    Button(onClick = {
-        imageCropLauncher.launch(options(uri = imageUri) {
-            setCropShape(CropImageView.CropShape.OVAL)
-            setGuidelines(CropImageView.Guidelines.ON)
-            setOutputCompressFormat(Bitmap.CompressFormat.PNG)
-        })
-    }) {
-        Text("Pick image to crop")
-    }
-}
+    Image(
+        painter = painterResource(id = R.drawable.ic_baseline_camera_alt_24),
+        contentDescription = "putImageButton",
+        modifier = Modifier
+            .padding(8.dp)
+            .size(48.dp)
+            .clip(CircleShape)
+            .border(
+                width = 2.dp,
+                color = Color.Blue,
+                shape = CircleShape
+            )
+            .clickable {
+                imageCropLauncher.launch(options(uri = imageUri) {
+                setCropShape(CropImageView.CropShape.OVAL)
+                setGuidelines(CropImageView.Guidelines.ON)
+                setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+                })
+            },
+        contentScale = ContentScale.Crop
+    )
 
-//@Composable
-//private fun editPhotoButton() {
-//    Image(
-//        painter = painterResource(R.drawable.ic_baseline_camera_alt_24),
-//        contentDescription = "putPhotoButton",
-//        modifier = Modifier
-//            .padding(start = 220.dp, top = 100.dp)
-//            .size(40.dp)
-//            .clip(CircleShape)
-//            .background(Color.Blue, CircleShape)
-//            .clickable {
-//                onEditPhotoButtonClick()
-//            },
-//        contentScale = ContentScale.Inside
-//    )
-//
-//}
-
-@Composable
-private fun onEditPhotoButtonClick() {
-    val context = LocalContext.current
-
+//    Button(
+//        onClick = {
+//        imageCropLauncher.launch(options(uri = imageUri) {
+//            setCropShape(CropImageView.CropShape.OVAL)
+//            setGuidelines(CropImageView.Guidelines.ON)
+//            setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+//        })
+//    }) {
+//        Text("Pick image to crop")
+//    }
 }
 
 @Preview(showBackground = true)
