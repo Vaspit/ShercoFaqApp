@@ -16,6 +16,7 @@ data class Bike (
 
     fun toMap(): Map<String, Any> {
         val result = HashMap<String, Any>()
+
         result["bikeName"] = bikeName!!
         result["bikeModelYear"] = bikeModelYear!!
         result["bikeType"] = bikeType!!
@@ -24,6 +25,7 @@ data class Bike (
         result["bikeEdition"] = bikeEdition!!
         result["bikeImage"] = bikeImage!!
         result["bikeFirebaseKey"] = bikeFirebaseKey!!
+
         return result
     }
 

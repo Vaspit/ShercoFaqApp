@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -137,11 +138,7 @@ private fun SetUI(user: User, bikeNamesList: ArrayList<Any>, profileViewModel: P
                         profileImage(user.userProfileImageUrl!!, rowHeight)
                     }
 
-<<<<<<< HEAD
                     changeProfileImageButton(profileViewModel)
-=======
-                    editPhotoButton()
->>>>>>> 4d717af00f34ecbc82747c6fc14a35d6d31cea95
                 }
 
                 Row() {
@@ -266,7 +263,6 @@ private fun profileImage(userProfileImageUrl: String, rowHeight: Dp) {
 }
 
 @Composable
-<<<<<<< HEAD
 private fun changeProfileImageButton(profileViewModel: ProfileViewModel) {
     var imageUri by remember {
         mutableStateOf<Uri?>(null)
@@ -292,24 +288,25 @@ private fun changeProfileImageButton(profileViewModel: ProfileViewModel) {
     }) {
         Text("Pick image to crop")
     }
-
-=======
-private fun editPhotoButton() {
-    Image(
-        painter = painterResource(R.drawable.ic_baseline_camera_alt_24),
-        contentDescription = "putPhotoButton",
-        modifier = Modifier
-            .padding(start = 220.dp, top = 100.dp)
-            .size(40.dp)
-            .clip(CircleShape)
-            .background(Color.Blue, CircleShape)
-            .clickable {
-                onEditPhotoButtonClick()
-            },
-        contentScale = ContentScale.Inside
-    )
->>>>>>> 4d717af00f34ecbc82747c6fc14a35d6d31cea95
 }
+
+//@Composable
+//private fun editPhotoButton() {
+//    Image(
+//        painter = painterResource(R.drawable.ic_baseline_camera_alt_24),
+//        contentDescription = "putPhotoButton",
+//        modifier = Modifier
+//            .padding(start = 220.dp, top = 100.dp)
+//            .size(40.dp)
+//            .clip(CircleShape)
+//            .background(Color.Blue, CircleShape)
+//            .clickable {
+//                onEditPhotoButtonClick()
+//            },
+//        contentScale = ContentScale.Inside
+//    )
+//
+//}
 
 @Composable
 private fun onEditPhotoButtonClick() {
@@ -327,12 +324,9 @@ fun DefaultPreview() {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview1() {
-<<<<<<< HEAD
-    changeProfileImageButton(ProfileViewModel())
-=======
-    editPhotoButton()
->>>>>>> 4d717af00f34ecbc82747c6fc14a35d6d31cea95
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview1() {
+//    changeProfileImageButton(ProfileViewModel())
+//    editPhotoButton()
+//}

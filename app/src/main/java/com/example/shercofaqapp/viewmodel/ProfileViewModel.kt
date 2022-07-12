@@ -32,6 +32,9 @@ class ProfileViewModel: ViewModel() {
     }
 
     /** Update method */
+    fun updateUser() {
+
+    }
 
     fun getUserProfileImageUrl(userProfileImageUri: Uri) {
         val path = REF_STORAGE_ROOT
