@@ -2,6 +2,7 @@ package com.example.shercofaqapp.model
 
 import android.net.Uri
 import com.example.shercofaqapp.R
+import javax.inject.Inject
 
 data class Bike (
     var bikeName: String? = null,

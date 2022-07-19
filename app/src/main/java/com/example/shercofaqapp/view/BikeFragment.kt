@@ -23,12 +23,15 @@ import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.utils.*
 import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class BikeFragment : Fragment() {
+@AndroidEntryPoint
+class BikeFragment: Fragment() {
 
     lateinit var binding: FragmentAddBikeBinding
     private lateinit var model: GarageFragmentFirebaseViewModel
-    private var bike = Bike()
+    @Inject lateinit var bike : Bike
     private var isUpdate = false
     private var bikeImageUri = Uri.EMPTY
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
