@@ -7,22 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentFaqBinding
 import com.example.shercofaqapp.viewmodel.faq.FaqViewModel
 import com.example.shercofaqapp.viewmodel.faq.RecyclerViewFaqAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class FaqFragment : Fragment() {
 
     lateinit var binding: FragmentFaqBinding
     private var currentBikeAddress = ""
-    private lateinit var faqViewModel: FaqViewModel
+    private val faqViewModel: FaqViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +37,7 @@ class FaqFragment : Fragment() {
 
         getOuterArguments(binding.root)
 
-        faqViewModel = ViewModelProvider(this)[FaqViewModel::class.java]
-
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             setRecyclerView()
         }
 
@@ -46,9 +47,9 @@ class FaqFragment : Fragment() {
 
     private suspend  fun setRecyclerView() {
 
-        val issuesArrayList = faqViewModel.getIssues(requireContext(), currentBikeAddress)
-
         withContext(Dispatchers.Main) {
+            val issuesArrayList = faqViewModel.getIssues(currentBikeAddress)
+
             binding.faqRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.faqRecyclerView.adapter = RecyclerViewFaqAdapter(issuesArrayList)
             binding.faqRecyclerView.setHasFixedSize(true)

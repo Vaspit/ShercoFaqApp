@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,7 +23,7 @@ import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentAddBikeBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.utils.*
-import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
+import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,7 +31,7 @@ import javax.inject.Inject
 class BikeFragment: Fragment() {
 
     lateinit var binding: FragmentAddBikeBinding
-    private lateinit var model: GarageFragmentFirebaseViewModel
+    private val bikeViewModel: GarageFragmentViewModel by viewModels()
     @Inject lateinit var bike : Bike
     private var isUpdate = false
     private var bikeImageUri = Uri.EMPTY
@@ -60,7 +61,6 @@ class BikeFragment: Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_add_bike, container, false)
-        model = ViewModelProvider(this)[GarageFragmentFirebaseViewModel::class.java]
 
         createUI(isUpdate)
 
@@ -158,8 +158,8 @@ class BikeFragment: Fragment() {
         playLoadingAnimation()
 
         if (bikeImageUri != Uri.EMPTY) {
-            model.getBikeImageUrl(bikeFirebaseKey!!, bikeImageUri)
-            model.bikeImageUrl.observe(viewLifecycleOwner, Observer { bikeImageUrl ->
+            bikeViewModel.getBikeImageUrl(bikeFirebaseKey!!, bikeImageUri)
+            bikeViewModel.bikeImageUrl.observe(viewLifecycleOwner, Observer { bikeImageUrl ->
                 createBike(bike, bikeFirebaseKey, bikeImageUrl)
 
                 //Go to GarageFragment
@@ -184,8 +184,8 @@ class BikeFragment: Fragment() {
         playLoadingAnimation()
 
         if (bikeImageUri != Uri.EMPTY) {
-            model.getBikeImageUrl(bikeFirebaseKey, bikeImageUri)
-            model.bikeImageUrl.observe(viewLifecycleOwner, Observer { bikeImageUrl ->
+            bikeViewModel.getBikeImageUrl(bikeFirebaseKey, bikeImageUri)
+            bikeViewModel.bikeImageUrl.observe(viewLifecycleOwner, Observer { bikeImageUrl ->
                 updateBike(bike, bikeFirebaseKey, bikeImageUrl)
 
                 //Go to GarageFragment
@@ -253,7 +253,7 @@ class BikeFragment: Fragment() {
         bike.bikeFirebaseKey = bikeFirebaseKey
         bike.bikeImage =  bikeImageUrl
 
-        model.createBike(bike, bikeFirebaseKey)
+        bikeViewModel.createBike(bike, bikeFirebaseKey)
     }
 
     private fun updateBike(bike: Bike, bikeFirebaseKey: String, bikeImageUrl: String) {
@@ -270,7 +270,7 @@ class BikeFragment: Fragment() {
 
         bike.bikeFirebaseKey = bikeFirebaseKey
 
-        model.updateBike(bike, bikeFirebaseKey)
+        bikeViewModel.updateBike(bike, bikeFirebaseKey)
     }
 
     private fun playLoadingAnimation() {

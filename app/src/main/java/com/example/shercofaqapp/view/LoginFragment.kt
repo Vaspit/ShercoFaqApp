@@ -1,10 +1,8 @@
 package com.example.shercofaqapp.view
 
 import android.content.Context
-import android.content.IntentSender
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,14 +15,9 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentLoginBinding
-import com.example.shercofaqapp.utils.*
-import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
 import com.example.shercofaqapp.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlin.properties.Delegates
 
 class LoginFragment : Fragment() {

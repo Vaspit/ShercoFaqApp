@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,18 +20,16 @@ import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentGarageBinding
 import com.example.shercofaqapp.model.Bike
 import com.example.shercofaqapp.utils.*
-import com.example.shercofaqapp.viewmodel.GarageFragmentFirebaseViewModel
+import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import com.example.shercofaqapp.viewmodel.RecyclerViewBikeAdapter
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GarageFragment : Fragment() {
 
     lateinit var binding: FragmentGarageBinding
     private val recyclerViewAdapter = RecyclerViewBikeAdapter()
-    lateinit var garageFragmentFirebaseViewModel: GarageFragmentFirebaseViewModel
+    private val garageFragmentViewModel: GarageFragmentViewModel by viewModels()
     private var bikeList: List<Bike> = listOf()
     private var userName = "UserName"
     private lateinit var itemTouchHelper: ItemTouchHelper
@@ -64,9 +63,7 @@ class GarageFragment : Fragment() {
 
         binding.loadingProgressIndicator.visibility = View.VISIBLE
 
-        garageFragmentFirebaseViewModel =
-            ViewModelProvider(this)[GarageFragmentFirebaseViewModel::class.java]
-        garageFragmentFirebaseViewModel.getBikes()
+        garageFragmentViewModel.getBikes()
 
         setTitle()
 
@@ -78,7 +75,7 @@ class GarageFragment : Fragment() {
         itemTouchHelper = ItemTouchHelper(garageItemCallback)
         itemTouchHelper.attachToRecyclerView(binding.garageRecyclerView)
 
-        garageFragmentFirebaseViewModel.bikeList.observe(viewLifecycleOwner, Observer<List<Bike>> { bikes ->
+        garageFragmentViewModel.bikeList.observe(viewLifecycleOwner, Observer<List<Bike>> { bikes ->
             binding.loadingProgressIndicator.visibility = View.GONE
             bikeList = bikes
             recyclerViewAdapter.addBikeList(bikeList as ArrayList<Bike>)
@@ -125,9 +122,9 @@ class GarageFragment : Fragment() {
         val listener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE ->
-                    garageFragmentFirebaseViewModel.deleteBike(bikeList[viewHolder.absoluteAdapterPosition])
+                    garageFragmentViewModel.deleteBike(bikeList[viewHolder.absoluteAdapterPosition])
                 DialogInterface.BUTTON_NEGATIVE -> {
-                    garageFragmentFirebaseViewModel.getBikes()
+                    garageFragmentViewModel.getBikes()
                 }
             }
         }

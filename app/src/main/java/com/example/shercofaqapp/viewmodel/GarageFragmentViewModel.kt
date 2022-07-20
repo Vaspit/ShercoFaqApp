@@ -10,8 +10,15 @@ import com.example.shercofaqapp.utils.BIKES_NODE
 import com.example.shercofaqapp.utils.CURRENT_UID
 import com.example.shercofaqapp.utils.REF_STORAGE_ROOT
 import com.example.shercofaqapp.utils.USERS_NODE
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class GarageFragmentFirebaseViewModel : ViewModel() {
+@HiltViewModel
+class GarageFragmentViewModel
+@Inject
+constructor(
+    private val bikeRepository: BikeRepository
+) : ViewModel() {
 
     private var _bikeList = MutableLiveData<List<Bike>>()
     val bikeList : LiveData<List<Bike>>
@@ -22,19 +29,19 @@ class GarageFragmentFirebaseViewModel : ViewModel() {
         get() = _bikeImageUrl
 
     fun createBike(bike: Bike, bikeFirebaseKey: String) {
-        BikeRepository().createBike(bike, bikeFirebaseKey)
+        bikeRepository.createBike(bike, bikeFirebaseKey)
     }
 
     fun getBikes() {
-        BikeRepository().readBikes(_bikeList)
+        bikeRepository.readBikes(_bikeList)
     }
 
     fun updateBike(bike: Bike, bikeKey: String) {
-        BikeRepository().updateBike(bike, bikeKey)
+        bikeRepository.updateBike(bike, bikeKey)
     }
 
     fun deleteBike(bike: Bike) {
-        BikeRepository().deleteBike(bike.bikeFirebaseKey!!)
+        bikeRepository.deleteBike(bike.bikeFirebaseKey!!)
     }
 
     fun getBikeImageUrl(bikeFirebaseKey: String, bikeImageUri: Uri) {
