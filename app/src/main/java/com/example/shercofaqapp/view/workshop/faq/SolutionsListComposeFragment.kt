@@ -34,7 +34,7 @@ class SolutionsListComposeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val solutionTitle = arguments?.getString("currentIssueDescription")
         val solutionsArrayList = arguments?.get("currentIssueSolutions") as ArrayList<Solution>
         val view = ComposeView(requireContext())
@@ -78,7 +78,7 @@ fun SolutionCard(solution: Solution) {
             ) {
                 Column {
                     Text(
-                        text = solution.solutionText,
+                        text = solution.solutionText!!,
                         color = Color(R.color.black),
                         modifier = Modifier
                             .padding(start = 4.dp, end = 4.dp, top = 4.dp)

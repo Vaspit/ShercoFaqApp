@@ -25,7 +25,7 @@ class RecyclerViewSparePartsAdapter(
 
         val binding = SparePartsItemBinding.bind(item)
         val sparePartName: TextView = binding.sparePartsTextView
-        val sparePartImage: ImageView = binding.sparePartsImageView
+        var sparePartImage: ImageView = binding.sparePartsImageView
 
     }
 
@@ -40,12 +40,18 @@ class RecyclerViewSparePartsAdapter(
     override fun onBindViewHolder(holder: SparePartHolder, position: Int, model: SparePart) {
 
         holder.sparePartName.text = model.sparePartName.toString().trim()
-        Glide.with(context)
-            .load(model.sparePartImage)
-            .placeholder(R.drawable.ic_baseline_parts)
-            .error(R.drawable.ic_baseline_parts)
-            .centerInside()
-            .into(holder.sparePartImage)
+
+        if (model.sparePartImage != "") {
+            Glide.with(context)
+                .load(model.sparePartImage)
+                .placeholder(R.drawable.ic_baseline_parts)
+                .error(R.drawable.ic_baseline_parts)
+                .centerInside()
+                .into(holder.sparePartImage)
+        } else {
+            holder.sparePartImage.setImageResource(R.drawable.ic_baseline_parts)
+        }
+
         holder.itemView.setOnClickListener {
 
             val bundle = bundleOf(

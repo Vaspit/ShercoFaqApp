@@ -3,7 +3,9 @@ package com.example.shercofaqapp.viewmodel.parts
 import androidx.lifecycle.ViewModel
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.model.Part
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.ArrayList
+import javax.inject.Inject
 
 class PartsListViewModel : ViewModel() {
 

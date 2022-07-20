@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
@@ -19,8 +20,8 @@ import java.util.ArrayList
 class PartsListFragment : Fragment() {
 
     lateinit var binding: FragmentPartsListBinding
-    lateinit var viewModel: PartsListViewModel
-    lateinit var partsListArrayList: ArrayList<Part>
+    private val viewModel: PartsListViewModel by viewModels()
+    private lateinit var partsListArrayList: ArrayList<Part>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +30,6 @@ class PartsListFragment : Fragment() {
 
         val partType = arguments?.getString("currentPartType")
 
-        viewModel = ViewModelProvider(this)[PartsListViewModel::class.java]
         partsListArrayList = viewModel.getPartsListArrayList(partType!!)
 
         binding = DataBindingUtil.inflate(

@@ -1,16 +1,22 @@
 package com.example.shercofaqapp.viewmodel.torques
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.shercofaqapp.model.Torque
 import com.example.shercofaqapp.model.repositories.TorquesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class TorquesViewModel: ViewModel() {
+@HiltViewModel
+class TorquesViewModel
+@Inject
+constructor(
+    private val torquesRepository: TorquesRepository
+) : ViewModel() {
 
-    fun getEngineTorques(context: Context, bikeAddress: String): ArrayList<Torque> {
+    fun getEngineTorques(bikeAddress: String): ArrayList<Torque> {
 
         val engineTorquesArrayList: ArrayList<Torque> = ArrayList()
-        val torquesArrayList = TorquesRepository(context).getTorques(bikeAddress)
+        val torquesArrayList = torquesRepository.getTorques(bikeAddress)
 
         for (i in 0 until torquesArrayList.size) {
             if (torquesArrayList[i].torqueType == "engine") {
@@ -21,9 +27,9 @@ class TorquesViewModel: ViewModel() {
         return engineTorquesArrayList
     }
 
-    fun getChassisTorques(context: Context, bikeAddress: String): ArrayList<Torque> {
+    fun getChassisTorques(bikeAddress: String): ArrayList<Torque> {
         val chassisTorquesArrayList: ArrayList<Torque> = ArrayList()
-        val torquesArrayList = TorquesRepository(context).getTorques(bikeAddress)
+        val torquesArrayList = torquesRepository.getTorques(bikeAddress)
 
         for (i in 0 until torquesArrayList.size) {
             if (torquesArrayList[i].torqueType == "chassis") {

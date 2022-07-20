@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentFaqBinding
@@ -42,7 +41,6 @@ class FaqFragment : Fragment() {
         }
 
         return binding.root
-
     }
 
     private suspend  fun setRecyclerView() {

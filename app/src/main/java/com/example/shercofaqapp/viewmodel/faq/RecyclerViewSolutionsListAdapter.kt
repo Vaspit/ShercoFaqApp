@@ -19,7 +19,7 @@ class RecyclerViewSolutionsListAdapter(private val solutionsArrayList: ArrayList
             solutionTextView.text = solution.solutionText
             if (solution.solutionImage != 0) {
                 solutionsListImageView.visibility = View.VISIBLE
-                solutionsListImageView.setImageResource(solution.solutionImage)
+                solutionsListImageView.setImageResource(solution.solutionImage!!)
             } else {
                 solutionsListImageView.visibility = View.GONE
             }

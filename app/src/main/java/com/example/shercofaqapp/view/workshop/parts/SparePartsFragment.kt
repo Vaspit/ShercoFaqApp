@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentSparePartsBinding
 import com.example.shercofaqapp.viewmodel.parts.RecyclerViewSparePartsAdapter
 import com.example.shercofaqapp.viewmodel.parts.SparePartsViewModel
-import com.example.shercofaqapp.viewmodel.parts.SparePartsViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SparePartsFragment : Fragment() {
 
     lateinit var binding: FragmentSparePartsBinding
@@ -24,8 +25,7 @@ class SparePartsFragment : Fragment() {
     private lateinit var currentSparePartName: String
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: RecyclerViewSparePartsAdapter
-    private lateinit var sparePartsViewModel: SparePartsViewModel
-    private lateinit var sparePartsViewModelFactory: SparePartsViewModelFactory
+    private val sparePartsViewModel: SparePartsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +35,7 @@ class SparePartsFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_spare_parts, container, false)
 
-        sparePartsViewModelFactory = SparePartsViewModelFactory(requireContext())
-        sparePartsViewModel = ViewModelProvider(this, sparePartsViewModelFactory)[SparePartsViewModel::class.java]
-
-        /** Get bike address and current spare parts type and spare parts name */
+        /** Get bike address, current spare parts type and spare parts name */
         getOuterArguments(binding.root)
 
         setRecyclerView(

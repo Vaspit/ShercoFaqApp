@@ -7,19 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shercofaqapp.R
 import com.example.shercofaqapp.databinding.FragmentTorquesBinding
 import com.example.shercofaqapp.viewmodel.torques.RecyclerViewTorquesAdapter
 import com.example.shercofaqapp.viewmodel.torques.TorquesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
-
+@AndroidEntryPoint
 class TorquesFragment : Fragment() {
 
     private var currentBikeAddress = ""
-    private lateinit var torquesViewModel: TorquesViewModel
+    private val torquesViewModel: TorquesViewModel by viewModels()
     lateinit var binding: FragmentTorquesBinding
 
     override fun onCreateView(
@@ -30,11 +31,9 @@ class TorquesFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_torques, container, false)
 
-        torquesViewModel = ViewModelProvider(this)[TorquesViewModel::class.java]
-
         getOuterArguments(binding.root)
 
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             setRecyclerViews()
         }
 
@@ -42,10 +41,11 @@ class TorquesFragment : Fragment() {
     }
 
     private suspend  fun setRecyclerViews() {
-        val engineTorques = torquesViewModel.getEngineTorques(requireContext(), currentBikeAddress)
-        val chassisTorques = torquesViewModel.getChassisTorques(requireContext(), currentBikeAddress)
 
         withContext(Dispatchers.Main) {
+            val engineTorques = torquesViewModel.getEngineTorques(currentBikeAddress)
+            val chassisTorques = torquesViewModel.getChassisTorques(currentBikeAddress)
+
             binding.engineRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.engineRecyclerView.adapter = RecyclerViewTorquesAdapter(engineTorques)
             binding.engineRecyclerView.setHasFixedSize(true)

@@ -1,6 +1,6 @@
 package com.example.shercofaqapp.model
 
 data class Solution (
-    val solutionText: String,
-    val solutionImage: Int
+    val solutionText: String? = "No solution",
+    val solutionImage: Int? = null
     )

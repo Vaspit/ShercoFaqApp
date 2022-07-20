@@ -263,7 +263,7 @@ private fun changeProfileImageButton(profileViewModel: ProfileViewModel) {
     var imageUri by remember {
         mutableStateOf<Uri?>(null)
     }
-
+    
     val imageCropLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
             // use the cropped image
