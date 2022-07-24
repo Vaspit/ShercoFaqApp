@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImageContract
@@ -26,6 +25,7 @@ import com.example.shercofaqapp.utils.*
 import com.example.shercofaqapp.viewmodel.GarageFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class BikeFragment: Fragment() {
