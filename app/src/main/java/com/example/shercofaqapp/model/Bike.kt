@@ -1,18 +1,14 @@
 package com.example.shercofaqapp.model
 
-import android.net.Uri
-import com.example.shercofaqapp.R
-import javax.inject.Inject
-
 data class Bike (
-    var bikeName: String? = null,
-    var bikeModelYear: String? = null,
-    var bikeType: String? = null,
-    var bikeEngineType: String? = null,
-    var bikeEngineVolume: String? = null,
-    var bikeEdition: String? = null,
-    var bikeImage: String? = null,
-    var bikeFirebaseKey: String? = null,
+    var bikeName: String? = "null",
+    var bikeModelYear: String? = "null",
+    var bikeType: String? = "null",
+    var bikeEngineType: String? = "null",
+    var bikeEngineVolume: String? = "null",
+    var bikeEdition: String? = "null",
+    var bikeImage: String? = "null",
+    var bikeFirebaseKey: String? = "null",
         ) {
 
     fun toMap(): Map<String, Any> {

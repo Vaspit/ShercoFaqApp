@@ -57,7 +57,7 @@ class BikeFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        getOuterArguments()
+//        getOuterArguments()
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_add_bike, container, false)
