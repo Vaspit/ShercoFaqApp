@@ -1,5 +1,6 @@
 package com.example.shercofaqapp
 
+import android.content.BroadcastReceiver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.shercofaqapp.databinding.ActivityMainBinding
@@ -11,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+    private lateinit var pushBroadcastReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,5 +20,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Firebase.database.setPersistenceEnabled(true)
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(pushBroadcastReceiver)
+        super.onDestroy()
     }
 }

@@ -40,6 +40,7 @@
     <string name="profile">Profile</string>
     <string name="sign_up_with_google">Sign up with Google</string>
     <string name="web_client_id">AIzaSyBysegU7wqhbESEtRDdoDjKxijb0y1WtRU</string>
+    <string name="msg_token_fmt">token_string</string>
 
     <string-array name="bike_type_spinner_text">
         <item>Enduro</item>
